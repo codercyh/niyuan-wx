@@ -10,8 +10,8 @@ Page({
     avgScore: 0,
     testHistory: [],
     fateHistory: [],
-    tempAvatarUrl: '', // 临时存储头像
-    tempNickName: '',  // 临时存储昵称
+    tempAvatarUrl: '',
+    tempNickName: '',
   },
 
   onLoad() {
@@ -91,38 +91,36 @@ Page({
     }
   },
 
-  // 新版登录：选择头像
+  // 选择微信头像
   onChooseAvatar(e) {
     const { avatarUrl } = e.detail
-    console.log('选择的头像:', avatarUrl)
-    
-    // 存储临时头像
-    this.setData({ tempAvatarUrl: avatarUrl })
-    
-    // 如果已有昵称，直接完成登录
-    if (this.data.tempNickName) {
-      this.completeLogin(avatarUrl, this.data.tempNickName)
-    } else {
-      // 提示用户输入昵称
-      wx.showToast({ title: '请设置昵称完成登录', icon: 'none' })
+    if (!avatarUrl) {
+      return
     }
+
+    this.setData({ tempAvatarUrl: avatarUrl }, () => {
+      this.tryAutoLogin()
+    })
   },
 
-  // 新版登录：输入昵称
+  // 输入微信昵称
   onInputNickname(e) {
-    const nickName = e.detail.value
-    if (!nickName || nickName.trim() === '') return
-    
-    console.log('输入的昵称:', nickName)
-    this.setData({ tempNickName: nickName })
-    
-    // 如果已有头像，直接完成登录
-    if (this.data.tempAvatarUrl) {
-      this.completeLogin(this.data.tempAvatarUrl, nickName)
-    } else {
-      // 提示用户选择头像
-      wx.showToast({ title: '请点击头像完成登录', icon: 'none' })
+    const nickName = e.detail.value || ''
+
+    this.setData({ tempNickName: nickName }, () => {
+      this.tryAutoLogin()
+    })
+  },
+
+  tryAutoLogin() {
+    const { tempAvatarUrl, tempNickName, isLoggedIn } = this.data
+    const nickName = (tempNickName || '').trim()
+
+    if (isLoggedIn || !tempAvatarUrl || !nickName) {
+      return
     }
+
+    this.completeLogin(tempAvatarUrl, nickName)
   },
 
   // 完成登录
