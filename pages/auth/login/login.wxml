@@ -9,40 +9,35 @@
     <text class="logo-slogan">看看兴趣，做做测试，保存记录</text>
   </view>
 
-  <!-- 进入区域 -->
   <view class="auth-body">
-    <!-- 用户已保存状态 -->
+    <!-- 已登录状态 -->
     <view wx:if="{{isLoggedIn}}" class="logged-in-section">
       <view class="user-avatar-large">
         <image src="{{userInfo.avatarUrl}}" mode="aspectFill" />
       </view>
       <text class="user-name">{{userInfo.nickName}}</text>
       <text class="user-id">当前状态已保存</text>
-      
-      <button class="btn btn-primary" bindtap="handleContinue">
-        继续使用
-      </button>
-      
-      <button class="btn btn-text" bindtap="handleLogout">
-        重新进入
-      </button>
+      <button class="btn btn-primary" bindtap="handleContinue">继续使用</button>
+      <button class="btn btn-text" bindtap="handleLogout">重新进入</button>
     </view>
 
-    <!-- 未保存状态 -->
-    <view wx:else class="login-section">
-      <view class="login-icon">👤</view>
-      
+    <!-- 未登录：选择登录方式 -->
+    <view wx:elif="{{!showCustomLogin}}" class="login-section">
       <text class="login-title">欢迎使用</text>
-      <text class="login-desc">进入后可查看兴趣内容、体验测试和保存记录</text>
+      <text class="login-desc">选择一种方式开始使用</text>
 
-      <!-- 进入按钮 -->
-      <button class="btn btn-primary btn-large" 
-              bindtap="handleLogin">
-        <text class="btn-icon">🔐</text>
-        进入体验
+      <!-- 微信快捷登录 -->
+      <button class="btn btn-wechat" open-type="chooseAvatar" bindchooseavatar="onWechatAvatar">
+        <text class="btn-icon-login">微信</text>
+        微信快捷登录
       </button>
 
-      <!-- 隐私说明 -->
+      <!-- 自定义登录 -->
+      <button class="btn btn-custom" bindtap="onTapCustomLogin">
+        <text class="btn-icon-login">✏️</text>
+        自定义头像和昵称
+      </button>
+
       <view class="privacy-section">
         <text class="privacy-text">
           继续即表示已阅读
@@ -50,7 +45,53 @@
         </text>
       </view>
     </view>
+
+    <!-- 自定义登录表单 -->
+    <view wx:else class="custom-login-section">
+      <text class="custom-login-title">设置头像和昵称</text>
+
+      <!-- 头像选择 -->
+      <view class="avatar-picker" bindtap="onTapChooseAvatar">
+        <image 
+          class="avatar-preview" 
+          src="{{customAvatarUrl || '/images/default-avatar.png'}}" 
+          mode="aspectFill"
+        />
+        <view class="avatar-edit-badge">
+          <text class="edit-icon">📷</text>
+        </view>
+      </view>
+      <text class="avatar-hint">点击选择头像</text>
+
+      <!-- 昵称输入 -->
+      <view class="nickname-input-wrap">
+        <input 
+          class="nickname-input"
+          type="nickname"
+          placeholder="请输入昵称"
+          maxlength="20"
+          bindinput="onCustomNicknameInput"
+          value="{{customNickName}}"
+        />
+      </view>
+
+      <button class="btn btn-primary btn-login" bindtap="handleCustomLogin" disabled="{{!customNickName.trim()}}">
+        开始使用
+      </button>
+
+      <button class="btn btn-text btn-back-login" bindtap="onTapBackToMain">
+        返回其他登录方式
+      </button>
+    </view>
   </view>
+
+  <!-- 隐藏的头像选择按钮 -->
+  <button 
+    wx:if="{{showAvatarPicker}}" 
+    class="hidden-avatar-btn" 
+    open-type="chooseAvatar" 
+    bindchooseavatar="onChooseCustomAvatar"
+  ></button>
 
   <!-- 加载状态 -->
   <view wx:if="{{loading}}" class="loading-overlay">
