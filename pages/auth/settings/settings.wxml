@@ -7,52 +7,61 @@
       <text class="section-label">应用设置</text>
       <view class="settings-card">
         <!-- 主题设置 -->
-        <view class="settings-item">
-          <view class="item-left">
-            <text class="item-label">主题</text>
-            <text class="item-desc">选择应用主题</text>
+        <picker 
+          range="{{themeOptions}}"
+          range-key="text"
+          value="{{themeIndex}}"
+          bindchange="onThemeChange"
+        >
+          <view class="settings-item">
+            <view class="item-left">
+              <text class="item-label">主题</text>
+              <text class="item-desc">选择应用主题</text>
+            </view>
+            <view class="item-right">
+              <text class="picker-value">{{themeOptions[themeIndex].text}}</text>
+              <text class="item-arrow">›</text>
+            </view>
           </view>
-          <picker 
-            range="{{themeOptions}}"
-            range-key="text"
-            value="{{themeIndex}}"
-            bindchange="onThemeChange"
-          >
-            <view class="picker-value">{{themeOptions[themeIndex].text}}</view>
-          </picker>
-        </view>
+        </picker>
 
         <!-- 字号设置 -->
-        <view class="settings-item">
-          <view class="item-left">
-            <text class="item-label">字号</text>
-            <text class="item-desc">调整应用文字大小</text>
+        <picker 
+          range="{{fontSizeOptions}}"
+          range-key="text"
+          value="{{fontSizeIndex}}"
+          bindchange="onFontSizeChange"
+        >
+          <view class="settings-item">
+            <view class="item-left">
+              <text class="item-label">字号</text>
+              <text class="item-desc">调整应用文字大小</text>
+            </view>
+            <view class="item-right">
+              <text class="picker-value">{{fontSizeOptions[fontSizeIndex].text}}</text>
+              <text class="item-arrow">›</text>
+            </view>
           </view>
-          <picker 
-            range="{{fontSizeOptions}}"
-            range-key="text"
-            value="{{fontSizeIndex}}"
-            bindchange="onFontSizeChange"
-          >
-            <view class="picker-value">{{fontSizeOptions[fontSizeIndex].text}}</view>
-          </picker>
-        </view>
+        </picker>
 
         <!-- 语言设置 -->
-        <view class="settings-item">
-          <view class="item-left">
-            <text class="item-label">语言</text>
-            <text class="item-desc">选择应用语言</text>
+        <picker 
+          range="{{languageOptions}}"
+          range-key="text"
+          value="{{languageIndex}}"
+          bindchange="onLanguageChange"
+        >
+          <view class="settings-item">
+            <view class="item-left">
+              <text class="item-label">语言</text>
+              <text class="item-desc">选择应用语言</text>
+            </view>
+            <view class="item-right">
+              <text class="picker-value">{{languageOptions[languageIndex].text}}</text>
+              <text class="item-arrow">›</text>
+            </view>
           </view>
-          <picker 
-            range="{{languageOptions}}"
-            range-key="text"
-            value="{{languageIndex}}"
-            bindchange="onLanguageChange"
-          >
-            <view class="picker-value">{{languageOptions[languageIndex].text}}</view>
-          </picker>
-        </view>
+        </picker>
       </view>
     </view>
 

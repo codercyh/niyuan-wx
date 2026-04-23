@@ -93,17 +93,18 @@
   line-height: 1.4;
 }
 
-/* ===== Picker 选择器值 ===== */
+/* ===== 项右侧（值+箭头） ===== */
+
+.item-right {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex-shrink: 0;
+}
 
 .picker-value {
-  display: inline-flex;
-  align-items: center;
   font-size: 24rpx;
-  color: var(--primary-color);
-  padding: 8rpx 24rpx;
-  background: var(--primary-bg);
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 107, 53, 0.3);
+  color: var(--text-tertiary);
   white-space: nowrap;
   line-height: 1.4;
 }
@@ -118,17 +119,13 @@ switch {
 /* ===== 右侧箭头 & 值 ===== */
 
 .item-arrow {
-  font-size: 32rpx;
+  font-size: 28rpx;
   color: var(--text-tertiary);
-  flex-shrink: 0;
-  margin-left: 8rpx;
 }
 
 .item-value {
   font-size: 24rpx;
   color: var(--text-tertiary);
-  flex-shrink: 0;
-  margin-left: 8rpx;
 }
 
 /* ===== 底部按钮区 ===== */
