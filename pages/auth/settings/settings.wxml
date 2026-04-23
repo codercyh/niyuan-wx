@@ -67,15 +67,8 @@
 
     <!-- 提醒设置 -->
     <view class="settings-section">
-      <view class="section-label-row">
-        <text class="section-label">提醒设置</text>
-        <switch 
-          checked="{{preferences.notifications}}"
-          bindchange="onNotificationsToggle"
-          color="#FF6B35"
-        />
-      </view>
-      <view class="settings-card" wx:if="{{preferences.notifications}}">
+      <text class="section-label">提醒设置</text>
+      <view class="settings-card">
         <!-- 内容提醒 -->
         <view class="settings-item">
           <view class="item-left">

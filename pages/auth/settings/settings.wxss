@@ -25,22 +25,6 @@
   padding-left: 4rpx;
 }
 
-.section-label-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16rpx;
-  padding: 0 4rpx;
-}
-
-.section-label-row .section-label {
-  margin-bottom: 0;
-}
-
-.section-label-row switch {
-  transform: scale(0.85);
-}
-
 /* ===== 卡片容器 ===== */
 
 .settings-card {
