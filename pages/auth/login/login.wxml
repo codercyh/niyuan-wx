@@ -1,14 +1,5 @@
 <!-- 进入页面 -->
 <view class="page auth-page">
-  <!-- 顶部装饰 -->
-  <view class="auth-header">
-    <view class="app-logo">
-      <text class="logo-icon">星</text>
-      <text class="logo-text">测</text>
-    </view>
-    <text class="logo-slogan">看看兴趣，做做测试，保存记录</text>
-  </view>
-
   <view class="auth-body">
     <!-- 已登录状态 -->
     <view wx:if="{{isLoggedIn}}" class="logged-in-section">
@@ -23,9 +14,6 @@
 
     <!-- 未登录：登录表单 -->
     <view wx:elif="{{showLoginForm}}" class="login-form">
-      <text class="form-title">{{loginMode === 'wechat' ? '微信登录' : '自定义昵称'}}</text>
-      <text class="form-desc">{{loginMode === 'wechat' ? '确认你的头像和昵称' : '设置你的头像和昵称'}}</text>
-
       <!-- 头像 -->
       <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
         <image 
@@ -62,8 +50,12 @@
 
     <!-- 未登录：选择登录方式 -->
     <view wx:else class="login-section">
+      <view class="app-logo">
+        <text class="logo-icon">星</text>
+        <text class="logo-text">测</text>
+      </view>
       <text class="login-title">欢迎使用</text>
-      <text class="login-desc">选择一种方式开始使用</text>
+      <text class="login-desc">看看兴趣，做做测试，保存记录</text>
 
       <button class="btn btn-wechat" bindtap="handleWechatLogin">
         微信登录
