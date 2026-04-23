@@ -15,7 +15,7 @@
   align-items: center;
   padding: 24rpx 32rpx;
   padding-top: calc(24rpx + env(safe-area-inset-top));
-  background: rgba(15, 12, 41, 0.8);
+  background: rgba(15, 12, 41, 0.85);
   backdrop-filter: blur(20px);
   position: sticky;
   top: 0;
@@ -23,12 +23,12 @@
 }
 
 .btn-back {
-  font-size: 32rpx;
-  color: var(--text-secondary);
-  background: none;
-  border: none;
-  padding: 12rpx 8rpx 12rpx 0;
-  margin: 0;
+  font-size: 34rpx;
+  color: var(--text-secondary) !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 16rpx 12rpx 16rpx 0 !important;
+  margin: 0 !important;
   line-height: 1;
 }
 
@@ -41,34 +41,36 @@
   font-size: 36rpx;
   font-weight: 700;
   color: var(--text-primary);
-  margin-left: 16rpx;
+  margin-left: 12rpx;
 }
 
 /* ===== 滚动内容区 ===== */
 
 .settings-content {
   flex: 1;
-  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
+  padding: 24rpx 32rpx calc(40rpx + env(safe-area-inset-bottom));
 }
 
-/* ===== 分组 ===== */
+/* ===== 分组卡片 ===== */
 
 .settings-group {
-  margin: 0 32rpx 32rpx;
+  margin-bottom: 40rpx;
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
   overflow: hidden;
+  backdrop-filter: blur(10px);
 }
+
+/* ===== 分组标题（卡片内的章节头） ===== */
 
 .group-title {
   display: block;
-  font-size: 22rpx;
+  font-size: 24rpx;
   font-weight: 600;
   color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 2rpx;
-  padding: 24rpx 32rpx 0;
+  padding: 24rpx 32rpx 8rpx;
+  letter-spacing: 1rpx;
 }
 
 .group-title-with-toggle {
@@ -82,6 +84,11 @@
   padding: 0;
 }
 
+.toggle-switch {
+  transform: scale(0.85);
+  flex-shrink: 0;
+}
+
 /* ===== 设置项 ===== */
 
 .settings-item {
@@ -90,86 +97,102 @@
   justify-content: space-between;
   padding: 28rpx 32rpx;
   border-bottom: 1rpx solid var(--border-light);
-  transition: background 0.2s ease;
 }
 
 .settings-item:last-child {
   border-bottom: none;
 }
 
+.settings-item.clickable {
+  cursor: pointer;
+}
+
 .settings-item.clickable:active {
   background: var(--bg-card-hover);
 }
 
+/* ===== 项左侧 ===== */
+
 .item-left {
   display: flex;
   flex-direction: column;
-  gap: 6rpx;
+  gap: 4rpx;
   flex: 1;
   min-width: 0;
+  margin-right: 24rpx;
 }
 
 .item-label {
   font-size: 28rpx;
   font-weight: 500;
   color: var(--text-primary);
+  line-height: 1.4;
 }
 
 .item-desc {
   font-size: 22rpx;
   color: var(--text-tertiary);
+  line-height: 1.4;
 }
 
-/* ===== 选择器 ===== */
+/* ===== Picker 选择器 ===== */
+
+picker {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
 
 .picker-small {
   flex-shrink: 0;
-  margin-left: 16rpx;
 }
 
 .picker-value {
-  font-size: 26rpx;
+  display: inline-block;
+  font-size: 24rpx;
   color: var(--primary-color);
-  padding: 8rpx 20rpx;
+  padding: 8rpx 24rpx;
   background: var(--primary-bg);
   border-radius: var(--radius-full);
   border: 1px solid rgba(255, 107, 53, 0.3);
+  white-space: nowrap;
+  line-height: 1.4;
 }
 
-/* ===== Toggle Switch 美化 ===== */
+/* ===== Switch 美化 ===== */
 
-.toggle-switch {
-  transform: scale(0.8);
+switch {
+  transform: scale(0.85);
   flex-shrink: 0;
 }
 
-/* ===== 箭头 & 值 ===== */
+/* ===== 箭头 & 右侧值 ===== */
 
 .arrow {
-  font-size: 36rpx;
+  font-size: 32rpx;
   color: var(--text-tertiary);
-  margin-left: 16rpx;
   flex-shrink: 0;
+  margin-left: 8rpx;
 }
 
 .cache-size {
   font-size: 24rpx;
   color: var(--text-tertiary);
-  margin-left: 16rpx;
   flex-shrink: 0;
+  margin-left: 8rpx;
 }
 
 .version {
   font-size: 24rpx;
   color: var(--text-tertiary);
-  margin-left: 16rpx;
   flex-shrink: 0;
+  margin-left: 8rpx;
 }
 
 /* ===== 底部按钮区 ===== */
 
 .button-area {
-  padding: 48rpx 32rpx 32rpx;
+  padding: 60rpx 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
