@@ -1,82 +1,72 @@
 <!-- 用户偏好设置页面 -->
 <view class="page settings-page">
-  <!-- 顶部导航 -->
-  <view class="settings-header">
-    <button class="btn-back" bindtap="handleBack">‹ 返回</button>
-    <text class="header-title">设置</text>
-  </view>
-
-  <!-- 页面滚动区域 -->
-  <scroll-view class="settings-content">
+  <!-- 页面内容 -->
+  <view class="settings-content">
     <!-- 应用设置 -->
-    <view class="settings-group">
-      <text class="group-title">应用设置</text>
-
-      <!-- 主题设置 -->
-      <view class="settings-item">
-        <view class="item-left">
-          <text class="item-label">主题</text>
-          <text class="item-desc">选择应用主题</text>
+    <view class="settings-section">
+      <text class="section-label">应用设置</text>
+      <view class="settings-card">
+        <!-- 主题设置 -->
+        <view class="settings-item">
+          <view class="item-left">
+            <text class="item-label">主题</text>
+            <text class="item-desc">选择应用主题</text>
+          </view>
+          <picker 
+            range="{{themeOptions}}"
+            range-key="text"
+            value="{{themeIndex}}"
+            bindchange="onThemeChange"
+          >
+            <view class="picker-value">{{themeOptions[themeIndex].text}}</view>
+          </picker>
         </view>
-        <picker 
-          class="picker-small"
-          range="{{themeOptions}}"
-          range-key="text"
-          value="{{themeIndex}}"
-          bindchange="onThemeChange"
-        >
-          <text class="picker-value">{{themeOptions[themeIndex].text}}</text>
-        </picker>
-      </view>
 
-      <!-- 字号设置 -->
-      <view class="settings-item">
-        <view class="item-left">
-          <text class="item-label">字号</text>
-          <text class="item-desc">调整应用文字大小</text>
+        <!-- 字号设置 -->
+        <view class="settings-item">
+          <view class="item-left">
+            <text class="item-label">字号</text>
+            <text class="item-desc">调整应用文字大小</text>
+          </view>
+          <picker 
+            range="{{fontSizeOptions}}"
+            range-key="text"
+            value="{{fontSizeIndex}}"
+            bindchange="onFontSizeChange"
+          >
+            <view class="picker-value">{{fontSizeOptions[fontSizeIndex].text}}</view>
+          </picker>
         </view>
-        <picker 
-          class="picker-small"
-          range="{{fontSizeOptions}}"
-          range-key="text"
-          value="{{fontSizeIndex}}"
-          bindchange="onFontSizeChange"
-        >
-          <text class="picker-value">{{fontSizeOptions[fontSizeIndex].text}}</text>
-        </picker>
-      </view>
 
-      <!-- 语言设置 -->
-      <view class="settings-item">
-        <view class="item-left">
-          <text class="item-label">语言</text>
-          <text class="item-desc">选择应用语言</text>
+        <!-- 语言设置 -->
+        <view class="settings-item">
+          <view class="item-left">
+            <text class="item-label">语言</text>
+            <text class="item-desc">选择应用语言</text>
+          </view>
+          <picker 
+            range="{{languageOptions}}"
+            range-key="text"
+            value="{{languageIndex}}"
+            bindchange="onLanguageChange"
+          >
+            <view class="picker-value">{{languageOptions[languageIndex].text}}</view>
+          </picker>
         </view>
-        <picker 
-          class="picker-small"
-          range="{{languageOptions}}"
-          range-key="text"
-          value="{{languageIndex}}"
-          bindchange="onLanguageChange"
-        >
-          <text class="picker-value">{{languageOptions[languageIndex].text}}</text>
-        </picker>
       </view>
     </view>
 
     <!-- 提醒设置 -->
-    <view class="settings-group">
-      <view class="group-title-with-toggle">
-        <text class="group-title">提醒设置</text>
+    <view class="settings-section">
+      <view class="section-label-row">
+        <text class="section-label">提醒设置</text>
         <switch 
-          class="toggle-switch"
           checked="{{preferences.notifications}}"
           bindchange="onNotificationsToggle"
+          color="#FF6B35"
         />
       </view>
-
-      <!-- 提醒子选项（仅在启用时显示） -->
-      <view wx:if="{{preferences.notifications}}">
+      <view class="settings-card" wx:if="{{preferences.notifications}}">
         <!-- 内容提醒 -->
         <view class="settings-item">
           <view class="item-left">
@@ -87,6 +77,7 @@
             checked="{{preferences.notificationType.message}}"
             bindchange="onNotificationTypeChange"
             data-type="message"
+            color="#FF6B35"
           />
         </view>
 
@@ -100,6 +91,7 @@
             checked="{{preferences.notificationType.comment}}"
             bindchange="onNotificationTypeChange"
             data-type="comment"
+            color="#FF6B35"
           />
         </view>
 
@@ -113,6 +105,7 @@
             checked="{{preferences.notificationType.like}}"
             bindchange="onNotificationTypeChange"
             data-type="like"
+            color="#FF6B35"
           />
         </view>
 
@@ -126,6 +119,7 @@
             checked="{{preferences.notificationType.follow}}"
             bindchange="onNotificationTypeChange"
             data-type="follow"
+            color="#FF6B35"
           />
         </view>
 
@@ -139,169 +133,177 @@
             checked="{{preferences.notificationType.system}}"
             bindchange="onNotificationTypeChange"
             data-type="system"
+            color="#FF6B35"
           />
         </view>
       </view>
     </view>
 
     <!-- 显示设置 -->
-    <view class="settings-group">
-      <text class="group-title">显示设置</text>
-
-      <!-- 资料显示 -->
-      <view class="settings-item">
-        <view class="item-left">
-          <text class="item-label">资料仅自己可见</text>
-          <text class="item-desc">仅在当前设备内查看资料内容</text>
+    <view class="settings-section">
+      <text class="section-label">显示设置</text>
+      <view class="settings-card">
+        <!-- 资料显示 -->
+        <view class="settings-item">
+          <view class="item-left">
+            <text class="item-label">资料仅自己可见</text>
+            <text class="item-desc">仅在当前设备内查看资料内容</text>
+          </view>
+          <switch 
+            checked="{{preferences.privateProfile}}"
+            bindchange="onPrivacyChange"
+            data-setting="privateProfile"
+            color="#FF6B35"
+          />
         </view>
-        <switch 
-          checked="{{preferences.privateProfile}}"
-          bindchange="onPrivacyChange"
-          data-setting="privateProfile"
-        />
-      </view>
 
-      <!-- 内容搜索 -->
-      <view class="settings-item">
-        <view class="item-left">
-          <text class="item-label">搜索记录</text>
-          <text class="item-desc">允许在本地记录中进行搜索</text>
+        <!-- 内容搜索 -->
+        <view class="settings-item">
+          <view class="item-left">
+            <text class="item-label">搜索记录</text>
+            <text class="item-desc">允许在本地记录中进行搜索</text>
+          </view>
+          <switch 
+            checked="{{preferences.allowSearch}}"
+            bindchange="onPrivacyChange"
+            data-setting="allowSearch"
+            color="#FF6B35"
+          />
         </view>
-        <switch 
-          checked="{{preferences.allowSearch}}"
-          bindchange="onPrivacyChange"
-          data-setting="allowSearch"
-        />
-      </view>
 
-      <!-- 内容展示 -->
-      <view class="settings-item">
-        <view class="item-left">
-          <text class="item-label">内容展示</text>
-          <text class="item-desc">控制记录内容的显示方式</text>
+        <!-- 内容展示 -->
+        <view class="settings-item">
+          <view class="item-left">
+            <text class="item-label">内容展示</text>
+            <text class="item-desc">控制记录内容的显示方式</text>
+          </view>
+          <switch 
+            checked="{{preferences.allowRecommend}}"
+            bindchange="onPrivacyChange"
+            data-setting="allowRecommend"
+            color="#FF6B35"
+          />
         </view>
-        <switch 
-          checked="{{preferences.allowRecommend}}"
-          bindchange="onPrivacyChange"
-          data-setting="allowRecommend"
-        />
-      </view>
-    </view>
-
-    <!-- 视频设置 -->
-    <view class="settings-group">
-      <text class="group-title">媒体设置</text>
-
-      <!-- 自动播放视频 -->
-      <view class="settings-item">
-        <view class="item-left">
-          <text class="item-label">自动播放视频</text>
-          <text class="item-desc">在列表中自动播放视频</text>
-        </view>
-        <switch 
-          checked="{{preferences.autoPlayVideo}}"
-          bindchange="onMediaChange"
-          data-setting="autoPlayVideo"
-        />
       </view>
     </view>
 
-    <!-- 数据相关 -->
-    <view class="settings-group">
-      <text class="group-title">数据</text>
-
-      <!-- 数据分析 -->
-      <view class="settings-item">
-        <view class="item-left">
-          <text class="item-label">数据分析</text>
-          <text class="item-desc">帮助改进使用体验</text>
+    <!-- 媒体设置 -->
+    <view class="settings-section">
+      <text class="section-label">媒体设置</text>
+      <view class="settings-card">
+        <!-- 自动播放视频 -->
+        <view class="settings-item">
+          <view class="item-left">
+            <text class="item-label">自动播放视频</text>
+            <text class="item-desc">在列表中自动播放视频</text>
+          </view>
+          <switch 
+            checked="{{preferences.autoPlayVideo}}"
+            bindchange="onMediaChange"
+            data-setting="autoPlayVideo"
+            color="#FF6B35"
+          />
         </view>
-        <switch 
-          checked="{{preferences.dataConsent}}"
-          bindchange="onDataChange"
-          data-setting="dataConsent"
-        />
-      </view>
-
-      <!-- 清除缓存 -->
-      <view class="settings-item clickable" bindtap="handleClearCache">
-        <view class="item-left">
-          <text class="item-label">清除缓存</text>
-          <text class="item-desc">清除应用临时数据</text>
-        </view>
-        <text class="cache-size">{{cacheSize}}</text>
-      </view>
-
-      <!-- 整理数据 -->
-      <view class="settings-item clickable" bindtap="handleExportData">
-        <view class="item-left">
-          <text class="item-label">整理数据</text>
-          <text class="item-desc">整理当前设备内的数据内容</text>
-        </view>
-        <text class="arrow">›</text>
       </view>
     </view>
 
-    <!-- 关于应用 -->
-    <view class="settings-group">
-      <text class="group-title">关于</text>
-
-      <!-- 版本信息 -->
-      <view class="settings-item">
-        <view class="item-left">
-          <text class="item-label">版本</text>
-          <text class="item-desc">当前应用版本</text>
+    <!-- 数据 -->
+    <view class="settings-section">
+      <text class="section-label">数据</text>
+      <view class="settings-card">
+        <!-- 数据分析 -->
+        <view class="settings-item">
+          <view class="item-left">
+            <text class="item-label">数据分析</text>
+            <text class="item-desc">帮助改进使用体验</text>
+          </view>
+          <switch 
+            checked="{{preferences.dataConsent}}"
+            bindchange="onDataChange"
+            data-setting="dataConsent"
+            color="#FF6B35"
+          />
         </view>
-        <text class="version">{{appVersion}}</text>
-      </view>
 
-      <!-- 检查更新 -->
-      <view class="settings-item clickable" bindtap="handleCheckUpdate">
-        <view class="item-left">
-          <text class="item-label">检查更新</text>
-          <text class="item-desc">检查是否有新版本</text>
+        <!-- 清除缓存 -->
+        <view class="settings-item clickable" bindtap="handleClearCache">
+          <view class="item-left">
+            <text class="item-label">清除缓存</text>
+            <text class="item-desc">清除应用临时数据</text>
+          </view>
+          <text class="item-value">{{cacheSize}}</text>
         </view>
-        <text class="arrow">›</text>
-      </view>
 
-      <!-- 隐私说明 -->
-      <view class="settings-item clickable" bindtap="handleOpenPrivacyPolicy">
-        <view class="item-left">
-          <text class="item-label">隐私说明</text>
-          <text class="item-desc">查看隐私说明</text>
+        <!-- 整理数据 -->
+        <view class="settings-item clickable" bindtap="handleExportData">
+          <view class="item-left">
+            <text class="item-label">整理数据</text>
+            <text class="item-desc">整理当前设备内的数据内容</text>
+          </view>
+          <text class="item-arrow">›</text>
         </view>
-        <text class="arrow">›</text>
-      </view>
-
-      <!-- 使用说明 -->
-      <view class="settings-item clickable" bindtap="handleOpenTerms">
-        <view class="item-left">
-          <text class="item-label">使用说明</text>
-          <text class="item-desc">查看使用说明</text>
-        </view>
-        <text class="arrow">›</text>
-      </view>
-
-      <!-- 应用说明 -->
-      <view class="settings-item clickable" bindtap="handleOpenAbout">
-        <view class="item-left">
-          <text class="item-label">应用说明</text>
-          <text class="item-desc">了解本小程序的功能说明</text>
-        </view>
-        <text class="arrow">›</text>
       </view>
     </view>
 
-    <!-- 底部按钮区域 -->
+    <!-- 关于 -->
+    <view class="settings-section">
+      <text class="section-label">关于</text>
+      <view class="settings-card">
+        <!-- 版本信息 -->
+        <view class="settings-item">
+          <view class="item-left">
+            <text class="item-label">版本</text>
+            <text class="item-desc">当前应用版本</text>
+          </view>
+          <text class="item-value">{{appVersion}}</text>
+        </view>
+
+        <!-- 检查更新 -->
+        <view class="settings-item clickable" bindtap="handleCheckUpdate">
+          <view class="item-left">
+            <text class="item-label">检查更新</text>
+            <text class="item-desc">检查是否有新版本</text>
+          </view>
+          <text class="item-arrow">›</text>
+        </view>
+
+        <!-- 隐私说明 -->
+        <view class="settings-item clickable" bindtap="handleOpenPrivacyPolicy">
+          <view class="item-left">
+            <text class="item-label">隐私说明</text>
+            <text class="item-desc">查看隐私说明</text>
+          </view>
+          <text class="item-arrow">›</text>
+        </view>
+
+        <!-- 使用说明 -->
+        <view class="settings-item clickable" bindtap="handleOpenTerms">
+          <view class="item-left">
+            <text class="item-label">使用说明</text>
+            <text class="item-desc">查看使用说明</text>
+          </view>
+          <text class="item-arrow">›</text>
+        </view>
+
+        <!-- 应用说明 -->
+        <view class="settings-item clickable" bindtap="handleOpenAbout">
+          <view class="item-left">
+            <text class="item-label">应用说明</text>
+            <text class="item-desc">了解本小程序的功能说明</text>
+          </view>
+          <text class="item-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部按钮 -->
     <view class="button-area">
-      <button class="btn btn-danger" bindtap="handleLogout">
-        登出
-      </button>
+      <button class="btn btn-danger" bindtap="handleLogout">登出</button>
       <text class="logout-hint">退出后可重新进入</text>
     </view>
-  </scroll-view>
+  </view>
 
-  <!-- 加载状态 -->
+  <!-- 加载遮罩 -->
   <view wx:if="{{loading}}" class="loading-overlay">
     <view class="spinner">
       <view class="spinner-ring"></view>

@@ -1,92 +1,54 @@
 /* 设置页 - 深色渐变主题 */
 
 .settings-page {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
   background: var(--gradient-bg);
   background-attachment: fixed;
 }
 
-/* ===== 顶部导航 ===== */
-
-.settings-header {
-  display: flex;
-  align-items: center;
-  padding: 24rpx 32rpx;
-  padding-top: calc(24rpx + env(safe-area-inset-top));
-  background: rgba(15, 12, 41, 0.85);
-  backdrop-filter: blur(20px);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.btn-back {
-  font-size: 34rpx;
-  color: var(--text-secondary) !important;
-  background: transparent !important;
-  border: none !important;
-  padding: 16rpx 12rpx 16rpx 0 !important;
-  margin: 0 !important;
-  line-height: 1;
-}
-
-.btn-back::after {
-  border: none;
-}
-
-.header-title {
-  flex: 1;
-  font-size: 36rpx;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-left: 12rpx;
-}
-
-/* ===== 滚动内容区 ===== */
-
 .settings-content {
-  flex: 1;
   padding: 24rpx 32rpx calc(40rpx + env(safe-area-inset-bottom));
 }
 
-/* ===== 分组卡片 ===== */
+/* ===== 分段（标签 + 卡片） ===== */
 
-.settings-group {
+.settings-section {
   margin-bottom: 40rpx;
+}
+
+.section-label {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-bottom: 16rpx;
+  padding-left: 4rpx;
+}
+
+.section-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+  padding: 0 4rpx;
+}
+
+.section-label-row .section-label {
+  margin-bottom: 0;
+}
+
+.section-label-row switch {
+  transform: scale(0.85);
+}
+
+/* ===== 卡片容器 ===== */
+
+.settings-card {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
   overflow: hidden;
   backdrop-filter: blur(10px);
-}
-
-/* ===== 分组标题（卡片内的章节头） ===== */
-
-.group-title {
-  display: block;
-  font-size: 24rpx;
-  font-weight: 600;
-  color: var(--text-tertiary);
-  padding: 24rpx 32rpx 8rpx;
-  letter-spacing: 1rpx;
-}
-
-.group-title-with-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24rpx 32rpx 8rpx;
-}
-
-.group-title-with-toggle .group-title {
-  padding: 0;
-}
-
-.toggle-switch {
-  transform: scale(0.85);
-  flex-shrink: 0;
 }
 
 /* ===== 设置项 ===== */
@@ -101,10 +63,6 @@
 
 .settings-item:last-child {
   border-bottom: none;
-}
-
-.settings-item.clickable {
-  cursor: pointer;
 }
 
 .settings-item.clickable:active {
@@ -126,7 +84,7 @@
   font-size: 28rpx;
   font-weight: 500;
   color: var(--text-primary);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .item-desc {
@@ -135,20 +93,11 @@
   line-height: 1.4;
 }
 
-/* ===== Picker 选择器 ===== */
-
-picker {
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.picker-small {
-  flex-shrink: 0;
-}
+/* ===== Picker 选择器值 ===== */
 
 .picker-value {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-size: 24rpx;
   color: var(--primary-color);
   padding: 8rpx 24rpx;
@@ -166,23 +115,16 @@ switch {
   flex-shrink: 0;
 }
 
-/* ===== 箭头 & 右侧值 ===== */
+/* ===== 右侧箭头 & 值 ===== */
 
-.arrow {
+.item-arrow {
   font-size: 32rpx;
   color: var(--text-tertiary);
   flex-shrink: 0;
   margin-left: 8rpx;
 }
 
-.cache-size {
-  font-size: 24rpx;
-  color: var(--text-tertiary);
-  flex-shrink: 0;
-  margin-left: 8rpx;
-}
-
-.version {
+.item-value {
   font-size: 24rpx;
   color: var(--text-tertiary);
   flex-shrink: 0;
@@ -192,7 +134,7 @@ switch {
 /* ===== 底部按钮区 ===== */
 
 .button-area {
-  padding: 60rpx 0 0;
+  padding: 48rpx 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
