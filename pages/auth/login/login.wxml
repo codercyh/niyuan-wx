@@ -21,21 +21,56 @@
       <button class="btn btn-text" bindtap="handleLogout">重新进入</button>
     </view>
 
+    <!-- 未登录：登录表单 -->
+    <view wx:elif="{{showLoginForm}}" class="login-form">
+      <text class="form-title">{{loginMode === 'wechat' ? '微信登录' : '自定义昵称'}}</text>
+      <text class="form-desc">{{loginMode === 'wechat' ? '确认你的头像和昵称' : '设置你的头像和昵称'}}</text>
+
+      <!-- 头像 -->
+      <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image 
+          class="avatar-img" 
+          src="{{tempAvatarUrl || '/images/default-avatar.png'}}" 
+          mode="aspectFill"
+        />
+        <view class="avatar-edit-icon">📷</view>
+      </button>
+
+      <!-- 昵称 -->
+      <view class="nickname-wrap">
+        <input 
+          class="nickname-input"
+          type="{{loginMode === 'wechat' ? 'nickname' : 'text'}}"
+          placeholder="请输入昵称"
+          maxlength="20"
+          bindinput="onNicknameInput"
+          value="{{tempNickName}}"
+        />
+      </view>
+
+      <!-- 确认按钮 -->
+      <button 
+        class="btn btn-confirm" 
+        bindtap="handleConfirmLogin"
+        disabled="{{!tempNickName.trim()}}"
+      >
+        确认进入
+      </button>
+
+      <button class="btn btn-back" bindtap="handleBackToMain">返回</button>
+    </view>
+
     <!-- 未登录：选择登录方式 -->
-    <view wx:elif="{{!showCustomLogin}}" class="login-section">
+    <view wx:else class="login-section">
       <text class="login-title">欢迎使用</text>
       <text class="login-desc">选择一种方式开始使用</text>
 
-      <!-- 微信快捷登录 -->
-      <button class="btn btn-wechat" open-type="chooseAvatar" bindchooseavatar="onWechatAvatar">
-        <text class="btn-icon-login">微信</text>
-        微信快捷登录
+      <button class="btn btn-wechat" bindtap="handleWechatLogin">
+        微信登录
       </button>
 
-      <!-- 自定义登录 -->
-      <button class="btn btn-custom" bindtap="onTapCustomLogin">
-        <text class="btn-icon-login">✏️</text>
-        自定义头像和昵称
+      <button class="btn btn-custom" bindtap="handleCustomLogin">
+        自定义昵称进入
       </button>
 
       <view class="privacy-section">
@@ -45,53 +80,7 @@
         </text>
       </view>
     </view>
-
-    <!-- 自定义登录表单 -->
-    <view wx:else class="custom-login-section">
-      <text class="custom-login-title">设置头像和昵称</text>
-
-      <!-- 头像选择 -->
-      <view class="avatar-picker" bindtap="onTapChooseAvatar">
-        <image 
-          class="avatar-preview" 
-          src="{{customAvatarUrl || '/images/default-avatar.png'}}" 
-          mode="aspectFill"
-        />
-        <view class="avatar-edit-badge">
-          <text class="edit-icon">📷</text>
-        </view>
-      </view>
-      <text class="avatar-hint">点击选择头像</text>
-
-      <!-- 昵称输入 -->
-      <view class="nickname-input-wrap">
-        <input 
-          class="nickname-input"
-          type="nickname"
-          placeholder="请输入昵称"
-          maxlength="20"
-          bindinput="onCustomNicknameInput"
-          value="{{customNickName}}"
-        />
-      </view>
-
-      <button class="btn btn-primary btn-login" bindtap="handleCustomLogin" disabled="{{!customNickName.trim()}}">
-        开始使用
-      </button>
-
-      <button class="btn btn-text btn-back-login" bindtap="onTapBackToMain">
-        返回其他登录方式
-      </button>
-    </view>
   </view>
-
-  <!-- 隐藏的头像选择按钮 -->
-  <button 
-    wx:if="{{showAvatarPicker}}" 
-    class="hidden-avatar-btn" 
-    open-type="chooseAvatar" 
-    bindchooseavatar="onChooseCustomAvatar"
-  ></button>
 
   <!-- 加载状态 -->
   <view wx:if="{{loading}}" class="loading-overlay">

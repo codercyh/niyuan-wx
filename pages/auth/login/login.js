@@ -7,11 +7,10 @@ Page({
     userInfo: {},
     loading: false,
     loadingText: '正在登录...',
-    // 自定义登录
-    showCustomLogin: false,
-    customAvatarUrl: '',
-    customNickName: '',
-    showAvatarPicker: false,
+    loginMode: '',
+    showLoginForm: false,
+    tempAvatarUrl: '',
+    tempNickName: '',
   },
 
   onLoad() {
@@ -33,24 +32,46 @@ Page({
     }
   },
 
-  // ===== 微信快捷登录（open-type="chooseAvatar" 触发） =====
-  onWechatAvatar(e) {
-    const avatarUrl = e.detail.avatarUrl
-    if (!avatarUrl) {
-      wx.showToast({ title: '获取头像失败', icon: 'none' })
-      return
-    }
-    this.setData({ loading: true, loadingText: '正在登录...' })
-    this.completeLoginWithAvatar(avatarUrl, '')
+  handleWechatLogin() {
+    this.setData({ showLoginForm: true, loginMode: 'wechat', tempAvatarUrl: '', tempNickName: '' })
   },
 
-  completeLoginWithAvatar(avatarUrl, nickName) {
+  handleCustomLogin() {
+    this.setData({ showLoginForm: true, loginMode: 'custom', tempAvatarUrl: '', tempNickName: '' })
+  },
+
+  handleBackToMain() {
+    this.setData({ showLoginForm: false, loginMode: '', tempAvatarUrl: '', tempNickName: '' })
+  },
+
+  onChooseAvatar(e) {
+    const avatarUrl = e.detail.avatarUrl
+    if (avatarUrl) {
+      this.setData({ tempAvatarUrl: avatarUrl })
+    }
+  },
+
+  onNicknameInput(e) {
+    this.setData({ tempNickName: e.detail.value })
+  },
+
+  handleConfirmLogin() {
+    const nickName = this.data.tempNickName.trim()
+    if (!nickName) {
+      wx.showToast({ title: '请输入昵称', icon: 'none' })
+      return
+    }
+
+    this.setData({ loading: true, loadingText: '正在登录...' })
+
+    const avatarUrl = this.data.tempAvatarUrl || '/images/default-avatar.png'
+
     api.wxLogin().then((data) => {
       const userInfo = {
         id: data.userInfo._id || data.userInfo.id,
         openId: data.userInfo.openid,
-        nickName: nickName || data.userInfo.nickName || '微信用户',
-        avatarUrl: avatarUrl || data.userInfo.avatarUrl || '/images/default-avatar.png',
+        nickName,
+        avatarUrl,
         loginTime: Date.now(),
       }
       wx.setStorageSync('userInfo', userInfo)
@@ -67,8 +88,8 @@ Page({
       const userInfo = {
         openId,
         id: openId,
-        nickName: nickName || '微信用户',
-        avatarUrl: avatarUrl || '/images/default-avatar.png',
+        nickName,
+        avatarUrl,
         loginTime: Date.now(),
       }
       wx.setStorageSync('userInfo', userInfo)
@@ -83,42 +104,6 @@ Page({
     })
   },
 
-  // ===== 自定义登录 =====
-  onTapCustomLogin() {
-    this.setData({ showCustomLogin: true })
-  },
-
-  onTapBackToMain() {
-    this.setData({ showCustomLogin: false, customAvatarUrl: '', customNickName: '' })
-  },
-
-  onTapChooseAvatar() {
-    this.setData({ showAvatarPicker: true })
-    setTimeout(() => { this.setData({ showAvatarPicker: false }) }, 300)
-  },
-
-  onChooseCustomAvatar(e) {
-    const avatarUrl = e.detail.avatarUrl
-    if (avatarUrl) {
-      this.setData({ customAvatarUrl: avatarUrl })
-    }
-  },
-
-  onCustomNicknameInput(e) {
-    this.setData({ customNickName: e.detail.value })
-  },
-
-  handleCustomLogin() {
-    const nickName = this.data.customNickName.trim()
-    if (!nickName) {
-      wx.showToast({ title: '请输入昵称', icon: 'none' })
-      return
-    }
-    this.setData({ loading: true, loadingText: '正在登录...' })
-    this.completeLoginWithAvatar(this.data.customAvatarUrl, nickName)
-  },
-
-  // ===== 已登录操作 =====
   handleContinue() {
     wx.switchTab({
       url: '/pages/home/home',
@@ -139,7 +124,7 @@ Page({
             wx.removeStorageSync('userInfo')
             wx.removeStorageSync('openId')
           } catch (e) { console.error(e) }
-          this.setData({ isLoggedIn: false, userInfo: {}, showCustomLogin: false })
+          this.setData({ isLoggedIn: false, userInfo: {}, showLoginForm: false })
           wx.showToast({ title: '已退出', icon: 'success' })
         }
       },
