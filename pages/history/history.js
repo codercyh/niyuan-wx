@@ -101,30 +101,41 @@ Page({
 
   viewTestDetail(e) {
     const id = e.currentTarget.dataset.id
+    // find the test record to pass testId
+    const records = wx.getStorageSync('test_records') || []
+    const record = records.find(r => r.id === id)
+    const testId = record ? record.testId : ''
     wx.navigateTo({
-      url: `/pages/test/test-result/test-result?recordId=${id}`
+      url: '/pages/test/test-result/test-result?recordId=' + id + (testId ? '&testId=' + testId : ''),
     })
   },
 
   viewFateDetail(e) {
     const id = e.currentTarget.dataset.id
-    // 找到对应记录并恢复到 storage
     const records = wx.getStorageSync('fate_records') || []
     const record = records.find(r => r.id === id)
-    
+
     if (record) {
-      // 从历史记录恢复结果数据（简化版）
       wx.setStorageSync('fate_latest_result', {
-        score: record.score,
-        level: { level: record.level, label: this.getLevelLabel(record.level) },
-        fateType: { name: record.fateType, emoji: this.getFateEmoji(record.level) },
-        personA: record.personA,
-        personB: record.personB,
-        zodiacA: { name: record.personA.zodiac },
-        zodiacB: { name: record.personB.zodiac },
+        score: record.score || 50,
+        level: { level: record.level || 'C', label: this.getLevelLabel(record.level), emoji: this.getFateEmoji(record.level) },
+        fateType: { name: record.fateType || '缘分待定', emoji: this.getFateEmoji(record.level), hashtags: ['#缘分测试', '#缘分'] },
+        personA: record.personA || {},
+        personB: record.personB || {},
+        zodiacA: { name: (record.personA && record.personA.zodiac) || '未知', emoji: '✨', element: 'unknown', en: '' },
+        zodiacB: { name: (record.personB && record.personB.zodiac) || '未知', emoji: '✨', element: 'unknown', en: '' },
+        elementMatch: { label: '缘分', shortDesc: '', desc: '' },
+        dimensionList: [
+          { key: 'constellation', name: '星座匹配', emoji: '⭐', color: '#FF6B35', score: record.score || 50, percentage: record.score || 50, desc: '星座配对' },
+        ],
+        dailyDialogue: { lines: [], comment: '' },
+        conflictTopics: [],
+        adviceList: [],
+        whyAttract: '',
+        specialHint: null,
       })
       wx.navigateTo({
-        url: '/pages/fate/fate-result/fate-result'
+        url: '/pages/fate/fate-result/fate-result',
       })
     }
   },

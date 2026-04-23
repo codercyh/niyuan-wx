@@ -691,7 +691,6 @@ function calculateResult(id, answers) {
   const test = testsData[id]
   if (!test || !test.resultTypes) return null
 
-  // 计算各维度分数
   const scores = {}
   answers.forEach((answer, index) => {
     const question = test.questions[index]
@@ -702,23 +701,55 @@ function calculateResult(id, answers) {
     }
   })
 
-  // 找到匹配的结果类型
-  let totalScore = Object.values(scores).reduce((a, b) => a + b, 0)
-  let resultType = null
-  
-  for (const [typeKey, typeConfig] of Object.entries(test.resultTypes)) {
-    if (totalScore >= typeConfig.range[0] && totalScore <= typeConfig.range[1]) {
-      resultType = {
-        id: typeKey,
-        ...typeConfig,
-        scores: scores,
-        totalScore: totalScore,
+  const firstType = Object.values(test.resultTypes)[0]
+
+  if (firstType && firstType.range) {
+    let totalScore = Object.values(scores).reduce((a, b) => a + b, 0)
+    for (const [typeKey, typeConfig] of Object.entries(test.resultTypes)) {
+      const min = Array.isArray(typeConfig.range) ? typeConfig.range[0] : typeConfig.range.min
+      const max = Array.isArray(typeConfig.range) ? typeConfig.range[1] : typeConfig.range.max
+      if (totalScore >= min && totalScore <= max) {
+        return { id: typeKey, ...typeConfig, scores, totalScore }
       }
-      break
+    }
+    return null
+  }
+
+  if (id === 'mbti') {
+    const dimKeys = ['EI', 'SN', 'TF', 'JP']
+    const dimPairs = [['E', 'I'], ['S', 'N'], ['T', 'F'], ['J', 'P']]
+    let mbtiType = ''
+    dimPairs.forEach((pair) => {
+      const a = scores[pair[0]] || 0
+      const b = scores[pair[1]] || 0
+      mbtiType += a >= b ? pair[0] : pair[1]
+    })
+    const typeConfig = test.resultTypes[mbtiType] || test.resultTypes['INFP']
+    if (typeConfig) {
+      return { id: mbtiType, ...typeConfig, scores, totalScore: Object.values(scores).reduce((a, b) => a + b, 0) }
     }
   }
 
-  return resultType
+  if (id === 'loversbti') {
+    const dims = ['S', 'N', 'B', 'T', 'I']
+    let maxDim = 'S'
+    let maxScore = 0
+    dims.forEach((d) => {
+      if ((scores[d] || 0) > maxScore) {
+        maxScore = scores[d]
+        maxDim = d
+      }
+    })
+    const typeConfig = test.resultTypes[maxDim]
+    if (typeConfig) {
+      return { id: maxDim, ...typeConfig, scores, totalScore: Object.values(scores).reduce((a, b) => a + b, 0) }
+    }
+  }
+
+  let totalScore = Object.values(scores).reduce((a, b) => a + b, 0)
+  const typeKey = Object.keys(test.resultTypes)[0]
+  const typeConfig = test.resultTypes[typeKey]
+  return { id: typeKey, ...typeConfig, scores, totalScore }
 }
 
 // 获取推荐测试

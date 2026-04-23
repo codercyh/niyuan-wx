@@ -140,15 +140,19 @@ Page({
   processResult() {
     wx.showLoading({ title: '计算结果中...' })
 
-    // 计算结果
     const result = calculateResult(this.data.testId, this.data.currentAnswers)
 
     if (result) {
-      // 保存测试记录
       const testRecord = {
         id: Date.now(),
         testId: this.data.testId,
-        testName: this.data.testInfo.name,
+        testName: this.data.testInfo.name || '',
+        testEmoji: this.data.testInfo.emoji || '📝',
+        score: result.totalScore || 0,
+        resultTitle: result.title || result.id || '',
+        resultEmoji: result.emoji || '🎯',
+        resultDesc: result.desc || '',
+        resultSuggestion: result.suggestion || '',
         answers: this.data.currentAnswers,
         result: result,
         completedAt: new Date().toLocaleString('zh-CN'),
@@ -158,9 +162,8 @@ Page({
 
       wx.hideLoading()
 
-      // 跳转结果页面
       wx.redirectTo({
-        url: `/pages/test/test-result/test-result?testId=${this.data.testId}&recordId=${testRecord.id}`,
+        url: '/pages/test/test-result/test-result?testId=' + this.data.testId + '&recordId=' + testRecord.id,
       })
     } else {
       wx.hideLoading()

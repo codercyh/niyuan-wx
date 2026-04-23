@@ -1,4 +1,4 @@
-const { getStorage, setStorage, appendToList, removeFromList } = require('../../../utils/storage.js')
+const { getStorage, setStorage } = require('../../../utils/storage.js')
 
 Page({
   data: {
@@ -304,14 +304,12 @@ Page({
 
   // 筛选和排序
   filterAndSort() {
-    let filtered = this.data.allTrees
+    let filtered = [...this.data.allTrees]
 
-    // 分类筛选
     if (this.data.currentCategory !== 'all') {
       filtered = filtered.filter(tree => tree.category === this.data.currentCategory)
     }
 
-    // 搜索筛选
     if (this.data.searchKeyword) {
       const keyword = this.data.searchKeyword.toLowerCase()
       filtered = filtered.filter(tree => 
@@ -320,11 +318,9 @@ Page({
       )
     }
 
-    // 排序
     if (this.data.sortBy === 'hot') {
       filtered.sort((a, b) => b.likes - a.likes)
     } else {
-      // 最新排序 (id倒序)
       filtered.sort((a, b) => b.id - a.id)
     }
 
@@ -349,7 +345,7 @@ Page({
     this.setData({ currentPage: newPage })
     
     // 重新筛选排序获取新一页的数据
-    let filtered = this.data.allTrees
+    let filtered = [...this.data.allTrees]
 
     if (this.data.currentCategory !== 'all') {
       filtered = filtered.filter(tree => tree.category === this.data.currentCategory)

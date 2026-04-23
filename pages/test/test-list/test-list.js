@@ -17,7 +17,7 @@ Page({
       { id: 'love', name: '爱情', emoji: '💕' },
       { id: 'psychology', name: '心理', emoji: '🧠' },
       { id: 'career', name: '事业', emoji: '💼' },
-      { id: 'divination', name: '趣味', emoji: '🔮' },
+      { id: 'divination', name: '占卜', emoji: '🔮' },
     ],
 
     // 测试数据

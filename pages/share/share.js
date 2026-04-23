@@ -10,7 +10,8 @@ Page({
       wx.navigateBack()
       return
     }
-    this.setData({ data, result: { niyuanIndex: 58 } })
+    const niyuanIndex = (data && data.score) || 0
+    this.setData({ data, result: { niyuanIndex } })
   },
 
   onSave() {
@@ -19,7 +20,8 @@ Page({
   },
 
   onShare() {
-    const text = `关系指数：${this.data.result.niyuanIndex}分，可留作自己的结果记录。`
+    const niyuanIndex = this.data.result ? this.data.result.niyuanIndex : 0
+    const text = '关系指数：' + niyuanIndex + '分，可留作自己的结果记录。'
     wx.setClipboardData({
       data: text,
       success: () => {

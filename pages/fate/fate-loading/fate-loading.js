@@ -90,7 +90,7 @@ Page({
 
   onUnload() {
     if (this.timers) {
-      this.timers.forEach(t => clearInterval(t))
+      this.timers.forEach(t => clearTimeout(t))
       this.timers = []
     }
   }
