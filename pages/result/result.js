@@ -19,7 +19,10 @@ Page({
   },
 
   calcNiyuan(data) {
-    const { myInfo, yourInfo, tags, relationType } = data
+    const myInfo = data.myInfo || { name: '我' }
+    const yourInfo = data.yourInfo || { name: 'TA' }
+    const tags = data.tags || []
+    const relationType = data.relationType || ''
     let niyuanIndex = 30
     const tagScores = {
       '经常吵架': 15, '冷暴力': 20, '忽冷忽热': 18, '暧昧不清': 22,

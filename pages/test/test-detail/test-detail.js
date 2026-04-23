@@ -41,15 +41,6 @@ Page({
     }
   },
 
-  formatParticipants(num) {
-    if (num >= 10000) {
-      return (num / 10000).toFixed(1) + 'W'
-    } else if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'K'
-    }
-    return num.toString()
-  },
-
   loadQuestions(testId) {
     const questions = getQuestions(testId)
     

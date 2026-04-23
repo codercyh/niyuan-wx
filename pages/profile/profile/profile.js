@@ -40,7 +40,7 @@ Page({
       emoji: test.testEmoji || '📊',
       name: test.testName || '测试',
       date: test.completedAt || '未知',
-      score: test.score || Math.floor(Math.random() * 40) + 60,
+      score: test.score || 0,
     }))
 
     // 获取缘分测试历史
@@ -182,13 +182,22 @@ Page({
     
     if (record) {
       wx.setStorageSync('fate_latest_result', {
-        score: record.score,
-        level: { level: record.level, label: this.getLevelLabel(record.level) },
-        fateType: { name: record.fateType, emoji: this.getFateEmoji(record.level) },
-        personA: record.personA,
-        personB: record.personB,
-        zodiacA: { name: record.personA?.zodiac },
-        zodiacB: { name: record.personB?.zodiac },
+        score: record.score || 50,
+        level: { level: record.level || 'C', label: this.getLevelLabel(record.level || 'C') },
+        fateType: { name: record.fateType || '缘分待定', emoji: this.getFateEmoji(record.level), hashtags: ['#缘分测试', '#缘分'] },
+        personA: record.personA || {},
+        personB: record.personB || {},
+        zodiacA: { name: (record.personA && record.personA.zodiac) || '未知', emoji: '✨', element: 'unknown', en: '' },
+        zodiacB: { name: (record.personB && record.personB.zodiac) || '未知', emoji: '✨', element: 'unknown', en: '' },
+        elementMatch: { label: '缘分', shortDesc: '', desc: '' },
+        dimensionList: [
+          { key: 'constellation', name: '星座匹配', emoji: '⭐', color: '#FF6B35', score: record.score || 50, percentage: record.score || 50, desc: '星座配对' },
+        ],
+        dailyDialogue: { lines: [], comment: '' },
+        conflictTopics: [],
+        adviceList: [],
+        whyAttract: '',
+        specialHint: null,
       })
       wx.navigateTo({
         url: '/pages/fate/fate-result/fate-result'

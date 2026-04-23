@@ -1,4 +1,4 @@
-const { getStorage, setStorage, appendToList } = require('../../../utils/storage.js')
+const { getStorage, setStorage } = require('../../../utils/storage.js')
 
 Page({
   data: {
@@ -10,7 +10,6 @@ Page({
   },
 
   onLoad() {
-    // 恢复草稿
     this.loadDraft()
   },
 
@@ -27,14 +26,11 @@ Page({
     }
   },
 
-  // 选择分类
   onSelectCategory(e) {
-    const category = e.currentTarget.dataset.category
-    this.setData({ selectedCategory: category })
+    this.setData({ selectedCategory: e.currentTarget.dataset.category })
     this.saveDraftAuto()
   },
 
-  // 内容输入
   onContentInput(e) {
     const content = e.detail.value
     this.setData({
@@ -45,52 +41,42 @@ Page({
     this.saveDraftAuto()
   },
 
-  // 切换匿名
   onToggleAnonymous() {
-    const isAnonymous = !this.data.isAnonymous
-    this.setData({ isAnonymous })
+    this.setData({ isAnonymous: !this.data.isAnonymous })
     this.saveDraftAuto()
   },
 
-  // 自动保存草稿
   saveDraftAuto() {
-    const draft = {
+    setStorage('tree_draft', {
       category: this.data.selectedCategory,
       content: this.data.content,
       isAnonymous: this.data.isAnonymous,
       savedAt: new Date().toLocaleString('zh-CN'),
-    }
-    setStorage('tree_draft', draft)
+    })
   },
 
-  // 保存草稿
   onSaveDraft() {
     if (!this.data.content.trim()) {
       wx.showToast({ title: '请输入内容', icon: 'none' })
       return
     }
-
     this.saveDraftAuto()
     wx.showToast({ title: '草稿已保存', icon: 'success' })
   },
 
-  // 保存记录
   onPublish() {
     const content = this.data.content.trim()
-
     if (!content) {
       wx.showToast({ title: '请输入内容', icon: 'none' })
       return
     }
-
     if (content.length > 500) {
       wx.showToast({ title: '内容过长，请删除一些文字', icon: 'none' })
       return
     }
 
-    // 创建新记录
     const newTree = {
-      id: Math.floor(Math.random() * 100000),
+      id: Date.now().toString(36) + Math.random().toString(36).substr(2, 6),
       avatar: this.data.isAnonymous ? '😔' : '😊',
       username: this.data.isAnonymous ? '记录者' : '我',
       time: '刚刚',
@@ -102,25 +88,19 @@ Page({
       views: 0,
     }
 
-    // 保存到storage
     const allTrees = getStorage('all_tree_holes') || []
     allTrees.unshift(newTree)
     setStorage('all_tree_holes', allTrees)
 
-    // 保存到我的记录
     const myTrees = getStorage('my_tree_holes') || []
     myTrees.push(newTree)
     setStorage('my_tree_holes', myTrees)
 
-    // 清除草稿
     setStorage('tree_draft', null)
+    this.setData({ content: '', contentLength: 0, canPublish: false })
 
     wx.showToast({ title: '记录已保存', icon: 'success' })
-
-    // 返回列表
-    setTimeout(() => {
-      wx.navigateBack()
-    }, 1000)
+    setTimeout(() => wx.navigateBack(), 1000)
   },
 
   getCategoryLabel(category) {

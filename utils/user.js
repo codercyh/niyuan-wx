@@ -128,7 +128,7 @@ throw new Error('用户不存在');
 const updated = {
 ...profile,
 preferences: {
-...profile.preferences,
+...(profile.preferences || {}),
 ...preferences,
 },
 };
