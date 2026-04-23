@@ -1,0 +1,64 @@
+{
+  "lazyCodeLoading": "requiredComponents",
+  "logo": "./logo.png",
+  "pages": [
+    "pages/home/home",
+    "pages/test/test-list/test-list",
+    "pages/test/test-detail/test-detail",
+    "pages/test/test-result/test-result",
+    "pages/test/test-poster/test-poster",
+    "pages/profile/profile/profile",
+    "pages/history/history",
+    "pages/auth/login/login",
+    "pages/auth/profile-edit/profile-edit",
+    "pages/auth/profile-guide/profile-guide",
+    "pages/auth/settings/settings",
+    "pages/fate/fate-input/fate-input",
+    "pages/fate/fate-result/fate-result",
+    "pages/fate/fate-poster/fate-poster",
+    "pages/fate/fate-loading/fate-loading",
+    "pages/privacy/privacy",
+    "pages/profile/settings/settings",
+    "pages/social/tree-list/tree-list",
+    "pages/social/tree-create/tree-create",
+    "pages/social/tree-detail/tree-detail",
+    "pages/result/result",
+    "pages/share/share"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#302B63",
+    "navigationBarTitleText": "兴趣与测试",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0F0C29",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#FFFFFF",
+    "selectedColor": "#FF6B35",
+    "borderStyle": "black",
+    "backgroundColor": "#1A1A2E",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "assets/icons/home.png",
+        "selectedIconPath": "assets/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/test/test-list/test-list",
+        "text": "测试",
+        "iconPath": "assets/icons/test.png",
+        "selectedIconPath": "assets/icons/test-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile/profile",
+        "text": "我的",
+        "iconPath": "assets/icons/me.png",
+        "selectedIconPath": "assets/icons/me-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "requiredPrivateInfos": []
+}

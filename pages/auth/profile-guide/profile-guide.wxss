@@ -1,0 +1,329 @@
+/* ==================== 档案完整度引导页样式 - 深色渐变主题 ==================== */
+
+.profile-guide-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+  padding-bottom: 240rpx;
+}
+
+/* 头部 */
+.header {
+  padding: 24rpx 32rpx;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.btn-back {
+  padding: 16rpx 24rpx;
+  background-color: transparent;
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  line-height: 1;
+}
+
+/* 进度卡片 */
+.progress-card {
+  margin: 48rpx 32rpx;
+  padding: 40rpx;
+  background: linear-gradient(135deg, rgba(255,107,53,0.15) 0%, rgba(255,0,110,0.1) 100%);
+  border: 1px solid rgba(255,107,53,0.3);
+  border-radius: 24rpx;
+}
+
+.progress-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 32rpx;
+}
+
+.progress-bar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 16rpx;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B35 0%, #FF006E 100%);
+  border-radius: 8rpx;
+  transition: width 0.5s ease;
+}
+
+.progress-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FF6B35;
+  min-width: 100rpx;
+}
+
+.progress-desc {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+}
+
+/* 完整度项目列表 */
+.items-section {
+  padding: 48rpx 32rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 32rpx;
+}
+
+.completion-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx 24rpx;
+  margin-bottom: 24rpx;
+  background-color: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.completion-item:active {
+  background-color: rgba(255,255,255,0.06);
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 24rpx;
+}
+
+.item-icon {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  font-size: 32rpx;
+}
+
+.item-icon.incomplete {
+  color: rgba(255,255,255,0.4);
+}
+
+.item-icon.complete {
+  background-color: rgba(74,222,128,0.15);
+  border-color: #4ADE80;
+  color: #4ADE80;
+}
+
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin-bottom: 8rpx;
+}
+
+.item-desc {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.4;
+}
+
+.item-arrow {
+  font-size: 36rpx;
+  color: rgba(255,255,255,0.4);
+  margin-left: 24rpx;
+}
+
+.item-arrow.done {
+  color: #4ADE80;
+}
+
+/* 完成卡片 */
+.complete-card {
+  margin: 80rpx 32rpx;
+  padding: 64rpx 48rpx;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(74,222,128,0.15) 0%, rgba(74,222,128,0.05) 100%);
+  border: 1px solid rgba(74,222,128,0.3);
+  border-radius: 24rpx;
+}
+
+.complete-icon {
+  font-size: 128rpx;
+  margin-bottom: 32rpx;
+}
+
+.complete-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 16rpx;
+}
+
+.complete-desc {
+  display: block;
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  margin-bottom: 48rpx;
+}
+
+/* 未完成卡片 */
+.incomplete-card {
+  margin: 80rpx 32rpx 40rpx;
+  padding: 48rpx;
+  background-color: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24rpx;
+}
+
+.tips-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 24rpx;
+}
+
+.tips-list {
+  margin-bottom: 48rpx;
+}
+
+.tips-item {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  padding-left: 24rpx;
+  position: relative;
+}
+
+.tips-item::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+}
+
+/* 按钮 */
+.btn {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 24rpx;
+  border: none !important;
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  line-height: 100rpx;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn::after {
+  border: none;
+}
+
+.btn text {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 8rpx 28rpx rgba(255,107,53,0.3);
+}
+
+.btn-primary text {
+  color: #FFFFFF;
+}
+
+.btn-primary:active {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+.btn-large {
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 32rpx;
+  border-radius: 16rpx;
+}
+
+.btn-text {
+  background-color: transparent !important;
+  color: rgba(255,255,255,0.6) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.btn-text text {
+  color: rgba(255,255,255,0.6);
+}
+
+.btn-text:active {
+  background-color: rgba(255,255,255,0.05) !important;
+}
+
+/* 加载状态 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15,12,41,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.spinner {
+  width: 100rpx;
+  height: 100rpx;
+  position: relative;
+}
+
+.spinner-ring {
+  width: 100%;
+  height: 100%;
+  border: 4px solid rgba(255,107,53,0.2);
+  border-top: 4px solid #FF6B35;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

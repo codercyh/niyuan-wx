@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="header">
+    <text class="title">📜 隐私说明</text>
+  </view>
+
+  <view class="content">
+    <view class="section">
+      <text class="section-title">一、信息收集</text>
+      <text class="section-text">我们会读取你填写的出生日期等信息，用于测试结果计算和个性化展示。昵称仅用于页面展示。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">二、信息使用</text>
+      <text class="section-text">这些信息仅用于当前小程序内的内容展示、测试计算和本地记录保存，不用于其他用途。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">三、信息存储</text>
+      <text class="section-text">你的测试记录默认保存在当前设备本地，便于你下次查看和继续使用。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">四、第三方服务</text>
+      <text class="section-text">本小程序会使用微信提供的基础能力完成进入流程，相关接口说明以微信侧规则为准。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">五、免责声明</text>
+      <text class="section-text">本小程序中的兴趣内容和测试结果仅供个人兴趣参考，请理性查看，不作为专业建议。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">六、补充说明</text>
+      <text class="section-text">如后续功能或说明发生调整，本页内容会同步更新，请以页面展示为准。</text>
+    </view>
+  </view>
+
+  <view class="footer">
+    <view class="agree-btn" bindtap="onAgree">同意并继续</view>
+    <view class="disagree-btn" bindtap="onDisagree">不同意</view>
+  </view>
+</view>

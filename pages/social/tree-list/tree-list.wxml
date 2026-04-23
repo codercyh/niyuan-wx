@@ -1,0 +1,121 @@
+<!-- 记录列表页面 -->
+<view class="page">
+  <!-- 顶部搜索 -->
+  <view class="search-container">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="搜索记录内容"
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+      />
+      <text class="clear-icon" wx:if="{{searchKeyword}}" bindtap="onClearSearch">✕</text>
+    </view>
+  </view>
+
+  <!-- 分类导航 -->
+  <scroll-view scroll-x class="category-scroll">
+    <view class="category-container">
+      <view class="category-item {{currentCategory === 'all' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="all">
+        全部
+      </view>
+      <view class="category-item {{currentCategory === 'confess' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="confess">
+        随记
+      </view>
+      <view class="category-item {{currentCategory === 'advice' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="advice">
+        灵感
+      </view>
+      <view class="category-item {{currentCategory === 'story' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="story">
+        片段
+      </view>
+      <view class="category-item {{currentCategory === 'other' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="other">
+        其他
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 排序选项 -->
+  <view class="sort-container">
+    <view class="sort-item {{sortBy === 'latest' ? 'active' : ''}}" bindtap="onSortChange" data-sort="latest">
+      <text class="sort-icon">📅</text>
+      <text>最新</text>
+    </view>
+    <view class="sort-item {{sortBy === 'hot' ? 'active' : ''}}" bindtap="onSortChange" data-sort="hot">
+      <text class="sort-icon">🔥</text>
+      <text>热门</text>
+    </view>
+  </view>
+
+  <!-- 内容列表 -->
+  <scroll-view scroll-y class="content-scroll" wx:if="{{filteredTrees.length > 0}}">
+    <view class="tree-list">
+      <view class="tree-item" wx:for="{{filteredTrees}}" wx:key="id" bindtap="onOpenDetail" data-id="{{item.id}}">
+        <!-- 顶部用户信息 -->
+        <view class="tree-header">
+          <view class="user-info">
+            <text class="user-avatar">{{item.avatar}}</text>
+            <view class="user-meta">
+              <text class="user-name">{{item.username}}</text>
+              <text class="user-time">{{item.time}}</text>
+            </view>
+          </view>
+          <view class="category-badge">{{item.categoryLabel}}</view>
+        </view>
+
+        <!-- 内容 -->
+        <view class="tree-content">
+          <text class="tree-text">{{item.content}}</text>
+        </view>
+
+        <!-- 底部统计和操作 -->
+        <view class="tree-footer">
+          <view class="stats">
+            <view class="stat-item">
+              <text class="stat-icon">❤️</text>
+              <text class="stat-value">{{item.likes}}</text>
+            </view>
+            <view class="stat-item">
+              <text class="stat-icon">💬</text>
+              <text class="stat-value">{{item.comments}}</text>
+            </view>
+            <view class="stat-item">
+              <text class="stat-icon">👁️</text>
+              <text class="stat-value">{{item.views}}</text>
+            </view>
+          </view>
+          <text class="action-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore}}" bindtap="onLoadMore">
+      <text class="load-more-text">加载更多</text>
+    </view>
+
+    <!-- 没有更多 -->
+    <view class="end-hint" wx:if="{{!hasMore && filteredTrees.length > 0}}">
+      <text class="end-text">已加载全部内容</text>
+    </view>
+
+    <view class="bottom-space"></view>
+  </scroll-view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{filteredTrees.length === 0}}">
+    <text class="empty-emoji">🌳</text>
+    <text class="empty-title">还没有相关内容</text>
+    <text class="empty-hint">写下你的想法，方便以后回看</text>
+    <button class="btn btn-primary" bindtap="onCreateTree">
+      <text class="btn-icon">✍️</text>
+      <text>写一条记录</text>
+    </button>
+  </view>
+
+  <!-- 发布按钮 (悬浮) -->
+  <view class="fab-button" bindtap="onCreateTree">
+    <text class="fab-icon">✍️</text>
+  </view>
+</view>

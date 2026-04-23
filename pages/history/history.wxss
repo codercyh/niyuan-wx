@@ -1,0 +1,325 @@
+/* 历史记录页 - 深色渐变主题 */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.header {
+  background: linear-gradient(135deg, rgba(255,107,53,0.2) 0%, rgba(255,0,110,0.15) 100%);
+  padding: 48rpx 40rpx 64rpx;
+  border-bottom: 1px solid rgba(255,107,53,0.2);
+}
+
+.title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 8rpx;
+}
+
+.subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Tab 切换 */
+.tab-bar {
+  display: flex;
+  background: rgba(255,255,255,0.05);
+  margin: -32rpx 32rpx 32rpx;
+  border-radius: 32rpx;
+  padding: 16rpx;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 24rpx 0;
+  border-radius: 24rpx;
+  transition: all 0.2s ease;
+}
+
+.tab-active {
+  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%);
+}
+
+.tab-icon {
+  font-size: 36rpx;
+}
+
+.tab-label {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.6);
+}
+
+.tab-active .tab-label {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.tab-count {
+  font-size: 24rpx;
+  background: rgba(255,107,53,0.2);
+  color: #FF6B35;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+  font-weight: 600;
+}
+
+.tab-active .tab-count {
+  background: rgba(255,255,255,0.3);
+  color: #FFFFFF;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 40rpx;
+}
+
+.empty-emoji {
+  font-size: 128rpx;
+  margin-bottom: 32rpx;
+}
+
+.empty-text {
+  font-size: 36rpx;
+  color: #FFFFFF;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
+
+.empty-sub {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 48rpx;
+}
+
+.empty-btn {
+  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%) !important;
+  color: #FFFFFF !important;
+  font-size: 30rpx;
+  padding: 24rpx 64rpx;
+  border-radius: 48rpx;
+  border: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.empty-btn::after {
+  border: none;
+}
+
+.empty-btn text {
+  color: #FFFFFF;
+  font-size: 30rpx;
+}
+
+/* 心理测试记录列表 */
+.history-list {
+  padding: 0 32rpx;
+}
+
+.history-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 32rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.history-emoji {
+  width: 96rpx;
+  height: 96rpx;
+  background: rgba(255,107,53,0.15);
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  margin-right: 24rpx;
+  border: 1px solid rgba(255,107,53,0.2);
+}
+
+.history-info {
+  flex: 1;
+}
+
+.history-name {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 8rpx;
+}
+
+.history-date {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+}
+
+.history-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-title {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.6);
+}
+
+.result-emoji {
+  font-size: 40rpx;
+}
+
+/* 缘分测试记录列表 */
+.fate-list {
+  padding: 0 32rpx;
+}
+
+.fate-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 32rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.fate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.fate-names {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.fate-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.fate-x {
+  font-size: 28rpx;
+  color: #FF6B35;
+}
+
+.fate-date {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+}
+
+.fate-body {
+  display: flex;
+  align-items: center;
+  gap: 32rpx;
+  margin-bottom: 24rpx;
+}
+
+.fate-score-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%);
+  border-radius: 24rpx;
+  padding: 24rpx 40rpx;
+}
+
+.fate-score {
+  font-size: 56rpx;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.fate-level {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.9);
+}
+
+.fate-info {
+  flex: 1;
+}
+
+.fate-zodiacs {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.zodiac-tag {
+  font-size: 24rpx;
+  background: rgba(255,107,53,0.15);
+  color: #FF6B35;
+  padding: 8rpx 24rpx;
+  border-radius: 24rpx;
+  border: 1px solid rgba(255,107,53,0.2);
+}
+
+.fate-type {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.6);
+}
+
+.fate-relation {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.relation-tag {
+  font-size: 24rpx;
+  padding: 8rpx 24rpx;
+  border-radius: 24rpx;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6);
+}
+
+.relation-tag.dating,
+.relation-tag.together {
+  background: rgba(255,107,53,0.2);
+  color: #FF6B35;
+}
+
+.relation-tag.married {
+  background: rgba(255,0,110,0.2);
+  color: #FF006E;
+}
+
+.relation-tag.breakup {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5);
+}
+
+.relation-tag.crush {
+  background: rgba(255,107,53,0.2);
+  color: #FF6B35;
+}
+
+.relation-tag.ambiguous {
+  background: rgba(168,85,247,0.2);
+  color: #A855F7;
+}

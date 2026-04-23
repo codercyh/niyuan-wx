@@ -1,0 +1,53 @@
+<view class="page">
+  <!-- 星点装饰 -->
+  <view class="stars">
+    <view class="star star-1"></view>
+    <view class="star star-2"></view>
+    <view class="star star-3"></view>
+    <view class="star star-4"></view>
+    <view class="star star-5"></view>
+    <view class="star star-6"></view>
+    <view class="star star-7"></view>
+    <view class="star star-8"></view>
+  </view>
+
+  <!-- 光晕动画 -->
+  <view class="glow-wrapper">
+    <view class="glow-circle glow-outer"></view>
+    <view class="glow-circle glow-mid"></view>
+    <view class="glow-circle glow-inner"></view>
+  </view>
+
+  <!-- 加载文字 -->
+  <view class="loading-text">{{loadingText}}</view>
+
+  <!-- 百分比 -->
+  <view class="progress-number">{{progress}}%</view>
+
+  <!-- 进度条 -->
+  <view class="progress-bar-bg">
+    <view class="progress-bar-fill" style="width: {{progress}}%"></view>
+    <view class="progress-bar-shine"></view>
+  </view>
+
+  <!-- 分析步骤列表 -->
+  <view class="steps-list">
+    <view
+      class="step-item {{item.status === 'done' ? 'step-done' : ''}} {{item.status === 'loading' ? 'step-loading' : ''}} {{item.status === 'waiting' ? 'step-waiting' : ''}}"
+      wx:for="{{steps}}"
+      wx:key="label"
+    >
+      <view class="step-icon">
+        <text wx:if="{{item.status === 'done'}}">✅</text>
+        <text wx:elif="{{item.status === 'loading'}}">⏳</text>
+        <text wx:else>○</text>
+      </view>
+      <view class="step-label">
+        {{item.label}}
+        <text wx:if="{{item.status === 'done'}}">完成</text>
+        <text wx:elif="{{item.status === 'loading'}}">中...</text>
+        <text wx:else>等待</text>
+      </view>
+    </view>
+  </view>
+</view>

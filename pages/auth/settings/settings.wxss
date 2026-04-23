@@ -1,0 +1,94 @@
+/* 设置页 - 深色渐变主题 */
+
+.page-scroll {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+}
+
+/* 设置分组 */
+.settings-group {
+  margin: 32rpx;
+}
+
+.group-title {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16rpx;
+  padding-left: 8rpx;
+}
+
+.settings-list {
+  background: rgba(255,255,255,0.05);
+  border-radius: 24rpx;
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.settings-item:last-child {
+  border-bottom: none;
+}
+
+.settings-label {
+  font-size: 28rpx;
+  color: #FFFFFF;
+}
+
+.settings-value {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.5);
+}
+
+.settings-arrow {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.4);
+}
+
+/* 退出使用 */
+.logout-btn {
+  margin: 64rpx 32rpx;
+  height: 96rpx;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid #FF6B6B !important;
+  border-radius: 24rpx;
+  color: #FF6B6B;
+  font-size: 30rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1.4;
+}
+
+.logout-btn::after {
+  border: none;
+}
+
+.logout-btn text {
+  color: #FF6B6B;
+  font-size: 30rpx;
+}
+
+/* 版本信息 */
+.version-info {
+  padding: 40rpx;
+  text-align: center;
+}
+
+.version-text {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.4);
+}
+
+/* 底部安全区域 */
+.bottom-space {
+  height: 120rpx;
+}

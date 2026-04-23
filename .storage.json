@@ -1,0 +1,19 @@
+{
+  "userProfile": {
+    "openId": "long-name-test",
+    "nickName": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "avatarUrl": "",
+    "gender": 0,
+    "province": "",
+    "city": "",
+    "birthDate": "",
+    "joinTime": 1776659323749,
+    "lastLoginTime": 1776659324749,
+    "preferences": {
+      "theme": "dark",
+      "notifications": true,
+      "privateProfile": false,
+      "language": "zh"
+    }
+  }
+}

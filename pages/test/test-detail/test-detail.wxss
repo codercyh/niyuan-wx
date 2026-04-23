@@ -1,0 +1,396 @@
+/* 测试详情页 - 深色渐变主题 */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+}
+
+/* 进度条 */
+.progress-container {
+  padding: 32rpx 40rpx;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.progress-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.progress-percentage {
+  font-size: 28rpx;
+  color: #FF6B35;
+  font-weight: 600;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background: rgba(255,255,255,0.1);
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B35 0%, #FF006E 100%);
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+/* 页面滚动 */
+.page-scroll {
+  flex: 1;
+  height: calc(100vh - 120rpx);
+}
+
+.questions-scroll {
+  height: 100vh;
+}
+
+/* 测试头部 */
+.test-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64rpx 40rpx;
+  background: linear-gradient(180deg, rgba(255,107,53,0.1) 0%, transparent 100%);
+}
+
+.test-emoji {
+  font-size: 112rpx;
+  margin-bottom: 24rpx;
+}
+
+.test-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 16rpx;
+}
+
+.test-badge {
+  font-size: 22rpx;
+  padding: 8rpx 24rpx;
+  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%);
+  color: #FFFFFF;
+  border-radius: 48rpx;
+  font-weight: 600;
+}
+
+/* 测试元信息 */
+.test-meta {
+  display: flex;
+  justify-content: center;
+  gap: 48rpx;
+  padding: 32rpx 40rpx;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.meta-icon {
+  font-size: 28rpx;
+}
+
+.meta-text {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.6);
+}
+
+/* 测试说明 */
+.test-description-box {
+  margin: 32rpx;
+  padding: 32rpx;
+  background: rgba(255,255,255,0.05);
+  border-radius: 32rpx;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.description-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 16rpx;
+}
+
+.description-text {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+}
+
+/* 测试标签 */
+.test-tags {
+  display: flex;
+  gap: 16rpx;
+  padding: 0 32rpx;
+  margin-bottom: 32rpx;
+  flex-wrap: wrap;
+}
+
+.test-tags .tag {
+  font-size: 22rpx;
+  padding: 8rpx 24rpx;
+  background: rgba(255,107,53,0.15);
+  color: #FF6B35;
+  border-radius: 48rpx;
+  border: 1px solid rgba(255,107,53,0.2);
+}
+
+/* 关于测试 */
+.test-about {
+  margin: 0 32rpx 32rpx;
+  padding: 32rpx;
+  background: rgba(255,255,255,0.05);
+  border-radius: 32rpx;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.about-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 16rpx;
+}
+
+.about-text {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+}
+
+/* 作答提示 */
+.test-tips {
+  margin: 0 32rpx 32rpx;
+  padding: 32rpx;
+  background: linear-gradient(135deg, rgba(255,215,61,0.15) 0%, rgba(255,107,53,0.1) 100%);
+  border-radius: 32rpx;
+  border: 1px solid rgba(255,215,61,0.2);
+}
+
+.tips-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FFD93D;
+  margin-bottom: 20rpx;
+}
+
+.tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.tips-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.7);
+}
+
+.tips-bullet {
+  color: #FFD93D;
+}
+
+/* 操作按钮 */
+.action-container {
+  padding: 32rpx;
+}
+
+.action-container button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100rpx;
+  border-radius: 50rpx;
+  padding: 0;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.action-container button::after {
+  border: none;
+}
+
+.action-container button text {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.btn-text {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+/* 答题操作按钮 */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+  margin-top: 40rpx;
+  gap: 24rpx;
+}
+
+.action-buttons button {
+  min-width: 160rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32rpx;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.action-buttons button::after {
+  border: none;
+}
+
+.action-buttons button text {
+  font-size: 28rpx;
+}
+
+/* 答题容器 */
+.answering-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+}
+
+/* 题目信息 */
+.question-header {
+  padding: 40rpx 32rpx 24rpx;
+}
+
+.question-number {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #FF6B35;
+}
+
+.question-type {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.5);
+}
+
+/* 题干 */
+.question-content {
+  margin: 0 32rpx 40rpx;
+  padding: 40rpx;
+  background: rgba(255,255,255,0.05);
+  border-radius: 32rpx;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.question-text {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 1.6;
+}
+
+/* 选项列表 */
+.options-container {
+  padding: 0 32rpx;
+}
+
+.option-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 24rpx;
+  padding: 32rpx;
+  background: rgba(255,255,255,0.05);
+  border-radius: 32rpx;
+  margin-bottom: 24rpx;
+  border: 4rpx solid transparent;
+  transition: all 0.3s ease;
+}
+
+.option-item.selected {
+  border-color: #FF6B35;
+  background: rgba(255,107,53,0.15);
+}
+
+.option-radio {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 4rpx;
+  transition: all 0.3s ease;
+}
+
+.option-item.selected .option-radio {
+  border-color: #FF6B35;
+  background: #FF6B35;
+}
+
+.radio-inner {
+  width: 16rpx;
+  height: 16rpx;
+  background: #FFFFFF;
+  border-radius: 50%;
+}
+
+.option-text {
+  font-size: 28rpx;
+  color: #FFFFFF;
+  line-height: 1.5;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+  margin-top: 40rpx;
+  gap: 24rpx;
+}
+
+.action-buttons button {
+  min-width: 160rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32rpx;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.action-buttons button::after {
+  border: none;
+}
+
+.action-buttons button text {
+  font-size: 28rpx;
+}
+
+.flex-spacer {
+  flex: 1;
+}
+
+/* 底部空白 */
+.bottom-space {
+  height: 120rpx;
+}

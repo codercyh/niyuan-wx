@@ -1,0 +1,120 @@
+<!-- 档案完整度引导页 -->
+<view class="page profile-guide-page">
+  <!-- 返回按钮 -->
+  <view class="header">
+    <button class="btn-back" bindtap="handleBack">
+      ‹ 返回
+    </button>
+  </view>
+
+  <!-- 进度卡片 -->
+  <view class="progress-card">
+    <text class="progress-title">档案完整度</text>
+    
+    <view class="progress-bar-wrapper">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{completionPercentage}}%"></view>
+      </view>
+      <text class="progress-text">{{completionPercentage}}%</text>
+    </view>
+
+    <text class="progress-desc">{{completionMessage}}</text>
+  </view>
+
+  <!-- 完整度项目列表 -->
+  <view class="items-section">
+    <text class="section-title">补充资料</text>
+
+    <!-- 头像 -->
+    <view class="completion-item" bindtap="{{missingFields.includes('avatarUrl') ? 'handleEditAvatar' : ''}}">
+      <view class="item-left">
+        <view class="item-icon {{missingFields.includes('avatarUrl') ? 'incomplete' : 'complete'}}">
+          {{missingFields.includes('avatarUrl') ? '○' : '✓'}}
+        </view>
+        <view class="item-info">
+          <text class="item-title">上传头像</text>
+          <text class="item-desc">上传头像，方便页面展示</text>
+        </view>
+      </view>
+      <text class="item-arrow {{missingFields.includes('avatarUrl') ? '' : 'done'}}">{{missingFields.includes('avatarUrl') ? '›' : '✓'}}</text>
+    </view>
+
+    <!-- 昵称 -->
+    <view class="completion-item" bindtap="{{missingFields.includes('nickName') ? 'handleEditProfile' : ''}}">
+      <view class="item-left">
+        <view class="item-icon {{missingFields.includes('nickName') ? 'incomplete' : 'complete'}}">
+          {{missingFields.includes('nickName') ? '○' : '✓'}}
+        </view>
+        <view class="item-info">
+          <text class="item-title">设置昵称</text>
+          <text class="item-desc">取一个独特的昵称，展示自己</text>
+        </view>
+      </view>
+      <text class="item-arrow {{missingFields.includes('nickName') ? '' : 'done'}}">{{missingFields.includes('nickName') ? '›' : '✓'}}</text>
+    </view>
+
+    <!-- 出生日期 -->
+    <view class="completion-item" bindtap="{{missingFields.includes('birthDate') ? 'handleEditProfile' : ''}}">
+      <view class="item-left">
+        <view class="item-icon {{missingFields.includes('birthDate') ? 'incomplete' : 'complete'}}">
+          {{missingFields.includes('birthDate') ? '○' : '✓'}}
+        </view>
+        <view class="item-info">
+          <text class="item-title">填写出生日期</text>
+          <text class="item-desc">用于测试结果计算与个性化展示</text>
+        </view>
+      </view>
+      <text class="item-arrow {{missingFields.includes('birthDate') ? '' : 'done'}}">{{missingFields.includes('birthDate') ? '›' : '✓'}}</text>
+    </view>
+
+    <!-- 城市 -->
+    <view class="completion-item" bindtap="{{missingFields.includes('city') ? 'handleEditProfile' : ''}}">
+      <view class="item-left">
+        <view class="item-icon {{missingFields.includes('city') ? 'incomplete' : 'complete'}}">
+          {{missingFields.includes('city') ? '○' : '✓'}}
+        </view>
+        <view class="item-info">
+          <text class="item-title">选择城市</text>
+          <text class="item-desc">用于补充资料展示</text>
+        </view>
+      </view>
+      <text class="item-arrow {{missingFields.includes('city') ? '' : 'done'}}">{{missingFields.includes('city') ? '›' : '✓'}}</text>
+    </view>
+  </view>
+
+  <!-- 完成状态 -->
+  <view wx:if="{{isComplete}}" class="complete-card">
+    <view class="complete-icon">🎉</view>
+    <text class="complete-title">档案完整</text>
+    <text class="complete-desc">当前资料已补充完成，现在可以继续查看首页内容</text>
+    
+    <button class="btn btn-primary btn-large" bindtap="handleGoHome">
+      进入首页
+    </button>
+  </view>
+
+  <!-- 未完成状态 -->
+  <view wx:else class="incomplete-card">
+    <view class="tips-title">📝 小贴士</view>
+    <view class="tips-list">
+      <text class="tips-item">完整的档案可以获得更准确的分析结果</text>
+      <text class="tips-item">相关信息仅用于当前页面展示和结果计算</text>
+      <text class="tips-item">随时可以返回编辑您的信息</text>
+    </view>
+
+    <button class="btn btn-primary btn-large" bindtap="handleStartCompleting">
+      {{completionPercentage === 0 ? '开始补充资料' : '继续补充资料'}}
+    </button>
+
+    <button class="btn btn-text" bindtap="handleSkip">
+      暂时跳过
+    </button>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-overlay">
+    <view class="spinner">
+      <view class="spinner-ring"></view>
+    </view>
+  </view>
+</view>

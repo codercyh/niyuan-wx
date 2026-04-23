@@ -1,0 +1,62 @@
+<!-- 进入页面 -->
+<view class="page auth-page">
+  <!-- 顶部装饰 -->
+  <view class="auth-header">
+    <view class="app-logo">
+      <text class="logo-icon">星</text>
+      <text class="logo-text">测</text>
+    </view>
+    <text class="logo-slogan">看看兴趣，做做测试，保存记录</text>
+  </view>
+
+  <!-- 进入区域 -->
+  <view class="auth-body">
+    <!-- 用户已保存状态 -->
+    <view wx:if="{{isLoggedIn}}" class="logged-in-section">
+      <view class="user-avatar-large">
+        <image src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+      </view>
+      <text class="user-name">{{userInfo.nickName}}</text>
+      <text class="user-id">当前状态已保存</text>
+      
+      <button class="btn btn-primary" bindtap="handleContinue">
+        继续使用
+      </button>
+      
+      <button class="btn btn-text" bindtap="handleLogout">
+        重新进入
+      </button>
+    </view>
+
+    <!-- 未保存状态 -->
+    <view wx:else class="login-section">
+      <view class="login-icon">👤</view>
+      
+      <text class="login-title">欢迎使用</text>
+      <text class="login-desc">进入后可查看兴趣内容、体验测试和保存记录</text>
+
+      <!-- 进入按钮 -->
+      <button class="btn btn-primary btn-large" 
+              bindtap="handleLogin">
+        <text class="btn-icon">🔐</text>
+        进入体验
+      </button>
+
+      <!-- 隐私说明 -->
+      <view class="privacy-section">
+        <text class="privacy-text">
+          继续即表示已阅读
+          <navigator url="/pages/privacy/privacy" class="link">隐私说明</navigator>
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-overlay">
+    <view class="spinner">
+      <view class="spinner-ring"></view>
+    </view>
+    <text class="loading-text">{{loadingText}}</text>
+  </view>
+</view>

@@ -1,0 +1,126 @@
+<!-- 测试详情 & 做题页面 -->
+<view class="page">
+  <!-- 顶部进度条 -->
+  <view class="progress-container" wx:if="{{isAnswering}}">
+    <view class="progress-info">
+      <text class="progress-text">{{currentQuestionIndex + 1}} / {{questions.length}}</text>
+      <text class="progress-percentage">{{(currentQuestionIndex + 1) / questions.length * 100}}%</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{(currentQuestionIndex + 1) / questions.length * 100}}%"></view>
+    </view>
+  </view>
+
+  <!-- 测试信息页面 -->
+  <scroll-view scroll-y class="page-scroll" wx:if="{{!isAnswering}}">
+    <view class="test-header">
+      <text class="test-emoji">{{testInfo.emoji}}</text>
+      <text class="test-title">{{testInfo.name}}</text>
+      <view class="test-badge" wx:if="{{testInfo.badge}}">{{testInfo.badge}}</view>
+    </view>
+
+    <view class="test-meta">
+      <view class="meta-item">
+        <text class="meta-icon">📝</text>
+        <text class="meta-text">{{questions.length}} 道题</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-icon">⏱️</text>
+        <text class="meta-text">{{testInfo.duration}} 分钟</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-icon">👥</text>
+        <text class="meta-text">{{testInfo.participantsText}} 人完成</text>
+      </view>
+    </view>
+
+    <view class="test-description-box">
+      <text class="description-title">测试说明</text>
+      <text class="description-text">{{testInfo.description}}</text>
+    </view>
+
+    <view class="test-tags" wx:if="{{testInfo.tags && testInfo.tags.length > 0}}">
+      <text class="tag" wx:for="{{testInfo.tags}}" wx:key="*this">{{item}}</text>
+    </view>
+
+    <view class="test-about">
+      <text class="about-title">关于本测试</text>
+      <text class="about-text">这是一个科学严谨的心理测试，通过你的选择来分析你的性格特征、心理状态或潜在能力。答题无对错，请真实反应你的想法，这样结果才会更准确。</text>
+    </view>
+
+    <view class="test-tips">
+      <text class="tips-title">💡 作答小贴士</text>
+      <view class="tips-list">
+        <view class="tips-item">
+          <text class="tips-bullet">•</text>
+          <text>选择最符合你真实想法的选项</text>
+        </view>
+        <view class="tips-item">
+          <text class="tips-bullet">•</text>
+          <text>第一反应往往是最真实的</text>
+        </view>
+        <view class="tips-item">
+          <text class="tips-bullet">•</text>
+          <text>可以随时暂停，进度会自动保存</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 开始测试按钮 -->
+    <view class="action-container">
+      <button class="btn btn-primary btn-large" bindtap="onStartTest">
+        <text class="btn-text">开始测试</text>
+      </button>
+    </view>
+
+    <view class="bottom-space"></view>
+  </scroll-view>
+
+  <!-- 做题页面 -->
+  <view class="answering-container" wx:if="{{isAnswering}}">
+    <scroll-view scroll-y class="questions-scroll">
+      <!-- 题目信息 -->
+      <view class="question-header">
+        <text class="question-number">第 {{currentQuestionIndex + 1}} 题</text>
+        <text class="question-type">/共 {{questions.length}} 题</text>
+      </view>
+
+      <!-- 题干 -->
+      <view class="question-content">
+        <text class="question-text">{{currentQuestion.question}}</text>
+      </view>
+
+      <!-- 选项列表 -->
+      <view class="options-container">
+        <view 
+          class="option-item {{currentAnswers[currentQuestionIndex] === index ? 'selected' : ''}}"
+          wx:for="{{currentQuestion.options}}"
+          wx:key="index"
+          bindtap="onSelectOption"
+          data-index="{{index}}"
+        >
+          <view class="option-radio">
+            <view class="radio-inner" wx:if="{{currentAnswers[currentQuestionIndex] === index}}"></view>
+          </view>
+          <text class="option-text">{{item.text || item}}</text>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="action-buttons">
+        <button class="btn btn-secondary" bindtap="onPreviousQuestion" wx:if="{{currentQuestionIndex > 0}}">
+          上一题
+        </button>
+        <view class="flex-spacer"></view>
+        <button class="btn btn-primary" bindtap="onNextQuestion" wx:if="{{currentQuestionIndex < questions.length - 1}}">
+          下一题
+        </button>
+        <button class="btn btn-success" bindtap="onSubmitTest" wx:if="{{currentQuestionIndex === questions.length - 1}}">
+          提交答案
+        </button>
+      </view>
+
+      <view class="bottom-space"></view>
+    </scroll-view>
+  </view>
+</view>

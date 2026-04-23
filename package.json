@@ -1,0 +1,11 @@
+{
+  "name": "niyuan-wx",
+  "version": "1.0.0",
+  "description": "WeChat mini program for Niyuan (niyuan-wx)",
+  "main": "auth.js",
+  "scripts": {
+    "test": "node tests/auth.test.js && node tests/user.test.js && node tests/image.test.js"
+  },
+  "author": "OpenClaw",
+  "license": "MIT"
+}

@@ -1,0 +1,128 @@
+<!-- 记录详情页面 -->
+<scroll-view scroll-y class="page-scroll">
+  <!-- 内容展示 -->
+  <view class="content-section">
+    <!-- 用户信息 -->
+    <view class="user-card">
+      <view class="user-header">
+        <text class="user-avatar">{{treeData.avatar}}</text>
+        <view class="user-info">
+          <text class="user-name">{{treeData.username}}</text>
+          <text class="user-time">{{treeData.time}}</text>
+        </view>
+      </view>
+      <view class="category-badge">{{treeData.categoryLabel}}</view>
+    </view>
+
+    <!-- 内容展示 -->
+    <view class="content-box">
+      <text class="content-text">{{treeData.content}}</text>
+    </view>
+
+    <!-- 统计信息 -->
+    <view class="stats-card">
+      <view class="stat-item">
+        <text class="stat-label">标记</text>
+        <text class="stat-value">{{treeData.likes}}</text>
+      </view>
+      <view class="divider"></view>
+      <view class="stat-item">
+        <text class="stat-label">补充</text>
+        <text class="stat-value">{{treeData.comments}}</text>
+      </view>
+      <view class="divider"></view>
+      <view class="stat-item">
+        <text class="stat-label">浏览</text>
+        <text class="stat-value">{{treeData.views}}</text>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button class="action-btn {{isLiked ? 'liked' : ''}}" bindtap="onToggleLike">
+        <text class="action-icon">{{isLiked ? '❤️' : '🤍'}}</text>
+        <text class="action-label">{{isLiked ? '已标记' : '标记'}}</text>
+      </button>
+      <button class="action-btn" bindtap="onShare">
+        <text class="action-icon">📤</text>
+        <text class="action-label">复制</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 分割线 -->
+  <view class="divider-full"></view>
+
+  <!-- 补充区 -->
+  <view class="comments-section">
+    <view class="section-title">
+      <text class="title-emoji">💬</text>
+      <text class="title-text">补充 {{comments.length}}</text>
+    </view>
+
+    <!-- 补充列表 -->
+    <view class="comments-list" wx:if="{{comments.length > 0}}">
+      <view class="comment-item" wx:for="{{comments}}" wx:key="id">
+        <!-- 主补充 -->
+        <view class="main-comment">
+          <text class="comment-avatar">{{item.avatar}}</text>
+          <view class="comment-content">
+            <view class="comment-header">
+              <text class="comment-name">{{item.username}}</text>
+              <text class="comment-time">{{item.time}}</text>
+            </view>
+            <text class="comment-text">{{item.content}}</text>
+            <view class="comment-footer">
+              <text class="comment-like {{item.liked ? 'liked' : ''}}" bindtap="onToggleCommentLike" data-id="{{item.id}}">
+                {{item.liked ? '❤️ ' : '🤍 '}}{{item.likes}}
+              </text>
+              <text class="comment-reply" bindtap="onReplyComment" data-id="{{item.id}}">补充</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 二级补充列表 -->
+        <view class="replies" wx:if="{{item.replies && item.replies.length > 0}}">
+          <view class="reply-item" wx:for="{{item.replies}}" wx:key="id">
+            <text class="reply-avatar">{{reply.avatar}}</text>
+            <view class="reply-content">
+              <view class="reply-header">
+                <text class="reply-name">{{reply.username}}</text>
+                <text class="reply-time">{{reply.time}}</text>
+              </view>
+              <text class="reply-text">{{reply.content}}</text>
+              <text class="reply-like {{reply.liked ? 'liked' : ''}}" bindtap="onToggleReplyLike" data-id="{{reply.id}}" data-parent="{{item.id}}">
+                {{reply.liked ? '❤️ ' : '🤍 '}}{{reply.likes}}
+              </text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 无补充状态 -->
+    <view class="no-comments" wx:if="{{comments.length === 0}}">
+      <text class="no-comments-emoji">💭</text>
+      <text class="no-comments-text">暂无补充内容，可以先记下你的想法</text>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+</scroll-view>
+
+<!-- 底部输入框 -->
+<view class="comment-input-bar">
+  <view class="input-container">
+    <input 
+      type="text" 
+      class="comment-input" 
+      placeholder="写下补充内容..."
+      value="{{commentText}}"
+      bindinput="onCommentInput"
+      placeholder-class="input-placeholder"
+    />
+    <button class="send-btn {{canSubmitComment ? 'active' : ''}}" bindtap="onPublishComment">
+      <text class="send-icon">📤</text>
+    </button>
+  </view>
+</view>

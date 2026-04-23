@@ -1,0 +1,77 @@
+<view class="poster-page">
+  <!-- 预览区域 -->
+  <view class="preview-section">
+    <view class="preview-card {{selectedStyle}}">
+      <!-- 搞怪风 -->
+      <view wx:if="{{selectedStyle === 'funny'}}" class="poster-funny">
+        <view class="stars-bg">
+          <view class="star" wx:for="{{8}}" wx:key="index"></view>
+        </view>
+        <view class="poster-content">
+          <text class="big-emoji">{{result.fateType.emoji || '✨'}}</text>
+          <view class="fate-name">「{{result.fateType.name || '命中注定'}}」</view>
+          <view class="fate-level" wx:if="{{result.level}}">{{result.level.level}}级 · {{result.level.label}}</view>
+          <view class="score-big">{{result.score}}</view>
+          <view class="names">{{result.personA.name}} {{result.zodiacA.emoji}} × {{result.personB.name}} {{result.zodiacB.emoji}}</view>
+          <view class="tagline">"{{result.fateType.tagline || '缘分天注定'}}"</view>
+          <view class="hashtags" wx:if="{{result.fateType.hashtags}}">{{result.fateType.hashtags[0] || ''}} {{result.fateType.hashtags[1] || ''}}</view>
+        </view>
+      </view>
+      
+      <!-- 文艺风 -->
+      <view wx:elif="{{selectedStyle === 'artistic'}}" class="poster-artistic">
+        <view class="artistic-header">
+          <text>所有的相遇</text>
+          <text>都是久别重逢</text>
+        </view>
+        <view class="divider-line"></view>
+        <view class="fate-name">「{{result.fateType.name || '命中注定'}}」</view>
+        <view class="names-simple">{{result.personA.name}} × {{result.personB.name}}</view>
+        <view class="score-artistic">{{result.score}}</view>
+        <view class="tagline">"{{result.fateType.tagline || '缘分天注定'}}"</view>
+      </view>
+      
+      <!-- 极简风 -->
+      <view wx:elif="{{selectedStyle === 'minimal'}}" class="poster-minimal">
+        <view class="names-minimal">{{result.personA.name}} & {{result.personB.name}}</view>
+        <view class="fate-name-minimal">「{{result.fateType.name || '命中注定'}}」</view>
+        <view class="score-minimal">{{result.score}}</view>
+        <view class="tagline-minimal">"{{result.fateType.tagline || '缘分天注定'}}"</view>
+      </view>
+      
+      <!-- 表情包风 -->
+      <view wx:elif="{{selectedStyle === 'meme'}}" class="poster-meme">
+        <text class="meme-emoji">{{result.fateType.emoji || '✨'}}</text>
+        <view class="fate-name-meme">「{{result.fateType.name || '命中注定'}}」</view>
+        <view class="score-meme">{{result.score}}分</view>
+        <view class="names-meme">{{result.personA.name}} × {{result.personB.name}}</view>
+        <view class="tagline-meme">"{{result.fateType.tagline || '缘分天注定'}}"</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 风格选择 -->
+  <view class="style-section">
+    <view class="style-title">选择风格</view>
+    <view class="style-list">
+      <view class="style-item {{selectedStyle === item.key ? 'style-selected' : ''}}" 
+        wx:for="{{posterStyles}}" wx:key="key"
+        data-style="{{item.key}}" bindtap="selectStyle">
+        <text class="style-emoji">{{item.emoji}}</text>
+        <text class="style-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button class="btn-save" bindtap="generatePoster" disabled="{{isGenerating}}">
+      {{isGenerating ? '生成中...' : '保存到相册'}}
+    </button>
+    <button class="btn-share" open-type="share">保存并分享</button>
+  </view>
+
+  <!-- Canvas 2D（隐藏，用于生成图片） -->
+  <canvas type="2d" id="posterCanvas" class="hidden-canvas" 
+    style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;"></canvas>
+</view>

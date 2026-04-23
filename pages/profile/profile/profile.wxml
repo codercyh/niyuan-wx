@@ -1,0 +1,112 @@
+<!-- 个人页面 -->
+<view class="profile-page">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <view class="avatar-section">
+      <!-- 未保存状态时显示设置按钮 -->
+      <block wx:if="{{!isLoggedIn}}">
+        <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+          <image class="avatar" src="{{userInfo.avatarUrl || '/assets/icons/me-active.png'}}" mode="aspectFill"></image>
+        </button>
+        <view class="user-info">
+          <input class="nickname-input" type="nickname" placeholder="点击设置昵称"
+            bind:blur="onInputNickname" bindconfirm="onInputNickname" />
+          <text class="join-date">点击设置头像和昵称</text>
+        </view>
+      </block>
+      <!-- 已保存显示用户信息 -->
+      <block wx:else>
+        <image class="avatar" src="{{userInfo.avatarUrl || '/assets/icons/me-active.png'}}" mode="aspectFill"></image>
+        <view class="user-info">
+          <text class="nickname">{{userInfo.nickName || '用户'}}</text>
+          <text class="join-date">已使用 {{daysJoined}} 天</text>
+        </view>
+      </block>
+    </view>
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-num">{{testCount}}</text>
+        <text class="stat-label">心理测试</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{fateCount}}</text>
+        <text class="stat-label">缘分测试</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{avgScore}}</text>
+        <text class="stat-label">平均得分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 缘分测试历史 -->
+  <view class="section" wx:if="{{fateHistory.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">💕 最近缘分测试</text>
+      <text class="section-more" bindtap="onGoToHistory">查看全部 ></text>
+    </view>
+    <view class="fate-history-list">
+      <view class="fate-history-item" wx:for="{{fateHistory}}" wx:key="id" bindtap="onViewFateResult" data-id="{{item.id}}">
+        <view class="fate-names-row">
+          <text class="fate-pair">{{item.nameA}} × {{item.nameB}}</text>
+          <text class="fate-level {{item.levelClass}}">{{item.level}}级</text>
+        </view>
+        <view class="fate-score-row">
+          <text class="fate-big-score">{{item.score}}</text>
+          <text class="fate-type-name">{{item.fateType}}</text>
+        </view>
+        <text class="fate-time">{{item.date}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 心理测试历史 -->
+  <view class="section" wx:if="{{testHistory.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">🧪 最近心理测试</text>
+      <text class="section-more" bindtap="onGoToHistory">查看全部 ></text>
+    </view>
+    <view class="history-list">
+      <view class="history-item" wx:for="{{testHistory}}" wx:key="id" bindtap="onViewTestResult" data-id="{{item.id}}">
+        <text class="history-emoji">{{item.emoji}}</text>
+        <view class="history-info">
+          <text class="history-name">{{item.name}}</text>
+          <text class="history-date">{{item.date}}</text>
+        </view>
+        <text class="history-score">{{item.score}}分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-section">
+    <view class="menu-item" bindtap="onGoToHistory">
+      <text class="menu-icon">📋</text>
+      <text class="menu-text">全部记录</text>
+      <text class="menu-arrow">></text>
+    </view>
+    <view class="menu-item" bindtap="onGoToFate">
+      <text class="menu-icon">💕</text>
+      <text class="menu-text">缘分测试</text>
+      <text class="menu-arrow">></text>
+    </view>
+    <view class="menu-item" bindtap="onGoToSettings">
+      <text class="menu-icon">⚙️</text>
+      <text class="menu-text">设置</text>
+      <text class="menu-arrow">></text>
+    </view>
+    <view class="menu-item" bindtap="onFeedback">
+      <text class="menu-icon">💬</text>
+      <text class="menu-text">意见反馈</text>
+      <text class="menu-arrow">></text>
+    </view>
+  </view>
+
+  <!-- 退出使用 -->
+  <view class="logout-section" wx:if="{{isLoggedIn}}">
+    <button class="logout-btn" bindtap="onLogout">退出使用</button>
+  </view>
+
+  <!-- 底部间距 -->
+  <view class="bottom-space"></view>
+</view>

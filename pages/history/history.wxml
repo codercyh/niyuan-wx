@@ -1,0 +1,95 @@
+<view class="page">
+  <view class="header">
+    <text class="title">测试记录</text>
+    <text class="subtitle">你的测试历史</text>
+  </view>
+
+  <!-- Tab 切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'test' ? 'tab-active' : ''}}" 
+      data-tab="test" bindtap="switchTab">
+      <text class="tab-icon">🧪</text>
+      <text class="tab-label">心理测试</text>
+      <text class="tab-count">{{testRecords.length}}</text>
+    </view>
+    <view class="tab-item {{activeTab === 'fate' ? 'tab-active' : ''}}" 
+      data-tab="fate" bindtap="switchTab">
+      <text class="tab-icon">💕</text>
+      <text class="tab-label">缘分测试</text>
+      <text class="tab-count">{{fateRecords.length}}</text>
+    </view>
+  </view>
+
+  <!-- 心理测试记录 -->
+  <block wx:if="{{activeTab === 'test'}}">
+    <block wx:if="{{testRecords.length === 0}}">
+      <view class="empty-state">
+        <text class="empty-emoji">🧪</text>
+        <text class="empty-text">还没有心理测试记录</text>
+        <text class="empty-sub">去体验一次测试吧</text>
+        <button class="empty-btn" bindtap="goToTests">去测试</button>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="history-list">
+        <view class="history-card" wx:for="{{testRecords}}" wx:key="id" bindtap="viewTestDetail" data-id="{{item.id}}">
+          <view class="history-header">
+            <view class="history-emoji">{{item.emoji}}</view>
+            <view class="history-info">
+              <text class="history-name">{{item.testName}}</text>
+              <text class="history-date">{{item.completedAt}}</text>
+            </view>
+          </view>
+          <view class="history-result">
+            <text class="result-title">{{item.resultTitle}}</text>
+            <text class="result-emoji">{{item.resultEmoji}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </block>
+
+  <!-- 缘分测试记录 -->
+  <block wx:if="{{activeTab === 'fate'}}">
+    <block wx:if="{{fateRecords.length === 0}}">
+      <view class="empty-state">
+        <text class="empty-emoji">💕</text>
+        <text class="empty-text">还没有缘分测试记录</text>
+        <text class="empty-sub">测测你和TA的缘分</text>
+        <button class="empty-btn" bindtap="goToFate">去测试</button>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="fate-list">
+        <view class="fate-card" wx:for="{{fateRecords}}" wx:key="id" bindtap="viewFateDetail" data-id="{{item.id}}">
+          <view class="fate-header">
+            <view class="fate-names">
+              <text class="fate-name">{{item.personA.name}}</text>
+              <text class="fate-x">×</text>
+              <text class="fate-name">{{item.personB.name}}</text>
+            </view>
+            <text class="fate-date">{{item.completedAt}}</text>
+          </view>
+          <view class="fate-body">
+            <view class="fate-score-wrap">
+              <text class="fate-score">{{item.score}}</text>
+              <text class="fate-level">{{item.level}}级</text>
+            </view>
+            <view class="fate-info">
+              <view class="fate-zodiacs">
+                <text class="zodiac-tag">{{item.personA.zodiac}}</text>
+                <text class="zodiac-tag">{{item.personB.zodiac}}</text>
+              </view>
+              <text class="fate-type">{{item.fateType}}</text>
+            </view>
+          </view>
+          <view class="fate-relation">
+            <text class="relation-tag {{item.relation}}">{{item.relationLabel}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </block>
+</view>

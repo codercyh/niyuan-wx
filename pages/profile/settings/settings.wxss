@@ -1,0 +1,119 @@
+/* 设置页面样式 - 深色渐变主题 */
+
+page {
+  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+}
+
+.page-scroll {
+  display: flex;
+  flex-direction: column;
+  padding: 32rpx 0;
+}
+
+/* 分段 */
+.section {
+  margin-bottom: 32rpx;
+}
+
+.section-title {
+  padding: 24rpx 32rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: rgba(255,255,255,0.6);
+  background: transparent;
+}
+
+/* 设置项 */
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  background: rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-item:active {
+  background: rgba(255,255,255,0.08);
+}
+
+.setting-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  flex: 1;
+}
+
+.label-main {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.label-sub {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+}
+
+/* 切换开关 */
+.toggle {
+  width: 96rpx;
+  height: 56rpx;
+  border-radius: 28rpx;
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  padding: 4rpx;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.toggle.active {
+  background: linear-gradient(90deg, #FF6B35 0%, #FF006E 100%);
+  border-color: transparent;
+}
+
+.toggle-circle {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.toggle.active .toggle-circle {
+  transform: translateX(40rpx);
+}
+
+/* 箭头 */
+.arrow {
+  font-size: 36rpx;
+  color: rgba(255,255,255,0.4);
+  margin-left: 24rpx;
+  flex-shrink: 0;
+}
+
+/* 值显示 */
+.value-text {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+  margin-left: 24rpx;
+  flex-shrink: 0;
+}
+
+/* 底部占位 */
+.bottom-space {
+  height: 40rpx;
+  flex-shrink: 0;
+}

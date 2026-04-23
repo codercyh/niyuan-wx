@@ -1,0 +1,103 @@
+<!-- 测试列表页面 -->
+<view class="page">
+  <!-- 顶部搜索栏 -->
+  <view class="search-container">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="搜索测试..." 
+        bindinput="onSearchInput"
+        value="{{searchText}}"
+      />
+      <text class="clear-btn" wx:if="{{searchText}}" bindtap="onClearSearch">✕</text>
+    </view>
+  </view>
+
+  <!-- 分类Tab -->
+  <scroll-view scroll-x class="category-scroll">
+    <view class="category-list">
+      <view 
+        class="category-item {{activeCategory === item.id ? 'active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="id"
+        bindtap="onCategoryChange"
+        data-id="{{item.id}}"
+      >
+        <text class="category-emoji">{{item.emoji}}</text>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 测试列表 -->
+  <scroll-view scroll-y class="test-list-container">
+    <!-- 排序选项 -->
+    <view class="sort-container">
+      <view class="sort-item {{sortBy === 'hot' ? 'active' : ''}}" bindtap="onSortChange" data-sort="hot">
+        <text class="sort-icon">🔥</text> 热门
+      </view>
+      <view class="sort-item {{sortBy === 'new' ? 'active' : ''}}" bindtap="onSortChange" data-sort="new">
+        <text class="sort-icon">⭐</text> 最新
+      </view>
+      <view class="sort-item {{sortBy === 'rating' ? 'active' : ''}}" bindtap="onSortChange" data-sort="rating">
+        <text class="sort-icon">💯</text> 评分
+      </view>
+    </view>
+
+    <!-- 测试卡片列表 -->
+    <view class="test-cards">
+      <view class="test-card" wx:for="{{filteredTests}}" wx:key="id" bindtap="onOpenTest" data-id="{{item.id}}">
+        <view class="test-card-header">
+          <view class="test-emoji">{{item.emoji}}</view>
+          <view class="test-info">
+            <text class="test-name">{{item.name}}</text>
+            <text class="test-category">{{item.category}}</text>
+          </view>
+          <view class="test-stats">
+            <view class="stat-item">
+              <text class="stat-value">{{item.participantsText}}</text>
+              <text class="stat-label">人做过</text>
+            </view>
+          </view>
+        </view>
+
+        <text class="test-description">{{item.description}}</text>
+
+        <view class="test-card-footer">
+          <view class="test-tags">
+            <text class="tag" wx:for="{{item.tags}}" wx:key="*this">{{item}}</text>
+          </view>
+          <view class="test-action">
+            <view class="rating">
+              <text class="star">⭐</text>
+              <text class="rating-value">{{item.rating}}</text>
+            </view>
+            <text class="arrow">›</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore}}" bindtap="onLoadMore">
+      <text>点击加载更多</text>
+    </view>
+
+    <!-- 没有更多 -->
+    <view class="no-more" wx:if="{{!hasMore && tests.length > 0}}">
+      <text>没有更多测试了</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{tests.length === 0}}">
+      <text class="empty-icon">🔍</text>
+      <text class="empty-text">没有找到相关测试</text>
+      <text class="empty-hint">换个关键词试试</text>
+    </view>
+
+    <!-- 底部占位 -->
+    <view class="bottom-space"></view>
+  </scroll-view>
+</view>

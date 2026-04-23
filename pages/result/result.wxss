@@ -1,0 +1,367 @@
+/* 缘分结果页 - 深色渐变主题 */
+
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+  padding: 0 32rpx 80rpx;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  padding: 48rpx 0 40rpx;
+}
+
+.emoji-top {
+  font-size: 80rpx;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.title {
+  font-size: 44rpx;
+  font-weight: 700;
+  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.subtitle {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+  display: block;
+}
+
+.avatar-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48rpx;
+  margin-bottom: 40rpx;
+}
+
+.avatar-item {
+  text-align: center;
+}
+
+.avatar-circle {
+  width: 144rpx;
+  height: 144rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16rpx;
+  border: 4rpx solid rgba(255,255,255,0.2);
+  box-shadow: 0 8rpx 32rpx rgba(255,107,53,0.3);
+}
+
+.avatar-circle text {
+  font-size: 56rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.avatar-name {
+  font-size: 28rpx;
+  color: #FFFFFF;
+  font-weight: 600;
+  display: block;
+}
+
+.avatar-interest {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+  display: block;
+  margin-top: 4rpx;
+}
+
+.vs-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vs-text {
+  font-size: 48rpx;
+  color: rgba(255,255,255,0.4);
+}
+
+.result-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 32rpx;
+  padding: 48rpx 40rpx;
+  margin-bottom: 24rpx;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.result-label {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+
+.risk-tag {
+  padding: 8rpx 24rpx;
+  border-radius: 48rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.index-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin: 16rpx 0;
+}
+
+.index-number {
+  font-size: 144rpx;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.index-suffix {
+  font-size: 48rpx;
+  color: rgba(255,255,255,0.6);
+  margin-left: 8rpx;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin: 40rpx 0;
+}
+
+.match-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.match-item {
+  text-align: center;
+  flex: 1;
+}
+
+.match-value {
+  font-size: 44rpx;
+  font-weight: 700;
+  display: block;
+}
+
+.match-label {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+  display: block;
+  margin-top: 8rpx;
+}
+
+.match-divider {
+  width: 1px;
+  height: 80rpx;
+  background: rgba(255,255,255,0.1);
+}
+
+.summary-card {
+  background: linear-gradient(135deg, rgba(255,215,61,0.15) 0%, rgba(255,107,53,0.1) 100%);
+  border-radius: 32rpx;
+  padding: 32rpx 40rpx;
+  margin-bottom: 24rpx;
+  border: 1px solid rgba(255,215,61,0.2);
+}
+
+.summary-text {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+}
+
+.detail-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 32rpx;
+  padding: 40rpx 36rpx;
+  margin-bottom: 24rpx;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.detail-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 28rpx;
+  display: block;
+}
+
+.detail-section {
+  margin-bottom: 28rpx;
+}
+
+.section-title {
+  font-size: 26rpx;
+  color: #FF6B35;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.section-text {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
+  display: block;
+}
+
+.advice-card {
+  background: linear-gradient(135deg, rgba(0,217,191,0.15) 0%, rgba(0,255,135,0.1) 100%);
+  border-radius: 32rpx;
+  padding: 40rpx 36rpx;
+  margin-bottom: 24rpx;
+  border: 1px solid rgba(0,217,191,0.2);
+}
+
+.advice-item {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.advice-num {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00D9BF 0%, #00FF87 100%);
+  color: #333333;
+  font-size: 22rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.advice-text {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.action-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.btn-share {
+  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%) !important;
+  border-radius: 32rpx;
+  padding: 32rpx;
+  color: white !important;
+  font-size: 30rpx;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 8rpx 28rpx rgba(255,107,53,0.3);
+  border: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.btn-share::after {
+  border: none;
+}
+
+.btn-share text {
+  color: #FFFFFF;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.btn-retry {
+  background: rgba(255,255,255,0.05) !important;
+  border: 2rpx solid rgba(255,255,255,0.2) !important;
+  border-radius: 32rpx;
+  padding: 28rpx;
+  color: #FF6B35 !important;
+  font-size: 28rpx;
+  font-weight: 500;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.btn-retry::after {
+  border: none;
+}
+
+.btn-retry text {
+  color: #FF6B35;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.pay-hint {
+  background: rgba(255,255,255,0.05);
+  border: 2rpx solid rgba(255,185,70,0.3);
+  border-radius: 32rpx;
+  padding: 40rpx 36rpx;
+  display: flex;
+  gap: 28rpx;
+  align-items: flex-start;
+}
+
+.pay-emoji {
+  font-size: 56rpx;
+  flex-shrink: 0;
+}
+
+.pay-content {
+  flex: 1;
+}
+
+.pay-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FFB946;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.pay-desc {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.6);
+  display: block;
+  margin-bottom: 24rpx;
+}
+
+.pay-btn {
+  background: linear-gradient(135deg, #FFB946 0%, #FFD56B 100%);
+  border-radius: 48rpx;
+  padding: 20rpx 40rpx;
+  color: #5D4037;
+  font-size: 28rpx;
+  font-weight: 600;
+  text-align: center;
+}
+
+.bottom-space {
+  height: 80rpx;
+}

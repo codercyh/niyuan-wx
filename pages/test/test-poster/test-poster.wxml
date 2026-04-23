@@ -1,0 +1,79 @@
+<view class="poster-page">
+  <!-- 预览区域 -->
+  <view class="preview-section">
+    <view class="preview-card {{selectedStyle}}">
+      <!-- 搞怪风 -->
+      <view wx:if="{{selectedStyle === 'funny'}}" class="poster-funny">
+        <view class="stars-bg">
+          <view class="star" wx:for="{{8}}" wx:key="index"></view>
+        </view>
+        <view class="poster-content">
+          <text class="big-emoji">{{result.emoji || '🎯'}}</text>
+          <view class="result-title">「{{result.title || result.type || '测试完成'}}」</view>
+          <view class="score-big" wx:if="{{result.score !== undefined}}">{{result.score}}</view>
+          <view class="test-name">{{testName}}</view>
+          <view class="description" wx:if="{{result.description}}">{{result.description}}</view>
+          <view class="traits" wx:if="{{result.traits}}">
+            <text wx:for="{{result.traits}}" wx:for-index="key" wx:for-item="value" wx:key="key">{{key}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 文艺风 -->
+      <view wx:elif="{{selectedStyle === 'artistic'}}" class="poster-artistic">
+        <view class="artistic-header">
+          <text>认识自己</text>
+          <text>是智慧的开端</text>
+        </view>
+        <view class="divider-line"></view>
+        <view class="result-title">「{{result.title || result.type || '测试完成'}}」</view>
+        <view class="test-name-artistic">{{testName}}</view>
+        <view class="score-artistic" wx:if="{{result.score !== undefined}}">{{result.score}}</view>
+        <view class="description" wx:if="{{result.description}}">{{result.description}}</view>
+      </view>
+      
+      <!-- 极简风 -->
+      <view wx:elif="{{selectedStyle === 'minimal'}}" class="poster-minimal">
+        <view class="test-name-minimal">{{testName}}</view>
+        <view class="result-title-minimal">「{{result.title || result.type || '测试完成'}}」</view>
+        <view class="score-minimal" wx:if="{{result.score !== undefined}}">{{result.score}}</view>
+        <view class="description-minimal" wx:if="{{result.description}}">"{{result.description}}"</view>
+      </view>
+      
+      <!-- 表情包风 -->
+      <view wx:elif="{{selectedStyle === 'meme'}}" class="poster-meme">
+        <text class="meme-emoji">{{result.emoji || '🎯'}}</text>
+        <view class="result-title-meme">「{{result.title || result.type || '测试完成'}}」</view>
+        <view class="score-meme" wx:if="{{result.score !== undefined}}">{{result.score}}分</view>
+        <view class="test-name-meme">{{testName}}</view>
+        <view class="description-meme" wx:if="{{result.description}}">{{result.description}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 风格选择 -->
+  <view class="style-section">
+    <view class="style-title">选择风格</view>
+    <view class="style-list">
+      <view class="style-item {{selectedStyle === item.key ? 'style-selected' : ''}}" 
+        wx:for="{{posterStyles}}" wx:key="key"
+        data-style="{{item.key}}" bindtap="selectStyle">
+        <text class="style-emoji">{{item.emoji}}</text>
+        <text class="style-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button class="btn-save" bindtap="generatePoster" disabled="{{isGenerating}}">
+      {{isGenerating ? '生成中...' : '保存到相册'}}
+    </button>
+    <button class="btn-share" open-type="share">保存并分享</button>
+    <button class="btn-back" bindtap="onBack">返回</button>
+  </view>
+
+  <!-- Canvas 2D（隐藏，用于生成图片） -->
+  <canvas type="2d" id="posterCanvas" class="hidden-canvas" 
+    style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;"></canvas>
+</view>

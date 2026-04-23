@@ -1,0 +1,186 @@
+.page {
+  min-height: 100vh;
+  background: #0F0C29;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 60rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 星点装饰 */
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 4rpx;
+  height: 4rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.star-1 { top: 8%; left: 15%; animation-delay: 0s; }
+.star-2 { top: 12%; right: 20%; animation-delay: 0.5s; width: 6rpx; height: 6rpx; }
+.star-3 { top: 25%; left: 80%; animation-delay: 1s; }
+.star-4 { top: 35%; left: 10%; animation-delay: 1.5s; width: 5rpx; height: 5rpx; }
+.star-5 { top: 60%; right: 12%; animation-delay: 0.8s; }
+.star-6 { top: 75%; left: 25%; animation-delay: 2s; width: 6rpx; height: 6rpx; }
+.star-7 { top: 85%; right: 30%; animation-delay: 0.3s; }
+.star-8 { top: 45%; left: 50%; animation-delay: 1.2s; width: 3rpx; height: 3rpx; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* 光晕动画 */
+.glow-wrapper {
+  position: relative;
+  width: 280rpx;
+  height: 280rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60rpx;
+}
+
+.glow-circle {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.glow-outer {
+  width: 280rpx;
+  height: 280rpx;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.2) 0%, transparent 70%);
+  animation: pulse 2s ease-in-out infinite;
+  animation-delay: 0.4s;
+}
+
+.glow-mid {
+  width: 220rpx;
+  height: 220rpx;
+  background: radial-gradient(circle, rgba(255, 0, 110, 0.3) 0%, transparent 70%);
+  animation: pulse 2s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+
+.glow-inner {
+  width: 160rpx;
+  height: 160rpx;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.5) 0%, transparent 70%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+/* 加载文字 */
+.loading-text {
+  font-size: 32rpx;
+  color: #FFFFFF;
+  margin-bottom: 24rpx;
+  letter-spacing: 2rpx;
+}
+
+/* 百分比数字 */
+.progress-number {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #FFFFFF;
+  margin-bottom: 20rpx;
+}
+
+/* 进度条 */
+.progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 60rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #FF6B35, #FF006E);
+  transition: width 80ms linear;
+  position: relative;
+}
+
+.progress-bar-shine {
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shine 1.5s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0% { left: -40%; }
+  100% { left: 140%; }
+}
+
+/* 分析步骤列表 */
+.steps-list {
+  width: 100%;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+}
+
+.step-icon {
+  width: 48rpx;
+  font-size: 28rpx;
+  margin-right: 16rpx;
+  text-align: center;
+}
+
+.step-label {
+  font-size: 28rpx;
+}
+
+/* 状态样式 */
+.step-done .step-label {
+  color: #FFFFFF;
+}
+
+.step-loading .step-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.step-loading .step-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.step-waiting .step-label {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.step-waiting .step-icon {
+  color: rgba(255, 255, 255, 0.3);
+}

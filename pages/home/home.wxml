@@ -1,0 +1,77 @@
+<view class="home-page">
+  <!-- 状态栏占位 -->
+  <view class="status-bar"></view>
+
+  <!-- 滚动内容区 -->
+  <scroll-view class="home-scroll" scroll-y scroll-with-animation>
+    <!-- 个性化问候头部 -->
+    <view class="greeting-header">
+      <view class="greeting-user" bindtap="onGetUserInfo">
+        <view class="user-avatar">
+          <image src="{{userInfo.avatarUrl || '/assets/icons/me-active.png'}}" mode="aspectFill" class="avatar-img" />
+        </view>
+        <view class="greeting-text">
+          <text class="greeting-main">{{greeting.text}}，{{userInfo.nickName || '小可爱'}} 👋</text>
+          <text class="greeting-sub">{{greeting.subtext}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 快捷入口 -->
+    <view class="quick-actions">
+      <view class="action-item" bindtap="navigateToModule" data-module="fate">
+        <view class="action-icon">💕</view>
+        <text class="action-title">缘分测试</text>
+      </view>
+      <view class="action-item" bindtap="navigateToModule" data-module="test">
+        <view class="action-icon">🧪</view>
+        <text class="action-title">心理测试</text>
+      </view>
+      <view class="action-item" bindtap="navigateToModule" data-module="history">
+        <view class="action-icon">📋</view>
+        <text class="action-title">测试记录</text>
+      </view>
+    </view>
+
+    <!-- 推荐测试区 -->
+    <view class="recommend-section">
+      <view class="section-header">
+        <text class="section-title">热门测试</text>
+        <view class="section-more" bindtap="onViewMoreTests">
+          更多 >
+        </view>
+      </view>
+
+      <!-- 测试卡片 -->
+      <view class="test-list">
+        <view class="test-card" wx:for="{{hotTests}}" wx:key="id" bindtap="navigateToTest" data-testid="{{item.id}}">
+          <view class="test-card-header">
+            <view class="test-emoji-wrap">
+              <text class="test-emoji">{{item.emoji}}</text>
+            </view>
+            <view class="test-header-info">
+              <view class="test-name-row">
+                <text class="test-name">{{item.name}}</text>
+                <text class="test-badge" wx:if="{{item.badge}}">{{item.badge}}</text>
+              </view>
+              <text class="test-desc">{{item.description}}</text>
+            </view>
+          </view>
+          <view class="test-footer">
+            <view class="test-meta">
+              <text class="test-people">👥 {{item.participantsText}}人参与</text>
+              <text class="test-time">⏱️ {{item.duration}}分钟</text>
+            </view>
+            <view class="test-rating">
+              <text class="rating-star">⭐</text>
+              <text class="rating-value">{{item.rating}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部空白区 -->
+    <view class="home-bottom-spacer"></view>
+  </scroll-view>
+</view>

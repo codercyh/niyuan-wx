@@ -1,0 +1,305 @@
+/* 测试结果页 - 深色渐变主题 */
+
+.page-scroll {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+}
+
+/* 结果头部 */
+.result-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 40rpx 48rpx;
+}
+
+.result-emoji {
+  font-size: 128rpx;
+  margin-bottom: 24rpx;
+}
+
+.result-type {
+  font-size: 52rpx;
+  font-weight: 700;
+  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.result-test-name {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.5);
+  margin-top: 12rpx;
+}
+
+/* 分数展示 */
+.score-container {
+  padding: 40rpx;
+}
+
+.score-display {
+  display: flex;
+  justify-content: center;
+}
+
+.score-chart {
+  position: relative;
+  width: 280rpx;
+  height: 280rpx;
+}
+
+.score-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.score-number {
+  font-size: 84rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.score-unit {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.6);
+}
+
+.score-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* 结果描述卡片 */
+.description-card,
+.details-card,
+.info-card,
+.recommend-card {
+  margin: 0 32rpx 24rpx;
+  padding: 32rpx;
+  background: rgba(255,255,255,0.05);
+  border-radius: 32rpx;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 24rpx;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.card-more {
+  font-size: 24rpx;
+  color: #FF6B35;
+}
+
+/* 描述内容 */
+.description-content {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+  padding: 24rpx;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20rpx;
+}
+
+/* 详细数据 */
+.details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.detail-key {
+  width: 100rpx;
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+
+.detail-bar {
+  flex: 1;
+  height: 16rpx;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.detail-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B35 0%, #FF006E 100%);
+  border-radius: 8rpx;
+}
+
+.detail-value {
+  width: 60rpx;
+  text-align: right;
+  font-size: 26rpx;
+  color: #FF6B35;
+  font-weight: 600;
+}
+
+/* 信息卡片 */
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.6);
+}
+
+.info-value {
+  font-size: 26rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+/* 操作按钮 */
+.action-container {
+  padding: 40rpx 32rpx;
+}
+
+.btn-row {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 24rpx;
+}
+
+.btn-half {
+  flex: 1;
+}
+
+.btn-block {
+  width: 100%;
+  height: 92rpx;
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  font-size: 30rpx;
+  padding: 0;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.btn-block::after {
+  border: none;
+}
+
+.btn-block text {
+  font-size: 30rpx;
+  line-height: 1.4;
+}
+
+.btn-icon {
+  font-size: 32rpx;
+  margin-right: 8rpx;
+}
+
+/* 推荐列表 */
+.recommend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.recommend-item {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 24rpx;
+  background: rgba(255,255,255,0.05);
+  border-radius: 24rpx;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease;
+}
+
+.recommend-item:active {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,107,53,0.3);
+}
+
+.recommend-emoji {
+  font-size: 56rpx;
+  flex-shrink: 0;
+}
+
+.recommend-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.recommend-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.recommend-desc {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 360rpx;
+}
+
+.recommend-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8rpx;
+}
+
+.recommend-people {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.4);
+}
+
+.recommend-arrow {
+  font-size: 36rpx;
+  color: rgba(255,255,255,0.4);
+}
+
+/* 底部空白 */
+.bottom-space {
+  height: 120rpx;
+}
