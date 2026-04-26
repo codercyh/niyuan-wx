@@ -278,6 +278,55 @@ exportTime: new Date().toISOString(),
 };
 }
 
+/**
+* 是否曾经发生过单次付费（用于"已付费用户专属优惠"UI 触发）
+*
+* @returns {boolean}
+*/
+function hasPaidOnce() {
+return !!storage.getStorage('hasPaidOnce');
+}
+
+/**
+* 标记用户已发生过单次付费
+*
+* @returns {boolean} 操作是否成功
+*/
+function markPaidOnce() {
+storage.setStorage('hasPaidOnce', true);
+return true;
+}
+
+/**
+* 是否为有效会员
+*
+* @returns {boolean}
+*/
+function isVipMember() {
+const vip = storage.getStorage('vipMember');
+if (!vip) return false;
+// 兼容简单布尔标记
+if (vip === true) return true;
+// 兼容 { expireAt: timestamp } 结构
+if (vip && typeof vip === 'object' && vip.expireAt) {
+  return Date.now() < vip.expireAt;
+}
+return false;
+}
+
+/**
+* 标记/激活会员
+*
+* @param {object} [opts] - { months: 1 }
+* @returns {object} 会员信息
+*/
+function markVipMember(opts) {
+const months = (opts && opts.months) || 1;
+const info = { activatedAt: Date.now(), expireAt: Date.now() + months * 30 * 24 * 60 * 60 * 1000 };
+storage.setStorage('vipMember', info);
+return info;
+}
+
 module.exports = {
 createUserProfile,
 getUserProfile,
@@ -291,4 +340,8 @@ getUserDaysSinceJoin,
 checkProfileCompleteness,
 deleteUserProfile,
 exportUserData,
+hasPaidOnce,
+markPaidOnce,
+isVipMember,
+markVipMember,
 };

@@ -20,82 +20,226 @@
     </view>
   </view>
 
-  <!-- 结果描述 -->
-  <view class="description-card">
-    <view class="card-title">📋 结果解读</view>
-    <view class="description-content">
-      <text>{{result.description || '感谢完成测试！'}}</text>
-    </view>
-  </view>
+  <!-- ============ 场景1：未解锁视图 ============ -->
+  <view wx:if="{{!unlocked}}" class="unlock-section">
+    <view class="unlock-title">🔒 解锁完整解读</view>
+    <view class="unlock-desc">包含：详细分析、性格画像、专属建议</view>
 
-  <!-- 详细信息（如果有） -->
-  <view class="details-card" wx:if="{{result.details || result.traits}}">
-    <view class="card-title">📊 详细数据</view>
-    <view class="details-content">
-      <view class="detail-item" wx:for="{{result.details || result.traits}}" wx:for-index="key" wx:for-item="value" wx:key="key">
-        <text class="detail-key">{{key}}</text>
-        <view class="detail-bar">
-          <view class="detail-fill" style="width: {{value * 10}}%"></view>
+    <view wx:if="{{hasPaidOnce}}" class="vip-hint">
+      <view class="vip-hint-icon">💡</view>
+      <view class="vip-hint-title">已付费用户专属优惠</view>
+      <view class="vip-hint-desc">
+        你上次花了 <text class="vip-hint-highlight">¥9.9</text>{{'\n'}}
+        开通会员仅再加 <text class="vip-hint-highlight">¥10</text> = 无限测试！
+      </view>
+    </view>
+
+    <view class="unlock-buttons">
+      <view class="btn-ad" bindtap="onWatchAd">
+        <view class="btn-ad-title">
+          <text>📺 看广告解锁</text>
+          <text class="btn-ad-tag">免费</text>
         </view>
-        <text class="detail-value">{{value}}</text>
+        <text class="btn-ad-arrow">→</text>
+      </view>
+
+      <view class="btn-single" bindtap="onPaySingle">
+        <text class="btn-single-title">💎 单次解锁</text>
+        <text class="btn-single-price">¥9.9</text>
+      </view>
+
+      <view class="btn-vip-special" bindtap="onShowUpgradeModal">
+        <view wx:if="{{hasPaidOnce}}" class="exclusive-tag">专属</view>
+        <view class="btn-vip-shine"></view>
+        <view class="btn-vip-content">
+          <view class="btn-vip-left">
+            <view class="btn-vip-title">👑 升级会员</view>
+            <view class="btn-vip-sub">首月¥9.9 · 无限测试</view>
+          </view>
+          <view class="btn-vip-price">
+            <view class="btn-vip-price-original">¥19.9/月</view>
+            <view class="btn-vip-price-special">¥9.9<text>/首月</text></view>
+          </view>
+        </view>
       </view>
     </view>
   </view>
 
-  <!-- 完成信息 -->
-  <view class="info-card">
-    <view class="info-item">
-      <text class="info-label">完成时间</text>
-      <text class="info-value">{{completedAt}}</text>
+  <!-- ============ 已解锁完整内容 ============ -->
+  <block wx:if="{{unlocked}}">
+    <!-- 结果描述 -->
+    <view class="description-card">
+      <view class="card-title">📋 结果解读</view>
+      <view class="description-content">
+        <text>{{result.description || '感谢完成测试！'}}</text>
+      </view>
     </view>
-    <view class="info-item" wx:if="{{result.correctCount !== undefined}}">
-      <text class="info-label">答对题数</text>
-      <text class="info-value">{{result.correctCount}} / {{result.totalQuestions}}</text>
-    </view>
-  </view>
 
-  <!-- 操作按钮 -->
-  <view class="action-container">
-    <button class="btn btn-primary btn-block" bindtap="onShare">
-      <text class="btn-icon">📤</text>
-      <text>复制结果</text>
-    </button>
-    <view class="btn-row">
-      <button class="btn btn-secondary btn-half" bindtap="onRetake">
-        <text class="btn-icon">🔄</text>
-        <text>重新测试</text>
-      </button>
-      <button class="btn btn-secondary btn-half" bindtap="onSaveResult">
-        <text class="btn-icon">💾</text>
-        <text>保存结果</text>
-      </button>
-    </view>
-    <button class="btn btn-outline btn-block" bindtap="onBackHome">
-      <text class="btn-icon">🏠</text>
-      <text>返回首页</text>
-    </button>
-  </view>
-
-  <!-- 推荐测试 -->
-  <view class="recommend-card" wx:if="{{recommendTests.length > 0}}">
-    <view class="card-header">
-      <text class="card-title">🔥 更多测试推荐</text>
-      <text class="card-more" bindtap="onViewAllTests">查看全部 ›</text>
-    </view>
-    <view class="recommend-items">
-      <view class="recommend-item" wx:for="{{recommendTests}}" wx:key="id" bindtap="onOpenTest" data-id="{{item.id}}">
-        <text class="recommend-emoji">{{item.emoji}}</text>
-        <view class="recommend-info">
-          <text class="recommend-name">{{item.name}}</text>
-          <text class="recommend-desc">{{item.description}}</text>
-        </view>
-        <view class="recommend-stats">
-          <text class="recommend-people">{{item.participantsText}}人</text>
-          <text class="recommend-arrow">›</text>
+    <!-- 详细信息（如果有） -->
+    <view class="details-card" wx:if="{{result.details || result.traits}}">
+      <view class="card-title">📊 详细数据</view>
+      <view class="details-content">
+        <view class="detail-item" wx:for="{{result.details || result.traits}}" wx:for-index="key" wx:for-item="value" wx:key="key">
+          <text class="detail-key">{{key}}</text>
+          <view class="detail-bar">
+            <view class="detail-fill" style="width: {{value * 10}}%"></view>
+          </view>
+          <text class="detail-value">{{value}}</text>
         </view>
       </view>
     </view>
-  </view>
+
+    <!-- 完成信息 -->
+    <view class="info-card">
+      <view class="info-item">
+        <text class="info-label">完成时间</text>
+        <text class="info-value">{{completedAt}}</text>
+      </view>
+      <view class="info-item" wx:if="{{result.correctCount !== undefined}}">
+        <text class="info-label">答对题数</text>
+        <text class="info-value">{{result.correctCount}} / {{result.totalQuestions}}</text>
+      </view>
+    </view>
+
+    <!-- ============ 场景2：底部常驻升级条 ============ -->
+    <view wx:if="{{showStickyUpgrade && hasPaidOnce && !isVip}}" class="sticky-upgrade">
+      <view class="sticky-upgrade-left">
+        <text class="sticky-upgrade-emoji">💡</text>
+        <view class="sticky-upgrade-text">
+          已付费用户专属：{{'\n'}}
+          升级会员<text class="sticky-upgrade-strong">首月¥9.9</text>
+        </view>
+      </view>
+      <view class="sticky-upgrade-btn" bindtap="onShowUpgradeModal">立即升级</view>
+      <view class="sticky-upgrade-close" bindtap="onCloseSticky">×</view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-container">
+      <button class="btn btn-primary btn-block" bindtap="onShare">
+        <text class="btn-icon">📤</text>
+        <text>复制结果</text>
+      </button>
+      <view class="btn-row">
+        <button class="btn btn-secondary btn-half" bindtap="onRetake">
+          <text class="btn-icon">🔄</text>
+          <text>重新测试</text>
+        </button>
+        <button class="btn btn-secondary btn-half" bindtap="onSaveResult">
+          <text class="btn-icon">💾</text>
+          <text>保存结果</text>
+        </button>
+      </view>
+      <button class="btn btn-outline btn-block" bindtap="onBackHome">
+        <text class="btn-icon">🏠</text>
+        <text>返回首页</text>
+      </button>
+    </view>
+
+    <!-- 推荐测试 -->
+    <view class="recommend-card" wx:if="{{recommendTests.length > 0}}">
+      <view class="card-header">
+        <text class="card-title">🔥 更多测试推荐</text>
+        <text class="card-more" bindtap="onViewAllTests">查看全部 ›</text>
+      </view>
+      <view class="recommend-items">
+        <view class="recommend-item" wx:for="{{recommendTests}}" wx:key="id" bindtap="onOpenTest" data-id="{{item.id}}">
+          <text class="recommend-emoji">{{item.emoji}}</text>
+          <view class="recommend-info">
+            <text class="recommend-name">{{item.name}}</text>
+            <text class="recommend-desc">{{item.description}}</text>
+          </view>
+          <view class="recommend-stats">
+            <text class="recommend-people">{{item.participantsText}}人</text>
+            <text class="recommend-arrow">›</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
 
   <view class="bottom-space"></view>
 </scroll-view>
+
+<!-- ============ 升级会员弹窗 ============ -->
+<view wx:if="{{showUpgradeModal}}" class="modal-overlay" bindtap="onCloseUpgradeModal">
+  <view class="modal" catchtap="">
+    <view class="modal-close" bindtap="onCloseUpgradeModal">×</view>
+    <view class="modal-title">👑 升级会员</view>
+
+    <view class="modal-highlight">
+      <view class="modal-highlight-text">
+        <block wx:if="{{hasPaidOnce}}">
+          你已付费 <text class="modal-strong">¥9.9</text>{{'\n'}}
+          升级会员首月仅需 <text class="modal-strong">¥9.9</text>{{'\n'}}
+          <text class="modal-sub">= 和单次同价，但无限测试！</text>
+        </block>
+        <block wx:else>
+          首月 <text class="modal-strong">¥9.9</text> 解锁全部测试{{'\n'}}
+          <text class="modal-sub">续费 ¥19.9/月，可随时取消</text>
+        </block>
+      </view>
+    </view>
+
+    <view class="modal-benefits">
+      <view class="benefit-item"><text class="benefit-check">✅</text> 无限次缘分测试</view>
+      <view class="benefit-item"><text class="benefit-check">✅</text> 所有测试完整解读</view>
+      <view class="benefit-item"><text class="benefit-check">✅</text> 所有海报模板</view>
+      <view class="benefit-item"><text class="benefit-check">✅</text> 测试历史永久保存</view>
+      <view class="benefit-item"><text class="benefit-check">✅</text> 专属会员标识</view>
+    </view>
+
+    <view class="price-section">
+      <view class="price-compare">原价 ¥19.9/月</view>
+      <view class="price-main">¥9.9<text class="price-unit">/首月</text></view>
+      <view class="price-save">续费 ¥19.9/月 · 年卡¥99.9省¥138</view>
+    </view>
+
+    <view class="pay-buttons">
+      <view class="pay-btn pay-btn-wechat" data-channel="wechat" bindtap="onPayVip">微信支付</view>
+      <view class="pay-btn pay-btn-douyin" data-channel="douyin" bindtap="onPayVip">抖音支付</view>
+    </view>
+  </view>
+</view>
+
+<!-- ============ 重新测试弹窗 ============ -->
+<view wx:if="{{showRetestModal}}" class="modal-overlay" bindtap="onCloseRetestModal">
+  <view class="modal" catchtap="">
+    <view class="modal-close" bindtap="onCloseRetestModal">×</view>
+    <view class="modal-title">🔄 重新测试</view>
+
+    <view class="modal-highlight">
+      <view class="modal-highlight-text">
+        你上次花了 <text class="modal-strong">¥9.9</text> 测试一次{{'\n'}}
+        开通会员仅再加 <text class="modal-strong">¥10</text>{{'\n'}}
+        = 无限次测试！
+      </view>
+    </view>
+
+    <view class="btn-vip-special btn-vip-block" bindtap="onShowUpgradeModal">
+      <view class="exclusive-tag">推荐</view>
+      <view class="btn-vip-shine"></view>
+      <view class="btn-vip-content">
+        <view class="btn-vip-left">
+          <view class="btn-vip-title">👑 升级会员</view>
+          <view class="btn-vip-sub">首月¥9.9 · 无限测试</view>
+        </view>
+        <view class="btn-vip-price">
+          <view class="btn-vip-price-original">¥19.9</view>
+          <view class="btn-vip-price-special">¥9.9<text>/首月</text></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="divider">
+      <view class="divider-line"></view>
+      <view class="divider-text">或</view>
+      <view class="divider-line"></view>
+    </view>
+
+    <view class="pay-buttons retest-pay">
+      <view class="pay-btn pay-btn-single" bindtap="onRetestConfirm">单次¥9.9</view>
+      <view class="pay-btn pay-btn-ad" bindtap="onWatchAd">看广告</view>
+    </view>
+  </view>
+</view>

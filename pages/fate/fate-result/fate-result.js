@@ -1,7 +1,17 @@
+const userMgr = require('../../../utils/user.js')
+
 Page({
   data: {
     result: null,
     scoreAngle: 0,
+    // 付费状态
+    unlocked: true,        // 当前结果是否已解锁完整解读
+    hasPaidOnce: false,    // 是否曾经单次付费
+    isVip: false,          // 是否会员
+    showStickyUpgrade: true, // 底部常驻升级条是否显示
+    // 弹窗
+    showUpgradeModal: false,
+    showRetestModal: false,
   },
 
   onLoad(options) {
@@ -27,7 +37,31 @@ Page({
       result.level.bgGradient = levelBgMap[levelKey] || levelBgMap['C']
     }
 
-    this.setData({ result, scoreAngle })
+    // 状态判定：?locked=1 强制走未解锁视图（用于设计预览/调试）
+    const isVip = userMgr.isVipMember()
+    const hasPaidOnce = userMgr.hasPaidOnce()
+    const forceLocked = options && options.locked === '1'
+    // 已解锁条件：会员 / 当前结果显式标记 unlocked / 已付费过但未强制锁定
+    let unlocked
+    if (forceLocked) {
+      unlocked = false
+    } else if (isVip) {
+      unlocked = true
+    } else if (result.unlocked === true) {
+      unlocked = true
+    } else {
+      // 默认：未付费用户进入即未解锁；已单次付费用户视为本次已解锁
+      unlocked = hasPaidOnce
+    }
+
+    this.setData({
+      result,
+      scoreAngle,
+      unlocked,
+      hasPaidOnce,
+      isVip,
+      showStickyUpgrade: hasPaidOnce && !isVip,
+    })
   },
 
   onCopyText(e) {
@@ -81,11 +115,106 @@ Page({
   },
 
   onRetry() {
+    // 单次付费用户重新测试时弹出"专属优惠"重测弹窗（场景2 → 重测）
+    if (this.data.hasPaidOnce && !this.data.isVip) {
+      this.setData({ showRetestModal: true })
+      return
+    }
     wx.navigateBack()
   },
 
   onBackHome() {
     wx.switchTab({ url: '/pages/home/home' })
+  },
+
+  // ===== 解锁交互 =====
+
+  // 看广告解锁
+  onWatchAd() {
+    wx.showLoading({ title: '加载广告...' })
+    setTimeout(() => {
+      wx.hideLoading()
+      const result = this.data.result || {}
+      result.unlocked = true
+      wx.setStorageSync('fate_latest_result', result)
+      this.setData({ result, unlocked: true })
+      wx.showToast({ title: '已解锁', icon: 'success' })
+    }, 800)
+  },
+
+  // 单次付费 ¥9.9
+  onPaySingle() {
+    wx.showModal({
+      title: '单次解锁',
+      content: '支付 ¥9.9 解锁完整解读？',
+      success: (res) => {
+        if (!res.confirm) return
+        userMgr.markPaidOnce()
+        const result = this.data.result || {}
+        result.unlocked = true
+        wx.setStorageSync('fate_latest_result', result)
+        this.setData({
+          result,
+          unlocked: true,
+          hasPaidOnce: true,
+          showStickyUpgrade: !this.data.isVip,
+          showRetestModal: false,
+        })
+        wx.showToast({ title: '已解锁', icon: 'success' })
+      },
+    })
+  },
+
+  // 升级会员弹窗
+  onShowUpgradeModal() {
+    this.setData({ showUpgradeModal: true })
+  },
+  onCloseUpgradeModal() {
+    this.setData({ showUpgradeModal: false })
+  },
+
+  // 重测弹窗
+  onShowRetestModal() {
+    this.setData({ showRetestModal: true })
+  },
+  onCloseRetestModal() {
+    this.setData({ showRetestModal: false })
+  },
+
+  // 关闭底部常驻升级条
+  onCloseSticky() {
+    this.setData({ showStickyUpgrade: false })
+  },
+
+  // 升级会员（微信支付/抖音支付）
+  onPayVip(e) {
+    const channel = (e && e.currentTarget && e.currentTarget.dataset.channel) || 'wechat'
+    wx.showModal({
+      title: '升级会员',
+      content: '通过 ' + (channel === 'wechat' ? '微信' : '抖音') + ' 支付 ¥9.9 开通首月会员？',
+      success: (res) => {
+        if (!res.confirm) return
+        userMgr.markVipMember({ months: 1 })
+        const result = this.data.result || {}
+        result.unlocked = true
+        wx.setStorageSync('fate_latest_result', result)
+        this.setData({
+          result,
+          unlocked: true,
+          isVip: true,
+          showStickyUpgrade: false,
+          showUpgradeModal: false,
+          showRetestModal: false,
+        })
+        wx.showToast({ title: '会员已开通', icon: 'success' })
+      },
+    })
+  },
+
+  // 弹窗中"重新测试" -> 跳回输入页
+  onRetestConfirm() {
+    this.setData({ showRetestModal: false })
+    wx.redirectTo({ url: '/pages/fate/fate-input/fate-input' })
   },
 
   onShareAppMessage() {
