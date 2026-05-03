@@ -1,5 +1,5 @@
 /**
- * API 调用模块 - v3.0 (强依赖后端，失败抛错)
+ * API 调用模块 - v3.1 (支持环境切换)
  *
  * 调用约定：
  *   - 后端响应 envelope: { code, message, data }
@@ -8,7 +8,13 @@
  *   - 不再做"离线兜底"
  */
 
-const API_BASE_URL = 'http://localhost:3000'
+// 环境配置：切换到生产环境时改为 true
+const IS_PRODUCTION = false
+
+// API 基础地址配置
+const API_BASE_URL = IS_PRODUCTION
+  ? 'http://121.43.246.140:8099'  // 阿里云生产环境
+  : 'http://localhost:3000'        // 本地开发环境
 
 const storage = require('./storage.js')
 
