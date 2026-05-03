@@ -1,7 +1,33 @@
-const { getStorage, setStorage } = require('../../../utils/storage.js')
-const { getTestById, getRecommendedTests } = require('../../../data/tests-data.js')
+const api = require('../../../utils/api.js')
 const { formatParticipants } = require('../../../utils/format.js')
 const userMgr = require('../../../utils/user.js')
+
+const CATEGORY_EMOJI = {
+  fun: '🤪', personality: '👤', love: '💕',
+  psychology: '🧠', career: '💼', divination: '🔮',
+}
+
+// 后端 record + Test 字段 → 旧 result UI 期望字段
+function buildResultView(record, testInfo) {
+  const result = {
+    title: record.resultName || record.resultType || '测试完成',
+    type: record.resultType || '',
+    description: record.resultDescription || '',
+    score: record.totalScore || 0,
+    emoji: '🎯',
+    traits: (record.resultTraits || []).reduce((acc, t, i) => {
+      acc[t] = 8 // 后端没存维度分时，给一个占位
+      return acc
+    }, {}),
+    correctCount: undefined,
+    unlocked: !!record.unlocked,
+  }
+  return {
+    result,
+    testName: (testInfo && testInfo.title) || record.testTitle || '测试',
+    completedAt: record.createdAt ? new Date(record.createdAt).toLocaleString('zh-CN') : new Date().toLocaleString('zh-CN'),
+  }
+}
 
 Page({
   data: {
@@ -11,7 +37,6 @@ Page({
     result: {},
     recommendTests: [],
     completedAt: '',
-    // 付费状态
     unlocked: true,
     hasPaidOnce: false,
     isVip: false,
@@ -24,70 +49,94 @@ Page({
     const testId = options.testId
     const recordId = options.recordId
     const forceLocked = options && options.locked === '1'
-
-    this.setData({
-      testId,
-      recordId,
-    })
-
+    this.setData({ testId, recordId })
     this.loadResult(testId, recordId, forceLocked)
   },
 
   loadResult(testId, recordId, forceLocked) {
-    // 从存储中获取测试记录
-    const testRecords = getStorage('test_records', [])
-    const record = testRecords.find(r => r.id === parseInt(recordId))
+    // 先尝试从内存缓存（提交页刚保存的记录）读取，避免重复请求
+    let cached = null
+    try { cached = wx.getStorageSync('test_latest_record') } catch (e) {}
 
-    if (record && record.result) {
-      const isVip = userMgr.isVipMember()
-      const hasPaidOnce = userMgr.hasPaidOnce()
-      let unlocked
-      if (forceLocked) unlocked = false
-      else if (isVip) unlocked = true
-      else if (record.result.unlocked === true) unlocked = true
-      else unlocked = hasPaidOnce
+    const recordPromise = (cached && (cached._id === recordId || cached.id === recordId))
+      ? Promise.resolve(cached)
+      : this.fetchRecord(testId, recordId)
 
-      this.setData({
-        result: record.result,
-        testName: record.testName,
-        completedAt: record.completedAt,
-        unlocked,
-        hasPaidOnce,
-        isVip,
-        showStickyUpgrade: hasPaidOnce && !isVip,
+    Promise.all([recordPromise, api.getTestDetail(testId).catch(() => null)])
+      .then(([record, detailRes]) => {
+        if (!record) {
+          wx.showToast({ title: '结果加载失败', icon: 'error' })
+          setTimeout(() => wx.navigateBack(), 1500)
+          return
+        }
+        const testInfo = (detailRes && detailRes.data && detailRes.data.test) || {}
+        const view = buildResultView(record, testInfo)
+
+        const isVip = userMgr.isVipMember()
+        const hasPaidOnce = userMgr.hasPaidOnce()
+        let unlocked
+        if (forceLocked) unlocked = false
+        else if (isVip) unlocked = true
+        else if (record.unlocked === true) unlocked = true
+        else unlocked = hasPaidOnce
+
+        this.setData({
+          result: view.result,
+          testName: view.testName,
+          completedAt: view.completedAt,
+          unlocked,
+          hasPaidOnce,
+          isVip,
+          showStickyUpgrade: hasPaidOnce && !isVip,
+        })
+        this.loadRecommendTests(testId)
+        // 记录已由后端保存，无需本地存储
       })
+      .catch((err) => {
+        console.error('[test-result] load failed', err)
+        wx.showToast({ title: (err && err.message) || '结果加载失败', icon: 'none' })
+        setTimeout(() => wx.navigateBack(), 1500)
+      })
+  },
 
-      // 加载推荐测试
-      this.loadRecommendTests(testId)
-    } else {
-      wx.showToast({ title: '结果加载失败', icon: 'error' })
-      setTimeout(() => wx.navigateBack(), 1500)
-    }
+  fetchRecord(testId, recordId) {
+    // 后端无单条 record 查询接口，从用户记录列表中按 id 查找
+    return api.getUserTestRecords(1, 50).then((res) => {
+      const list = (res && res.data && res.data.records) || (res && res.data && res.data.list) || []
+      return list.find(r => r._id === recordId || r.id === recordId) || null
+    })
   },
 
   loadRecommendTests(currentTestId) {
-    const recommended = getRecommendedTests(currentTestId, 3).map(test => ({
-      ...test,
-      participantsText: formatParticipants(test.participants),
-    }))
-    this.setData({ recommendTests: recommended })
+    api.getTestList(1, 6).then((res) => {
+      const list = ((res && res.data && res.data.tests) || [])
+        .filter(t => t.testId !== currentTestId)
+        .slice(0, 3)
+        .map(t => ({
+          id: t.testId,
+          name: t.title,
+          emoji: CATEGORY_EMOJI[t.category] || '📊',
+          description: t.description || t.subtitle || '',
+          participants: t.participants || 0,
+          participantsText: formatParticipants(t.participants || 0),
+        }))
+      this.setData({ recommendTests: list })
+    }).catch((err) => {
+      console.warn('[test-result] recommend load failed', err)
+    })
   },
 
-  // 复制结果
   onShare() {
     const result = this.data.result
     const testName = this.data.testName
     const shareText = `我刚完成了"${testName}"测试，结果是：${result.title || result.type}（${result.score}分）。你也来试试吧！`
-
     wx.showActionSheet({
       itemList: ['复制结果文案', '生成分享海报'],
       success: (res) => {
         if (res.tapIndex === 0) {
           wx.setClipboardData({
             data: shareText,
-            success: () => {
-              wx.showToast({ title: '已复制', icon: 'success' })
-            },
+            success: () => wx.showToast({ title: '已复制', icon: 'success' }),
           })
         } else if (res.tapIndex === 1) {
           this.onGeneratePoster()
@@ -96,92 +145,44 @@ Page({
     })
   },
 
-  // 生成海报
   onGeneratePoster() {
     const { result, testId } = this.data
-
-    // 保存最新结果供海报页面使用
     wx.setStorageSync('test_latest_result', result)
-
-    wx.navigateTo({
-      url: `/pages/test/test-poster/test-poster?testId=${testId || ''}`,
-    })
+    wx.navigateTo({ url: `/pages/test/test-poster/test-poster?testId=${testId || ''}` })
   },
 
-  // 保存结果
   onSaveResult() {
-    const result = this.data.result
-    const testName = this.data.testName
-
-    // 保存到用户档案
-    const savedTests = getStorage('my_test_results', [])
-
-    const newTest = {
-      id: Date.now(),
-      testId: this.data.testId,
-      testName: testName,
-      result: result.title || result.type,
-      score: result.score,
-      completedAt: this.data.completedAt,
-    }
-
-    savedTests.unshift(newTest)
-    setStorage('my_test_results', savedTests.slice(0, 50)) // 保持最近50条
-
-    wx.showToast({
-      title: '已保存',
-      icon: 'success',
-    })
+    // 服务端已自动保存到 TestRecord，这里只作 UX 反馈
+    wx.showToast({ title: '已保存', icon: 'success' })
   },
 
-  // 重新测试 — 单次付费用户弹出"专属优惠"重测弹窗
   onRetake() {
     if (this.data.hasPaidOnce && !this.data.isVip) {
       this.setData({ showRetestModal: true })
       return
     }
-    wx.redirectTo({
-      url: `/pages/test/test-detail/test-detail?id=${this.data.testId}`,
-    })
+    wx.redirectTo({ url: `/pages/test/test-detail/test-detail?id=${this.data.testId}` })
   },
 
   onRetestConfirm() {
     this.setData({ showRetestModal: false })
-    wx.redirectTo({
-      url: `/pages/test/test-detail/test-detail?id=${this.data.testId}`,
-    })
+    wx.redirectTo({ url: `/pages/test/test-detail/test-detail?id=${this.data.testId}` })
   },
 
-  // 打开推荐测试
   onOpenTest(e) {
     const testId = e.currentTarget.dataset.id
-    wx.redirectTo({
-      url: `/pages/test/test-detail/test-detail?id=${testId}`,
-    })
+    wx.redirectTo({ url: `/pages/test/test-detail/test-detail?id=${testId}` })
   },
 
-  // 返回首页
-  onBackHome() {
-    wx.switchTab({
-      url: '/pages/home/home',
-    })
-  },
+  onBackHome() { wx.switchTab({ url: '/pages/home/home' }) },
+  onViewAllTests() { wx.switchTab({ url: '/pages/test/test-list/test-list' }) },
 
-  // 查看所有测试
-  onViewAllTests() {
-    wx.switchTab({
-      url: '/pages/test/test-list/test-list',
-    })
-  },
-
-  // ===== 付费/解锁交互 =====
-
+  // ===== 付费/解锁 =====
   onWatchAd() {
     wx.showLoading({ title: '加载广告...' })
     setTimeout(() => {
       wx.hideLoading()
-      const result = this.data.result || {}
-      result.unlocked = true
+      const result = { ...(this.data.result || {}), unlocked: true }
       this.setData({ result, unlocked: true, showRetestModal: false })
       wx.showToast({ title: '已解锁', icon: 'success' })
     }, 800)
@@ -194,8 +195,7 @@ Page({
       success: (res) => {
         if (!res.confirm) return
         userMgr.markPaidOnce()
-        const result = this.data.result || {}
-        result.unlocked = true
+        const result = { ...(this.data.result || {}), unlocked: true }
         this.setData({
           result,
           unlocked: true,
@@ -222,8 +222,7 @@ Page({
       success: (res) => {
         if (!res.confirm) return
         userMgr.markVipMember({ months: 1 })
-        const result = this.data.result || {}
-        result.unlocked = true
+        const result = { ...(this.data.result || {}), unlocked: true }
         this.setData({
           result,
           unlocked: true,

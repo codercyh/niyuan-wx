@@ -456,11 +456,14 @@ function generateMomentsText(fateType, score, nameA, nameB) {
       `测了缘分${score}分，看来是真爱没跑了`,
     ],
   }
-  
+
+  // 基于分数确定性选择文案（相同分数总是选择相同文案）
+  const selectIndex = score % 3
+
   return [
-    { style: '搞怪风', content: templates.funny[Math.floor(Math.random() * templates.funny.length)] },
-    { style: '自嘲风', content: templates.self[Math.floor(Math.random() * templates.self.length)] },
-    { style: '凡尔赛风', content: templates.humble[Math.floor(Math.random() * templates.humble.length)] },
+    { style: '搞怪风', content: templates.funny[selectIndex] },
+    { style: '自嘲风', content: templates.self[selectIndex] },
+    { style: '凡尔赛风', content: templates.humble[selectIndex] },
   ]
 }
 
@@ -483,6 +486,141 @@ function getLifePathNumber(dateStr) {
   return sum
 }
 
+// ==================== 姓名缘分计算（确定性、对称） ====================
+function calculateNameScore(nameA, nameB) {
+  // 排序后计算，确保 A+B = B+A（结果一致）
+  const sortedNames = [nameA, nameB].sort()
+  const combined = sortedNames[0] + sortedNames[1]
+
+  // 使用稳定哈希：字符码之和 + 字符码之积（混合计算）
+  let hash = 0
+  for (let i = 0; i < combined.length; i++) {
+    const code = combined.charCodeAt(i)
+    hash = ((hash << 5) - hash) + code  // djb2 哈希变体
+    hash = hash & hash  // Convert to 32bit integer
+  }
+
+  // 映射到 60-95 分数区间（提高下限，降低上限，减少波动）
+  return 60 + (Math.abs(hash) % 36)
+}
+
+// ==================== 性格互补分（确定性，基于星座元素） ====================
+function calculatePersonalityScore(zodiacA, zodiacB, zodiacScore) {
+  // 元素互补性权重矩阵
+  const ELEMENT_SYNERGY = {
+    'fire-fire': 0.95,   // 同元素，高互补但易冲突
+    'earth-earth': 0.98, // 同元素，稳定
+    'air-air': 0.92,     // 同元素，思想共鸣
+    'water-water': 0.96, // 同元素，情感共鸣
+    'fire-air': 1.08,    // 风助火势，最佳互补
+    'air-fire': 1.08,
+    'earth-water': 1.10, // 土水相依，最佳互补
+    'water-earth': 1.10,
+    'fire-water': 0.85,  // 相克，需磨合
+    'water-fire': 0.85,
+    'fire-earth': 0.88,  // 需要平衡
+    'earth-fire': 0.88,
+    'air-water': 0.87,   // 理性vs感性
+    'water-air': 0.87,
+    'air-earth': 0.90,   // 天地之间
+    'earth-air': 0.90,
+  }
+
+  const elementKey = `${zodiacA.element}-${zodiacB.element}`
+  const synergy = ELEMENT_SYNERGY[elementKey] || 1.0
+
+  // 基于星座分数和元素协同系数计算
+  const baseScore = zodiacScore * synergy
+
+  // 加入确定性微调：基于星座索引差值
+  const idxA = ZODIAC_LIST.findIndex(z => z.name === zodiacA.name)
+  const idxB = ZODIAC_LIST.findIndex(z => z.name === zodiacB.name)
+  const idxDiff = Math.abs(idxA - idxB)
+  const idxBonus = (idxDiff <= 2 || idxDiff >= 10) ? 5 : 0  // 相邻或对宫星座加成
+
+  return Math.min(99, Math.max(40, Math.round(baseScore + idxBonus)))
+}
+
+// ==================== 命理玄学分（确定性，基于生日数字特征） ====================
+function calculateMetaphysicsScore(birthdayA, birthdayB, lifePathA, lifePathB) {
+  // 1. 生命灵数匹配度（调整分数范围至 55-85）
+  const LIFE_PATH_MATCH = {
+    '1-1': 65, '1-2': 72, '1-3': 78, '1-4': 60, '1-5': 82, '1-6': 70, '1-7': 75, '1-8': 58, '1-9': 72,
+    '2-2': 68, '2-3': 72, '2-4': 75, '2-5': 65, '2-6': 80, '2-7': 73, '2-8': 78, '2-9': 74,
+    '3-3': 70, '3-4': 62, '3-5': 78, '3-6': 75, '3-7': 82, '3-8': 65, '3-9': 76,
+    '4-4': 60, '4-5': 55, '4-6': 82, '4-7': 65, '4-8': 85, '4-9': 70,
+    '5-5': 72, '5-6': 65, '5-7': 78, '5-8': 74, '5-9': 76,
+    '6-6': 72, '6-7': 75, '6-8': 80, '6-9': 82,
+    '7-7': 68, '7-8': 70, '7-9': 80,
+    '8-8': 70, '8-9': 74,
+    '9-9': 72,
+    '11-11': 78, '11-22': 82,
+    '22-22': 75,
+  }
+
+  // 获取灵数配对分数（排序 key 确保对称）
+  const sortedLP = [lifePathA, lifePathB].sort((a, b) => a - b)
+  const lpKey = `${sortedLP[0]}-${sortedLP[1]}`
+  const lpScore = LIFE_PATH_MATCH[lpKey] || 70
+
+  // 2. 生日数字特征匹配
+  const dateA = new Date(birthdayA)
+  const dateB = new Date(birthdayB)
+
+  // 月份差值影响
+  const monthA = dateA.getMonth() + 1
+  const monthB = dateB.getMonth() + 1
+  const monthDiff = Math.abs(monthA - monthB)
+  // 月份相同+10，相邻+5，对冲+6
+  let monthBonus = 0
+  if (monthDiff === 0) monthBonus = 10
+  else if (monthDiff <= 2) monthBonus = 5
+  else if (monthDiff === 6) monthBonus = 6
+
+  // 日期差值影响
+  const dayA = dateA.getDate()
+  const dayB = dateB.getDate()
+  const dayDiff = Math.abs(dayA - dayB)
+  let dayBonus = 0
+  if (dayDiff === 0) dayBonus = 12
+  else if (dayDiff <= 3) dayBonus = 6
+  else if (dayDiff >= 14) dayBonus = -2
+
+  // 3. 季节匹配（春夏秋冬）
+  const getSeason = (month) => {
+    if (month >= 3 && month <= 5) return 'spring'
+    if (month >= 6 && month <= 8) return 'summer'
+    if (month >= 9 && month <= 11) return 'autumn'
+    return 'winter'
+  }
+  const seasonA = getSeason(monthA)
+  const seasonB = getSeason(monthB)
+  // 同季节+8，对角季节+4
+  let seasonBonus = 0
+  if (seasonA === seasonB) seasonBonus = 8
+  else if ((seasonA === 'spring' && seasonB === 'autumn') || (seasonA === 'autumn' && seasonB === 'spring')) seasonBonus = 4
+  else if ((seasonA === 'summer' && seasonB === 'winter') || (seasonA === 'winter' && seasonB === 'summer')) seasonBonus = 4
+
+  // 4. 年份差值影响
+  const yearA = dateA.getFullYear()
+  const yearB = dateB.getFullYear()
+  const yearDiff = Math.abs(yearA - yearB)
+  let yearBonus = 0
+  if (yearDiff === 0) yearBonus = 6
+  else if (yearDiff <= 3) yearBonus = 3
+  else if (yearDiff >= 12) yearBonus = -3
+
+  // 5. 数字能量
+  const sumA = (birthdayA.replace(/-/g, '').split('').reduce((s, c) => s + parseInt(c), 0)) % 2
+  const sumB = (birthdayB.replace(/-/g, '').split('').reduce((s, c) => s + parseInt(c), 0)) % 2
+  const numEnergyBonus = sumA === sumB ? 4 : 0
+
+  // 综合计算（提高基础分）
+  const rawScore = lpScore * 0.45 + (60 + monthBonus + dayBonus + seasonBonus + yearBonus + numEnergyBonus) * 0.55
+
+  return Math.min(92, Math.max(50, Math.round(rawScore)))
+}
+
 // ==================== 主计算函数 ====================
 function calculateFate(personA, personB, relation, story, extra = {}) {
   // 星座信息
@@ -490,39 +628,61 @@ function calculateFate(personA, personB, relation, story, extra = {}) {
   const partsB = personB.birthday.split('-')
   const zodiacA = getZodiacByBirthday(parseInt(partsA[1]), parseInt(partsA[2]))
   const zodiacB = getZodiacByBirthday(parseInt(partsB[1]), parseInt(partsB[2]))
-  
+
   // 1. 星座基础分
   const idxA = ZODIAC_LIST.findIndex(z => z.name === zodiacA.name)
   const idxB = ZODIAC_LIST.findIndex(z => z.name === zodiacB.name)
   const zodiacScore = ZODIAC_MATRIX[idxA][idxB]
-  
-  // 2. 姓名缘分分
-  const nameHash = (personA.name + personB.name).split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0)
-  const nameScore = 50 + (nameHash % 50)
-  
+
+  // 2. 姓名缘分分（确定性、对称）
+  const nameScore = calculateNameScore(personA.name, personB.name)
+
   // 3. 生命灵数
   const lifePathA = personA.lifePath || getLifePathNumber(personA.birthday)
   const lifePathB = personB.lifePath || getLifePathNumber(personB.birthday)
-  const lifePathScore = 60 + Math.abs((lifePathA + lifePathB) % 40)
-  
-  // 4. 性格互补分
-  const personalityScore = zodiacScore + Math.floor(Math.random() * 10) - 5
-  
-  // 5. 命理玄学分
-  const metaScore = 55 + Math.floor(Math.random() * 40)
-  
-  // 综合分数
+
+  // 灵数配对分数（确定性）- 整体下调，增加区分度
+  const sortedLP = [lifePathA, lifePathB].sort((a, b) => a - b)
+  const lpKey = `${sortedLP[0]}-${sortedLP[1]}`
+  const LIFE_PATH_SCORES = {
+    // 范围调整至 50-85
+    '1-1': 60, '1-2': 70, '1-3': 75, '1-4': 55, '1-5': 80, '1-6': 65, '1-7': 72, '1-8': 50, '1-9': 68, '1-11': 72, '1-22': 70,
+    '2-2': 62, '2-3': 68, '2-4': 72, '2-5': 60, '2-6': 78, '2-7': 70, '2-8': 75, '2-9': 70, '2-11': 75, '2-22': 72,
+    '3-3': 65, '3-4': 58, '3-5': 76, '3-6': 72, '3-7': 82, '3-8': 60, '3-9': 74, '3-11': 76, '3-22': 70,
+    '4-4': 55, '4-5': 50, '4-6': 80, '4-7': 62, '4-8': 85, '4-9': 65, '4-11': 68, '4-22': 78,
+    '5-5': 68, '5-6': 60, '5-7': 75, '5-8': 70, '5-9': 72, '5-11': 75, '5-22': 70,
+    '6-6': 70, '6-7': 72, '6-8': 78, '6-9': 82, '6-11': 78, '6-22': 75,
+    '7-7': 62, '7-8': 65, '7-9': 78, '7-11': 82, '7-22': 70,
+    '8-8': 65, '8-9': 70, '8-11': 72, '8-22': 78,
+    '9-9': 68, '9-11': 75, '9-22': 72,
+    '11-11': 75, '11-22': 80,
+    '22-22': 72,
+  }
+  const lifePathScore = LIFE_PATH_SCORES[lpKey] || 65
+
+  // 4. 性格互补分（确定性）
+  const personalityScore = calculatePersonalityScore(zodiacA, zodiacB, zodiacScore)
+
+  // 5. 命理玄学分（确定性）
+  const metaScore = calculateMetaphysicsScore(personA.birthday, personB.birthday, lifePathA, lifePathB)
+
+  // 综合分数（完全确定性，无随机）
+  // 权重调整：星座35% + 姓名18% + 灵数12% + 性格20% + 玄学15%
   const rawScore = (
     zodiacScore * 0.35 +
-    nameScore * 0.2 +
-    lifePathScore * 0.15 +
-    personalityScore * 0.15 +
+    nameScore * 0.18 +
+    lifePathScore * 0.12 +
+    personalityScore * 0.20 +
     metaScore * 0.15
   )
-  
-  // 加一些随机波动
-  const bonus = Math.floor(Math.random() * 10) - 3
-  const finalScore = Math.min(99, Math.max(15, Math.round(rawScore + bonus)))
+
+  // 对低分星座配对进行适度补偿
+  // 星座分<60时+4，<70时+2
+  const zodiacCompensation = zodiacScore < 60 ? 4 : (zodiacScore < 70 ? 2 : 0)
+
+  // 最终分数
+  const adjustedScore = rawScore + 5 + zodiacCompensation
+  const finalScore = Math.min(99, Math.max(35, Math.round(adjustedScore)))
   
   // 获取等级和类型
   const level = getScoreLevel(finalScore)
@@ -598,6 +758,9 @@ module.exports = {
   getScoreLevel,
   getFateType,
   calculateFate,
+  calculateNameScore,
+  calculatePersonalityScore,
+  calculateMetaphysicsScore,
   generateDailyDialogue,
   generateConflictTopics,
   generateAdvice,

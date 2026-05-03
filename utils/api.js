@@ -1,7 +1,11 @@
 /**
- * API 调用模块 - v2.0 (对接 Node.js 后端)
+ * API 调用模块 - v3.0 (强依赖后端，失败抛错)
  *
- * 优先请求后端 API，网络失败时降级为本地模拟数据
+ * 调用约定：
+ *   - 后端响应 envelope: { code, message, data }
+ *   - code === 0 视为成功，其他 code 走 reject
+ *   - 网络失败、HTTP 非 2xx、业务 code 非 0、401 鉴权过期，全部 reject
+ *   - 不再做"离线兜底"
  */
 
 const API_BASE_URL = 'http://localhost:3000'
@@ -34,15 +38,21 @@ function request(method = 'GET', path = '', data = {}, requireAuth = false) {
           reject({ code: 401, message: '登录已过期，请重新登录' })
           return
         }
-        if (res.statusCode === 200 || res.statusCode === 201) {
-          resolve(res.data)
-        } else {
-          reject(res.data || { code: res.statusCode, message: '请求失败' })
+        if (res.statusCode < 200 || res.statusCode >= 300) {
+          reject(res.data || { code: res.statusCode, message: `HTTP ${res.statusCode}` })
+          return
         }
+        const body = res.data || {}
+        // 后端 envelope { code, message, data }；code 非 0 视为业务错误
+        if (typeof body.code === 'number' && body.code !== 0) {
+          reject(body)
+          return
+        }
+        resolve(body)
       },
       fail(err) {
-        console.warn('Network error, falling back to offline mode', err)
-        resolve({ code: 0, message: 'offline', data: {} })
+        console.error('[API] request failed:', method, path, err)
+        reject({ code: -1, message: (err && err.errMsg) || '网络请求失败', err })
       },
     })
   })
@@ -119,13 +129,18 @@ function getUserTestRecords(page = 1, limit = 10) {
 
 // ==================== 缘分分析 ====================
 
-function analyzeNiyuan(myInfo, partnerInfo, relationType, tags) {
+function analyzeNiyuan(myInfo, partnerInfo, relationType, tags, story) {
   return request('POST', '/niyuan/analyze', {
     myInfo,
     partnerInfo,
     relationType,
     tags,
+    story,
   })
+}
+
+function getNiyuanRecord(recordId) {
+  return request('GET', `/niyuan/record/${recordId}`)
 }
 
 function getNiyuanHistory(page = 1, limit = 10) {
@@ -190,6 +205,7 @@ module.exports = {
   submitTestAnswer,
   getUserTestRecords,
   analyzeNiyuan,
+  getNiyuanRecord,
   getNiyuanHistory,
   getTreeHoleList,
   getTreeHoleDetail,
