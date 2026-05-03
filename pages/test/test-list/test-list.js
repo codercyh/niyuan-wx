@@ -1,15 +1,38 @@
-const { getStorage, setStorage } = require('../../../utils/storage.js')
-const { getAllTests } = require('../../../data/tests-data.js')
+const api = require('../../../utils/api.js')
 const { formatParticipants } = require('../../../utils/format.js')
+
+// 后端返回的 Test 文档 → 前端列表项
+const CATEGORY_EMOJI = {
+  fun: '🤪',
+  personality: '👤',
+  love: '💕',
+  psychology: '🧠',
+  career: '💼',
+  divination: '🔮',
+}
+
+function mapTest(t) {
+  return {
+    id: t.testId,
+    name: t.title,
+    description: t.description || t.subtitle || '',
+    category: t.category || 'fun',
+    categoryId: t.category || 'fun',
+    emoji: t.emoji || CATEGORY_EMOJI[t.category] || '📊',
+    tags: t.tags || [],
+    rating: t.avgScore ? (t.avgScore / 20).toFixed(1) : '5.0',
+    participants: t.participants || 0,
+    participantsText: formatParticipants(t.participants || 0),
+    isVipOnly: !!t.isVipOnly,
+    questionCount: t.questionCount || 0,
+  }
+}
 
 Page({
   data: {
-    // 搜索和排序
     searchText: '',
-    sortBy: 'hot', // hot, new, rating
+    sortBy: 'hot',
     activeCategory: 'all',
-
-    // 分类
     categories: [
       { id: 'all', name: '全部', emoji: '📊' },
       { id: 'fun', name: '趣味', emoji: '🤪' },
@@ -19,65 +42,51 @@ Page({
       { id: 'career', name: '事业', emoji: '💼' },
       { id: 'divination', name: '占卜', emoji: '🔮' },
     ],
-
-    // 测试数据
     tests: [],
     filteredTests: [],
     hasMore: true,
     currentPage: 1,
     pageSize: 10,
+    loading: false,
   },
 
   onLoad() {
-    this.initTestData()
+    this.fetchTests()
   },
 
-  initTestData() {
-    // 从数据模块获取测试列表
-    const allTests = getAllTests().map(test => ({
-      ...test,
-      participantsText: formatParticipants(test.participants),
-    }))
-    
-    // 按参与人数排序（热门）
-    const sortedTests = [...allTests].sort((a, b) => b.participants - a.participants)
-
-    this.setData({
-      tests: sortedTests,
-    })
-
-    // 初始显示
-    this.filterAndSortTests()
-
-    // 缓存到本地
-    setStorage('all_tests', allTests)
+  fetchTests() {
+    this.setData({ loading: true })
+    wx.showLoading({ title: '加载中...' })
+    api.getTestList(1, 100)
+      .then((res) => {
+        const list = ((res && res.data && res.data.tests) || []).map(mapTest)
+        const sorted = list.sort((a, b) => b.participants - a.participants)
+        this.setData({ tests: sorted, loading: false })
+        this.filterAndSortTests()
+      })
+      .catch((err) => {
+        console.error('[test-list] fetch failed', err)
+        this.setData({ loading: false })
+        wx.showToast({ title: (err && err.message) || '加载失败', icon: 'none' })
+      })
+      .finally(() => wx.hideLoading())
   },
 
   filterAndSortTests() {
     let filtered = this.data.tests
-
-    // 按分类筛选
     if (this.data.activeCategory !== 'all') {
-      filtered = filtered.filter(test => test.categoryId === this.data.activeCategory)
+      filtered = filtered.filter(t => t.categoryId === this.data.activeCategory)
     }
-
-    // 按搜索词筛选
     if (this.data.searchText) {
-      const searchLower = this.data.searchText.toLowerCase()
-      filtered = filtered.filter(
-        test =>
-          test.name.toLowerCase().includes(searchLower) ||
-          test.description.toLowerCase().includes(searchLower) ||
-          (test.tags && test.tags.some(tag => tag.toLowerCase().includes(searchLower)))
+      const q = this.data.searchText.toLowerCase()
+      filtered = filtered.filter(t =>
+        (t.name || '').toLowerCase().includes(q) ||
+        (t.description || '').toLowerCase().includes(q) ||
+        (t.tags || []).some(tag => (tag || '').toLowerCase().includes(q))
       )
     }
-
-    // 排序
     const sorted = this.sortTests([...filtered])
-
-    // 分页
     const pageTests = sorted.slice(0, this.data.pageSize)
-
     this.setData({
       filteredTests: pageTests,
       hasMore: sorted.length > this.data.pageSize,
@@ -87,79 +96,51 @@ Page({
 
   sortTests(tests) {
     switch (this.data.sortBy) {
-      case 'new':
-        return tests.reverse()
-      case 'rating':
-        return tests.sort((a, b) => b.rating - a.rating)
+      case 'new': return tests.reverse()
+      case 'rating': return tests.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating))
       case 'hot':
-      default:
-        return tests.sort((a, b) => b.participants - a.participants)
+      default: return tests.sort((a, b) => b.participants - a.participants)
     }
   },
 
-  // 搜索
   onSearchInput(e) {
     this.setData({ searchText: e.detail.value })
     this.filterAndSortTests()
   },
-
-  onClearSearch() {
-    this.setData({ searchText: '' })
-    this.filterAndSortTests()
-  },
-
-  // 分类切换
+  onClearSearch() { this.setData({ searchText: '' }); this.filterAndSortTests() },
   onCategoryChange(e) {
-    const categoryId = e.currentTarget.dataset.id
-    this.setData({ activeCategory: categoryId })
+    this.setData({ activeCategory: e.currentTarget.dataset.id })
     this.filterAndSortTests()
   },
-
-  // 排序切换
   onSortChange(e) {
-    const sort = e.currentTarget.dataset.sort
-    this.setData({ sortBy: sort })
+    this.setData({ sortBy: e.currentTarget.dataset.sort })
     this.filterAndSortTests()
   },
 
-  // 加载更多
   onLoadMore() {
-    const currentLength = this.data.filteredTests.length
-    const nextPage = Math.ceil(currentLength / this.data.pageSize) + 1
-    const start = (nextPage - 1) * this.data.pageSize
-    const end = start + this.data.pageSize
-
-    // 重新筛选获取完整列表
     let filtered = this.data.tests
     if (this.data.activeCategory !== 'all') {
-      filtered = filtered.filter(test => test.categoryId === this.data.activeCategory)
+      filtered = filtered.filter(t => t.categoryId === this.data.activeCategory)
     }
     if (this.data.searchText) {
-      const searchLower = this.data.searchText.toLowerCase()
-      filtered = filtered.filter(
-        test =>
-          test.name.toLowerCase().includes(searchLower) ||
-          test.description.toLowerCase().includes(searchLower)
+      const q = this.data.searchText.toLowerCase()
+      filtered = filtered.filter(t =>
+        (t.name || '').toLowerCase().includes(q) ||
+        (t.description || '').toLowerCase().includes(q)
       )
     }
     const sorted = this.sortTests([...filtered])
-
-    const moreTests = sorted.slice(start, end)
-    const allFiltered = [...this.data.filteredTests, ...moreTests]
-
+    const nextPage = this.data.currentPage + 1
+    const more = sorted.slice(0, nextPage * this.data.pageSize)
     this.setData({
-      filteredTests: allFiltered,
+      filteredTests: more,
       currentPage: nextPage,
-      hasMore: allFiltered.length < sorted.length,
+      hasMore: more.length < sorted.length,
     })
   },
 
-  // 打开测试详情
   onOpenTest(e) {
     const testId = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `/pages/test/test-detail/test-detail?id=${testId}`,
-    })
+    wx.navigateTo({ url: `/pages/test/test-detail/test-detail?id=${testId}` })
   },
-
 })
