@@ -26,11 +26,21 @@
 
       <view class="input-group">
         <text class="input-label">你的生日 <text class="required">*</text></text>
-        <picker mode="date" value="{{personA.birthday}}" end="{{today}}" bindchange="onBirthdayChange" data-who="personA">
+        <view class="calendar-tabs">
+          <view class="calendar-tab {{personA.calendarType === 'solar' ? 'active' : ''}}"
+            data-who="personA" data-type="solar" bindtap="switchCalendarType">阳历</view>
+          <view class="calendar-tab {{personA.calendarType === 'lunar' ? 'active' : ''}}"
+            data-who="personA" data-type="lunar" bindtap="switchCalendarType">农历</view>
+        </view>
+        <picker wx:if="{{personA.calendarType === 'solar'}}" mode="date" value="{{personA.birthday}}" end="{{today}}" bindchange="onBirthdayChange" data-who="personA">
           <view class="picker-field {{personA.birthday ? 'has-value' : ''}}">
             {{personA.birthday || '请选择你的生日'}}
           </view>
         </picker>
+        <view wx:else class="picker-field {{personA.birthdayLunar ? 'has-value' : ''}}"
+          data-who="personA" bindtap="openLunarPicker">
+          {{personA.birthdayLunar || '请选择农历生日'}}
+        </view>
       </view>
 
       <!-- 星座+灵数 -->
@@ -52,11 +62,21 @@
 
       <view class="input-group">
         <text class="input-label">TA的生日 <text class="required">*</text></text>
-        <picker mode="date" value="{{personB.birthday}}" end="{{today}}" bindchange="onBirthdayChange" data-who="personB">
+        <view class="calendar-tabs">
+          <view class="calendar-tab {{personB.calendarType === 'solar' ? 'active' : ''}}"
+            data-who="personB" data-type="solar" bindtap="switchCalendarType">阳历</view>
+          <view class="calendar-tab {{personB.calendarType === 'lunar' ? 'active' : ''}}"
+            data-who="personB" data-type="lunar" bindtap="switchCalendarType">农历</view>
+        </view>
+        <picker wx:if="{{personB.calendarType === 'solar'}}" mode="date" value="{{personB.birthday}}" end="{{today}}" bindchange="onBirthdayChange" data-who="personB">
           <view class="picker-field {{personB.birthday ? 'has-value' : ''}}">
             {{personB.birthday || '请选择TA的生日'}}
           </view>
         </picker>
+        <view wx:else class="picker-field {{personB.birthdayLunar ? 'has-value' : ''}}"
+          data-who="personB" bindtap="openLunarPicker">
+          {{personB.birthdayLunar || '请选择农历生日'}}
+        </view>
       </view>
 
       <view class="zodiac-info" wx:if="{{personB.zodiac}}">
@@ -246,6 +266,32 @@
     <view class="btn-area btn-row">
       <button class="btn-secondary" bindtap="goBack">返回修改</button>
       <button class="btn-primary" bindtap="confirmSubmit">确认开始测算 ✨</button>
+    </view>
+  </view>
+
+  <!-- ==================== 农历选择器弹窗 ==================== -->
+  <view class="lunar-mask {{lunarPickerVisible ? 'show' : ''}}" bindtap="closeLunarPicker" catchtouchmove="noop">
+    <view class="lunar-modal" catchtap="noop">
+      <view class="lunar-modal-header">
+        <text class="lunar-cancel" bindtap="closeLunarPicker">取消</text>
+        <text class="lunar-title">选择农历生日</text>
+        <text class="lunar-confirm" bindtap="confirmLunarPicker">确定</text>
+      </view>
+      <view class="lunar-pickers">
+        <picker-view class="lunar-picker-view" indicator-class="lunar-indicator"
+          value="{{[lunarYearIndex, lunarMonthIndex, lunarDayIndex]}}"
+          bindchange="onLunarPickerChange">
+          <picker-view-column>
+            <view class="lunar-col-item" wx:for="{{lunarYearRange}}" wx:key="*this">{{item}}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view class="lunar-col-item" wx:for="{{lunarMonthRange}}" wx:key="*this">{{item}}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view class="lunar-col-item" wx:for="{{lunarDayRange}}" wx:key="*this">{{item}}</view>
+          </picker-view-column>
+        </picker-view>
+      </view>
     </view>
   </view>
 

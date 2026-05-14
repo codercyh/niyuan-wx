@@ -21,14 +21,20 @@
       <view class="category-item {{currentCategory === 'all' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="all">
         全部
       </view>
-      <view class="category-item {{currentCategory === 'confess' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="confess">
-        随记
+      <view class="category-item {{currentCategory === 'love' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="love">
+        情感
       </view>
-      <view class="category-item {{currentCategory === 'advice' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="advice">
-        灵感
+      <view class="category-item {{currentCategory === 'work' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="work">
+        工作
       </view>
-      <view class="category-item {{currentCategory === 'story' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="story">
-        片段
+      <view class="category-item {{currentCategory === 'family' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="family">
+        家庭
+      </view>
+      <view class="category-item {{currentCategory === 'friendship' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="friendship">
+        友情
+      </view>
+      <view class="category-item {{currentCategory === 'mood' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="mood">
+        心情
       </view>
       <view class="category-item {{currentCategory === 'other' ? 'active' : ''}}" bindtap="onCategoryChange" data-category="other">
         其他

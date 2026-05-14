@@ -1,278 +1,100 @@
-const { getStorage, setStorage } = require('../../../utils/storage.js')
+const api = require('../../../utils/api.js')
+
+// 后端分类映射
+const CATEGORY_LABELS = {
+  love: '情感',
+  work: '工作',
+  family: '家庭',
+  friendship: '友情',
+  mood: '心情',
+  other: '其他',
+}
+
+const CATEGORY_EMOJI = {
+  love: '💕',
+  work: '💼',
+  family: '🏠',
+  friendship: '🤝',
+  mood: '💭',
+  other: '📝',
+}
+
+// 后端数据 -> 前端展示格式
+function mapTreeHole(t, userId) {
+  return {
+    id: t._id,
+    avatar: CATEGORY_EMOJI[t.category] || '📝',
+    username: t.isAnonymous ? '记录者' : '匿名用户',
+    time: formatTime(t.createdAt),
+    category: t.category,
+    categoryLabel: CATEGORY_LABELS[t.category] || '其他',
+    content: t.content,
+    title: t.title,
+    likes: t.likeCount || 0,
+    comments: t.commentCount || 0,
+    views: 0, // 后端暂无浏览量字段
+    isLiked: t.isLiked || false,
+  }
+}
+
+function formatTime(dateStr) {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  const now = new Date()
+  const diff = now - date
+  const minutes = Math.floor(diff / 60000)
+  const hours = Math.floor(diff / 3600000)
+  const days = Math.floor(diff / 86400000)
+
+  if (minutes < 1) return '刚刚'
+  if (minutes < 60) return `${minutes}分钟前`
+  if (hours < 24) return `${hours}小时前`
+  if (days < 7) return `${days}天前`
+  return `${date.getMonth() + 1}月${date.getDate()}日`
+}
 
 Page({
   data: {
     searchKeyword: '',
     currentCategory: 'all',
     sortBy: 'latest',
-    
+
     allTrees: [],
     filteredTrees: [],
-    
+
     hasMore: true,
     pageSize: 15,
     currentPage: 1,
+    loading: false,
   },
 
   onLoad() {
-    this.initTreeHoles()
+    this.fetchTreeHoles()
   },
 
   onShow() {
-    // 刷新数据（用户发布或删除后）
-    this.filterAndSort()
+    // 每次显示页面时刷新数据（用户发布后返回）
+    if (this.data.allTrees.length > 0) {
+      this.fetchTreeHoles()
+    }
   },
 
-  // 初始化记录数据
-  initTreeHoles() {
-    const mockTrees = [
-      {
-        id: 1,
-        avatar: '😔',
-        username: '记录者',
-        time: '2小时前',
-        category: 'confess',
-        categoryLabel: '随记',
-        content: '最近工作压力很大，总是熬夜到凌晨。感觉生活没有方向，不知道自己要什么...',
-        likes: 245,
-        comments: 32,
-        views: 1203,
-      },
-      {
-        id: 2,
-        avatar: '💔',
-        username: '素年锦时',
-        time: '4小时前',
-        category: 'confess',
-        categoryLabel: '随记',
-        content: '喜欢了他三年，最后还是被拒绝了。感觉所有的努力都白费了。要不要忘记他重新开始？',
-        likes: 589,
-        comments: 87,
-        views: 3421,
-      },
-      {
-        id: 3,
-        avatar: '🌟',
-        username: '过客',
-        time: '6小时前',
-        category: 'advice',
-        categoryLabel: '灵感',
-        content: '我觉得当你感到迷茫时，不妨停下脚步，写下你内心的声音。有时答案就在那里。',
-        likes: 412,
-        comments: 45,
-        views: 2156,
-      },
-      {
-        id: 4,
-        avatar: '✨',
-        username: '夜间漫步者',
-        time: '8小时前',
-        category: 'story',
-        categoryLabel: '片段',
-        content: '那年夏天，我在街角遇见了她。她笑着对我说："你好，我是来自另一个世界的天使。"',
-        likes: 678,
-        comments: 92,
-        views: 4532,
-      },
-      {
-        id: 5,
-        avatar: '😤',
-        username: '烦恼先生',
-        time: '10小时前',
-        category: 'confess',
-        categoryLabel: '随记',
-        content: '家人总是不理解我的选择，觉得我浪费了时间。但我就是想做自己喜欢的事...',
-        likes: 321,
-        comments: 51,
-        views: 1876,
-      },
-      {
-        id: 6,
-        avatar: '💪',
-        username: '坚持者',
-        time: '12小时前',
-        category: 'story',
-        categoryLabel: '片段',
-        content: '这一年经历了很多变化，也慢慢找到了新的节奏，想把这些成长过程记下来。',
-        likes: 932,
-        comments: 156,
-        views: 6234,
-      },
-      {
-        id: 7,
-        avatar: '🎯',
-        username: '目标达人',
-        time: '14小时前',
-        category: 'advice',
-        categoryLabel: '灵感',
-        content: '想改变现状？不妨试试这5个方法：1. 明确目标 2. 制定计划 3. 坚持执行...',
-        likes: 745,
-        comments: 103,
-        views: 3912,
-      },
-      {
-        id: 8,
-        avatar: '😢',
-        username: '孤独的雨',
-        time: '16小时前',
-        category: 'confess',
-        categoryLabel: '随记',
-        content: '在一个陌生的城市工作三年了，依然没有真正的朋友。感觉很孤独...',
-        likes: 512,
-        comments: 78,
-        views: 2743,
-      },
-      {
-        id: 9,
-        avatar: '🌈',
-        username: '彩虹使者',
-        time: '1天前',
-        category: 'story',
-        categoryLabel: '片段',
-        content: '一个普通的清晨，我决定改变自己。三个月后，我变成了自己想要的样子。',
-        likes: 1203,
-        comments: 234,
-        views: 7856,
-      },
-      {
-        id: 10,
-        avatar: '💝',
-        username: '爱心使者',
-        time: '1天前',
-        category: 'advice',
-        categoryLabel: '灵感',
-        content: '给所有感到绝望的人：你的痛苦是真实的，但你的力量更强大。相信自己！',
-        likes: 654,
-        comments: 89,
-        views: 3421,
-      },
-      {
-        id: 11,
-        avatar: '🎨',
-        username: '创意者',
-        time: '1天前',
-        category: 'other',
-        categoryLabel: '其他',
-        content: '记下一个有趣的想法：生活就像一幅画，你既是画家，也是画布。',
-        likes: 423,
-        comments: 67,
-        views: 2145,
-      },
-      {
-        id: 12,
-        avatar: '🚀',
-        username: '梦想家',
-        time: '2天前',
-        category: 'story',
-        categoryLabel: '片段',
-        content: '从小镇来到大城市工作，这一路有很多变化，也让我重新认识了自己。',
-        likes: 876,
-        comments: 145,
-        views: 4567,
-      },
-      {
-        id: 13,
-        avatar: '🌸',
-        username: '温暖如光',
-        time: '2天前',
-        category: 'confess',
-        categoryLabel: '随记',
-        content: '妈妈的唠叨让我很烦，但自从她生病后，我才明白那都是爱...',
-        likes: 1456,
-        comments: 203,
-        views: 8234,
-      },
-      {
-        id: 14,
-        avatar: '🎭',
-        username: '演员',
-        time: '2天前',
-        category: 'story',
-        categoryLabel: '片段',
-        content: '我在舞台上表演了十年，最后我发现，真正的舞台其实是生活本身。',
-        likes: 543,
-        comments: 76,
-        views: 2987,
-      },
-      {
-        id: 15,
-        avatar: '📚',
-        username: '书虫',
-        time: '3天前',
-        category: 'advice',
-        categoryLabel: '灵感',
-        content: '读了100本书后，我发现最好的建议往往来自生活本身。',
-        likes: 654,
-        comments: 91,
-        views: 3456,
-      },
-      {
-        id: 16,
-        avatar: '🌙',
-        username: '夜思者',
-        time: '3天前',
-        category: 'confess',
-        categoryLabel: '随记',
-        content: '每个失眠的夜晚，我都在思考人生的意义。但天亮后，这些问题又消失了...',
-        likes: 789,
-        comments: 125,
-        views: 4123,
-      },
-      {
-        id: 17,
-        avatar: '☀️',
-        username: '阳光男孩',
-        time: '3天前',
-        category: 'story',
-        categoryLabel: '片段',
-        content: '曾经的我很悲观，直到我遇见了一个人改变了我的人生观。',
-        likes: 921,
-        comments: 167,
-        views: 5234,
-      },
-      {
-        id: 18,
-        avatar: '🎪',
-        username: '欢乐源泉',
-        time: '4天前',
-        category: 'other',
-        categoryLabel: '其他',
-        content: '生活就像一场马戏，有欢笑也有泪水。但这就是美妙的地方。',
-        likes: 456,
-        comments: 63,
-        views: 2234,
-      },
-      {
-        id: 19,
-        avatar: '🌺',
-        username: '花儿',
-        time: '4天前',
-        category: 'confess',
-        categoryLabel: '随记',
-        content: '我很想改变，但总是坚持不了。有人和我一样吗？',
-        likes: 567,
-        comments: 84,
-        views: 2876,
-      },
-      {
-        id: 20,
-        avatar: '🎵',
-        username: '音乐者',
-        time: '4天前',
-        category: 'story',
-        categoryLabel: '片段',
-        content: '通过音乐，我找到了自己。每一个音符都是我灵魂的表达。',
-        likes: 678,
-        comments: 98,
-        views: 3456,
-      },
-    ]
+  fetchTreeHoles() {
+    this.setData({ loading: true })
+    wx.showLoading({ title: '加载中...' })
 
-    this.setData({ allTrees: mockTrees })
-    this.filterAndSort()
-
-    // 保存到本地
-    setStorage('all_tree_holes', mockTrees)
+    api.getTreeHoleList(1, 100)
+      .then((res) => {
+        const list = ((res && res.data && res.data.list) || []).map(t => mapTreeHole(t))
+        this.setData({ allTrees: list, loading: false })
+        this.filterAndSort()
+      })
+      .catch((err) => {
+        console.error('[tree-list] fetch failed', err)
+        this.setData({ loading: false })
+        wx.showToast({ title: (err && err.message) || '加载失败', icon: 'none' })
+      })
+      .finally(() => wx.hideLoading())
   },
 
   // 搜索输入
@@ -312,16 +134,16 @@ Page({
 
     if (this.data.searchKeyword) {
       const keyword = this.data.searchKeyword.toLowerCase()
-      filtered = filtered.filter(tree => 
+      filtered = filtered.filter(tree =>
         tree.content.toLowerCase().includes(keyword) ||
-        tree.username.toLowerCase().includes(keyword)
+        (tree.title && tree.title.toLowerCase().includes(keyword))
       )
     }
 
     if (this.data.sortBy === 'hot') {
       filtered.sort((a, b) => b.likes - a.likes)
     } else {
-      filtered.sort((a, b) => b.id - a.id)
+      // 最新排序：已在后端按 createdAt 排序
     }
 
     // 分页
@@ -341,10 +163,11 @@ Page({
 
   // 加载更多
   onLoadMore() {
+    if (!this.data.hasMore) return
+
     const newPage = this.data.currentPage + 1
     this.setData({ currentPage: newPage })
-    
-    // 重新筛选排序获取新一页的数据
+
     let filtered = [...this.data.allTrees]
 
     if (this.data.currentCategory !== 'all') {
@@ -353,16 +176,14 @@ Page({
 
     if (this.data.searchKeyword) {
       const keyword = this.data.searchKeyword.toLowerCase()
-      filtered = filtered.filter(tree => 
+      filtered = filtered.filter(tree =>
         tree.content.toLowerCase().includes(keyword) ||
-        tree.username.toLowerCase().includes(keyword)
+        (tree.title && tree.title.toLowerCase().includes(keyword))
       )
     }
 
     if (this.data.sortBy === 'hot') {
       filtered.sort((a, b) => b.likes - a.likes)
-    } else {
-      filtered.sort((a, b) => b.id - a.id)
     }
 
     const pageSize = this.data.pageSize

@@ -38,10 +38,41 @@
     </view>
   </view>
 
-  <!-- ============ 场景1：未解锁视图（含已付费用户专属优惠） ============ -->
+  <!-- ============ 基础解读（始终可见，免费） ============ -->
+  <!-- 维度速览：基础数据，免费看 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-emoji">📊</text>
+      <text class="section-title">各维度得分</text>
+    </view>
+    <view class="dimension-list">
+      <view class="dim-item" wx:for="{{result.dimensionList}}" wx:key="key">
+        <view class="dim-header">
+          <text class="dim-emoji">{{item.emoji}}</text>
+          <text class="dim-name">{{item.name}}</text>
+          <text class="dim-score" style="color: {{item.color}}">{{item.score}}</text>
+        </view>
+        <view class="dim-bar-bg">
+          <view class="dim-bar-fill" style="width: {{item.percentage}}%; background: {{item.color}}"></view>
+        </view>
+        <text class="dim-desc" wx:if="{{unlocked}}">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ============ 场景1：未解锁视图（深度内容前的解锁 CTA） ============ -->
   <view wx:if="{{!unlocked}}" class="unlock-section">
-    <view class="unlock-title">🔒 解锁完整解读</view>
+    <view class="unlock-title">🔒 解锁深度解读</view>
     <view class="unlock-desc">包含：默契分析、相处指南、专属文案</view>
+
+    <!-- 深度内容预览（标题清单，提升解锁意愿） -->
+    <view class="deep-preview">
+      <view class="deep-preview-item">💕 为什么你们互相吸引</view>
+      <view class="deep-preview-item">💬 你们的日常对话</view>
+      <view class="deep-preview-item">⚔️ 会吵架的 TOP 3</view>
+      <view class="deep-preview-item">💡 相处秘籍</view>
+      <view class="deep-preview-item">✍️ 朋友圈分享文案</view>
+    </view>
 
     <!-- 已付费用户专属优惠提示 -->
     <view wx:if="{{hasPaidOnce}}" class="vip-hint">
@@ -87,29 +118,8 @@
     </view>
   </view>
 
-  <!-- ============ 完整解读内容（已解锁可见） ============ -->
+  <!-- ============ 深度解读（已解锁可见） ============ -->
   <block wx:if="{{unlocked}}">
-    <!-- 维度速览 -->
-    <view class="section-card">
-      <view class="section-header">
-        <text class="section-emoji">📊</text>
-        <text class="section-title">各维度得分</text>
-      </view>
-      <view class="dimension-list">
-        <view class="dim-item" wx:for="{{result.dimensionList}}" wx:key="key">
-          <view class="dim-header">
-            <text class="dim-emoji">{{item.emoji}}</text>
-            <text class="dim-name">{{item.name}}</text>
-            <text class="dim-score" style="color: {{item.color}}">{{item.score}}</text>
-          </view>
-          <view class="dim-bar-bg">
-            <view class="dim-bar-fill" style="width: {{item.percentage}}%; background: {{item.color}}"></view>
-          </view>
-          <text class="dim-desc">{{item.desc}}</text>
-        </view>
-      </view>
-    </view>
-
     <!-- 为什么你们吸引 -->
     <view class="section-card">
       <view class="section-header">
@@ -218,25 +228,25 @@
       <view class="sticky-upgrade-btn" bindtap="onShowUpgradeModal">立即升级</view>
       <view class="sticky-upgrade-close" bindtap="onCloseSticky">×</view>
     </view>
-
-    <!-- 底部操作 -->
-    <view class="action-section">
-      <button class="btn-poster" bindtap="onGeneratePoster">
-        <text class="btn-icon">🎨</text>
-        <text>生成分享海报</text>
-      </button>
-      <view class="action-row">
-        <button class="btn-secondary" bindtap="onSaveRecord">保存记录</button>
-        <button class="btn-secondary" bindtap="onRetry">重新测试</button>
-      </view>
-    </view>
-
-    <!-- 免责声明 -->
-    <view class="disclaimer">
-      <text class="disclaimer-icon">🎭</text>
-      <text class="disclaimer-text">本测试仅供娱乐参考，真正的缘分需要两个人一起用心经营~</text>
-    </view>
   </block>
+
+  <!-- ============ 底部操作（始终可见） ============ -->
+  <view class="action-section">
+    <button class="btn-poster" bindtap="onGeneratePoster">
+      <text class="btn-icon">🎨</text>
+      <text>生成分享海报</text>
+    </button>
+    <view class="action-row">
+      <button class="btn-secondary" bindtap="onSaveRecord">保存记录</button>
+      <button class="btn-secondary" bindtap="onRetry">重新测试</button>
+    </view>
+  </view>
+
+  <!-- 免责声明 -->
+  <view class="disclaimer">
+    <text class="disclaimer-icon">🎭</text>
+    <text class="disclaimer-text">本测试仅供娱乐参考，真正的缘分需要两个人一起用心经营~</text>
+  </view>
 
   <view class="bottom-spacer"></view>
 </scroll-view>

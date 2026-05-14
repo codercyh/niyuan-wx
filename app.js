@@ -1,8 +1,14 @@
+const api = require('./utils/api.js')
+const storage = require('./utils/storage.js')
+
 App({
   globalData: {
     userInfo: null,
     vipStatus: false,
+    vipInfo: null,        // { isVip, vipLevel, vipExpire }
     theme: 'light',
+    bootstrapped: false,  // 登录 + 首次同步是否完成
+    bootstrapPromise: null,
   },
 
   onLaunch() {
@@ -12,44 +18,63 @@ App({
       wx.navigateTo({ url: '/pages/privacy/privacy' })
     }
 
-    // 初始化用户数据
-    this.initUserData()
+    // 启动鉴权 + 用户/会员状态同步
+    this.globalData.bootstrapPromise = this.bootstrap()
   },
 
-  initUserData() {
-    const userInfo = wx.getStorageSync('userInfo')
-    if (!userInfo) {
-      // 默认用户信息
-      const defaultUser = {
-        id: 'user_' + Date.now(),
-        name: '用户',
-        avatar: null,
-        birthDate: null,
-        interestSign: null,
-        vipLevel: 0,
-        vipExpire: null,
-        createdAt: Date.now(),
-      }
-      wx.setStorageSync('userInfo', defaultUser)
-      this.globalData.userInfo = defaultUser
-    } else {
-      this.globalData.userInfo = userInfo
-    }
-
-    // 检查扩展功能状态
-    this.checkVipStatus()
+  /**
+   * 启动流程：wx.login → 后端换 token → 拉取用户信息 + VIP 状态
+   * 失败抛错（按"全 API 强依赖"策略），由调用方决定如何提示
+   */
+  bootstrap() {
+    return api.wxLogin()
+      .then((data) => {
+        if (data && data.userInfo) {
+          this.globalData.userInfo = data.userInfo
+        }
+        return api.checkVipStatus()
+      })
+      .then((res) => {
+        const vip = (res && res.data) || {}
+        this.globalData.vipInfo = vip
+        this.globalData.vipStatus = !!vip.isVip
+        // 持久化一份 VIP 状态供 utils/user.js 读取
+        storage.setStorage('vipMember', vip.isVip ? {
+          activatedAt: Date.now(),
+          expireAt: vip.vipExpire ? new Date(vip.vipExpire).getTime() : 0,
+          level: vip.vipLevel || 1,
+        } : null)
+        this.globalData.bootstrapped = true
+        return vip
+      })
+      .catch((err) => {
+        console.error('[app] bootstrap failed', err)
+        this.globalData.bootstrapped = false
+        throw err
+      })
   },
 
-  checkVipStatus() {
-    const userInfo = this.globalData.userInfo
-    if (userInfo && userInfo.vipExpire) {
-      const now = Date.now()
-      if (now < userInfo.vipExpire) {
-        this.globalData.vipStatus = true
-      } else {
-        this.globalData.vipStatus = false
-      }
-    }
+  /** 等待启动完成；页面可在 onLoad 中 await */
+  ensureBootstrapped() {
+    if (this.globalData.bootstrapped) return Promise.resolve(this.globalData.vipInfo)
+    if (this.globalData.bootstrapPromise) return this.globalData.bootstrapPromise
+    this.globalData.bootstrapPromise = this.bootstrap()
+    return this.globalData.bootstrapPromise
+  },
+
+  /** 主动刷新 VIP 状态（支付成功后调用） */
+  refreshVipStatus() {
+    return api.checkVipStatus().then((res) => {
+      const vip = (res && res.data) || {}
+      this.globalData.vipInfo = vip
+      this.globalData.vipStatus = !!vip.isVip
+      storage.setStorage('vipMember', vip.isVip ? {
+        activatedAt: Date.now(),
+        expireAt: vip.vipExpire ? new Date(vip.vipExpire).getTime() : 0,
+        level: vip.vipLevel || 1,
+      } : null)
+      return vip
+    })
   },
 
   // 获取当前资料
@@ -57,17 +82,15 @@ App({
     return this.globalData.userInfo
   },
 
-  // 更新当前资料
+  // 更新当前资料（仅内存 + 本地缓存；持久化由后端 /users/profile 负责）
   updateUserInfo(updates) {
     const userInfo = { ...this.globalData.userInfo, ...updates }
-    wx.setStorageSync('userInfo', userInfo)
     this.globalData.userInfo = userInfo
     return userInfo
   },
 
-  // 获取扩展功能状态
+  // 获取会员状态
   getVipStatus() {
-    this.checkVipStatus()
     return this.globalData.vipStatus
   },
 })

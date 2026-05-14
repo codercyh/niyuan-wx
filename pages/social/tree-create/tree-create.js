@@ -1,12 +1,25 @@
+const api = require('../../../utils/api.js')
 const { getStorage, setStorage } = require('../../../utils/storage.js')
+
+// 后端分类配置
+const CATEGORIES = {
+  love: { emoji: '💕', name: '情感' },
+  work: { emoji: '💼', name: '工作' },
+  family: { emoji: '🏠', name: '家庭' },
+  friendship: { emoji: '🤝', name: '友情' },
+  mood: { emoji: '💭', name: '心情' },
+  other: { emoji: '✨', name: '其他' },
+}
 
 Page({
   data: {
-    selectedCategory: 'confess',
+    selectedCategory: 'mood',
+    title: '',
     content: '',
     contentLength: 0,
     isAnonymous: true,
     canPublish: false,
+    submitting: false,
   },
 
   onLoad() {
@@ -17,17 +30,24 @@ Page({
     const draft = getStorage('tree_draft')
     if (draft) {
       this.setData({
-        selectedCategory: draft.category,
-        content: draft.content,
-        contentLength: draft.content.length,
-        isAnonymous: draft.isAnonymous,
-        canPublish: draft.content.trim().length > 0,
+        selectedCategory: draft.category || 'mood',
+        title: draft.title || '',
+        content: draft.content || '',
+        contentLength: (draft.content || '').length,
+        isAnonymous: draft.isAnonymous !== false,
+        canPublish: (draft.content || '').trim().length > 0,
       })
     }
   },
 
   onSelectCategory(e) {
     this.setData({ selectedCategory: e.currentTarget.dataset.category })
+    this.saveDraftAuto()
+  },
+
+  onTitleInput(e) {
+    const title = e.detail.value
+    this.setData({ title })
     this.saveDraftAuto()
   },
 
@@ -49,6 +69,7 @@ Page({
   saveDraftAuto() {
     setStorage('tree_draft', {
       category: this.data.selectedCategory,
+      title: this.data.title,
       content: this.data.content,
       isAnonymous: this.data.isAnonymous,
       savedAt: new Date().toLocaleString('zh-CN'),
@@ -70,46 +91,40 @@ Page({
       wx.showToast({ title: '请输入内容', icon: 'none' })
       return
     }
-    if (content.length > 500) {
-      wx.showToast({ title: '内容过长，请删除一些文字', icon: 'none' })
+    if (content.length > 2000) {
+      wx.showToast({ title: '内容过长，最多2000字', icon: 'none' })
       return
     }
+    if (this.data.submitting) return
 
-    const newTree = {
-      id: Date.now().toString(36) + Math.random().toString(36).substr(2, 6),
-      avatar: this.data.isAnonymous ? '😔' : '😊',
-      username: this.data.isAnonymous ? '记录者' : '我',
-      time: '刚刚',
-      category: this.data.selectedCategory,
-      categoryLabel: this.getCategoryLabel(this.data.selectedCategory),
-      content: content,
-      likes: 0,
-      comments: 0,
-      views: 0,
-    }
+    this.setData({ submitting: true })
+    wx.showLoading({ title: '发布中...' })
 
-    const allTrees = getStorage('all_tree_holes') || []
-    allTrees.unshift(newTree)
-    setStorage('all_tree_holes', allTrees)
+    // 生成默认标题（取内容前20字）
+    const title = this.data.title.trim() || content.substring(0, 20) + (content.length > 20 ? '...' : '')
 
-    const myTrees = getStorage('my_tree_holes') || []
-    myTrees.push(newTree)
-    setStorage('my_tree_holes', myTrees)
+    api.createTreeHole(title, content, this.data.selectedCategory, [], this.data.isAnonymous)
+      .then((res) => {
+        wx.hideLoading()
+        wx.showToast({ title: '发布成功', icon: 'success' })
 
-    setStorage('tree_draft', null)
-    this.setData({ content: '', contentLength: 0, canPublish: false })
+        // 清除草稿
+        setStorage('tree_draft', null)
+        this.setData({
+          title: '',
+          content: '',
+          contentLength: 0,
+          canPublish: false,
+          submitting: false,
+        })
 
-    wx.showToast({ title: '记录已保存', icon: 'success' })
-    setTimeout(() => wx.navigateBack(), 1000)
-  },
-
-  getCategoryLabel(category) {
-    const labels = {
-      'confess': '随记',
-      'advice': '灵感',
-      'story': '片段',
-      'other': '其他',
-    }
-    return labels[category] || '其他'
+        setTimeout(() => wx.navigateBack(), 1000)
+      })
+      .catch((err) => {
+        wx.hideLoading()
+        this.setData({ submitting: false })
+        console.error('[tree-create] publish failed', err)
+        wx.showToast({ title: (err && err.message) || '发布失败', icon: 'none' })
+      })
   },
 })

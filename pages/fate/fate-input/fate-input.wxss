@@ -480,3 +480,99 @@
   height: env(safe-area-inset-bottom);
   padding-bottom: 40rpx;
 }
+
+/* ==================== 阳历/农历切换 ==================== */
+.calendar-tabs {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+.calendar-tab {
+  flex: 1;
+  text-align: center;
+  padding: 12rpx 0;
+  font-size: 26rpx;
+  color: #A0A0A0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1rpx solid #333;
+  border-radius: 12rpx;
+  transition: all 0.2s;
+}
+.calendar-tab.active {
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #FF6B6B, #FF6B35);
+  border-color: transparent;
+}
+
+/* ==================== 农历选择器弹窗 ==================== */
+.lunar-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.lunar-mask.show {
+  visibility: visible;
+  opacity: 1;
+}
+.lunar-modal {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, #2A2351 0%, #1F1B3F 100%);
+  border-top: 1rpx solid rgba(255, 107, 107, 0.25);
+  box-shadow: 0 -8rpx 32rpx rgba(0, 0, 0, 0.5);
+  border-radius: 28rpx 28rpx 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  transform: translateY(100%);
+  transition: transform 0.25s;
+}
+.lunar-mask.show .lunar-modal {
+  transform: translateY(0);
+}
+.lunar-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 32rpx;
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.08);
+}
+.lunar-cancel {
+  font-size: 30rpx;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 8rpx 12rpx;
+}
+.lunar-title {
+  font-size: 32rpx;
+  color: #FFFFFF;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+}
+.lunar-confirm {
+  font-size: 30rpx;
+  color: #FF8C8C;
+  font-weight: 600;
+  padding: 8rpx 12rpx;
+}
+.lunar-pickers {
+  padding: 24rpx 0 32rpx;
+  background: transparent;
+}
+.lunar-picker-view {
+  width: 100%;
+  height: 440rpx;
+}
+.lunar-col-item {
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+.lunar-indicator {
+  height: 80rpx;
+  background: rgba(255, 107, 107, 0.08);
+  border-top: 1rpx solid rgba(255, 107, 107, 0.5);
+  border-bottom: 1rpx solid rgba(255, 107, 107, 0.5);
+}

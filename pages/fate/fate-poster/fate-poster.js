@@ -94,26 +94,29 @@ Page({
       })
 
       const ctx = canvas.getContext('2d')
-      
+
       // 设置 Canvas 尺寸
       const dpr = wx.getSystemInfoSync().pixelRatio
       canvas.width = canvasWidth * dpr
       canvas.height = canvasHeight * dpr
       ctx.scale(dpr, dpr)
 
+      // 预加载二维码图片
+      const qrImg = await this.loadQrImage(canvas)
+
       // 根据风格绘制
       switch (selectedStyle) {
         case 'funny':
-          await this.drawFunnyPoster(ctx, result, canvasWidth, canvasHeight)
+          await this.drawFunnyPoster(ctx, result, canvasWidth, canvasHeight, qrImg)
           break
         case 'artistic':
-          await this.drawArtisticPoster(ctx, result, canvasWidth, canvasHeight)
+          await this.drawArtisticPoster(ctx, result, canvasWidth, canvasHeight, qrImg)
           break
         case 'minimal':
-          await this.drawMinimalPoster(ctx, result, canvasWidth, canvasHeight)
+          await this.drawMinimalPoster(ctx, result, canvasWidth, canvasHeight, qrImg)
           break
         case 'meme':
-          await this.drawMemePoster(ctx, result, canvasWidth, canvasHeight)
+          await this.drawMemePoster(ctx, result, canvasWidth, canvasHeight, qrImg)
           break
       }
 

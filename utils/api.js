@@ -9,11 +9,14 @@
  */
 
 // 环境配置：切换到生产环境时改为 true
-const IS_PRODUCTION = false
+const IS_PRODUCTION = true
 
 // API 基础地址配置
+// 注意：域名 api.yuanfen.love 需完成 ICP 备案后才能使用
+// 备案期间使用旧 IP 地址进行开发测试
 const API_BASE_URL = IS_PRODUCTION
-  ? 'http://121.43.246.140:8099'  // 阿里云生产环境
+  ? 'https://api.yuanfen.love'     // 正式：备案完成后启用
+  // ? 'http://121.43.246.140:8099' // 临时：IP 直连（需勾选「不校验合法域名」）
   : 'http://localhost:3000'        // 本地开发环境
 
 const storage = require('./storage.js')
@@ -107,6 +110,35 @@ function updateUserInfo(data) {
 
 function checkVipStatus() {
   return request('GET', '/users/vip-status')
+}
+
+// ==================== 解锁/支付 (备案后接入) ====================
+// TODO: 备案完成后，把以下 stubs 替换为真实接口调用
+// 现阶段所有方法直接 resolve，让本地解锁流程走通
+
+function verifyAdUnlock(payload) {
+  // TODO: 备案后接入 POST /unlock/ad-verify
+  return Promise.resolve({ code: 0, data: { ok: true, source: 'local-stub', payload } })
+}
+
+function createSinglePayOrder(payload) {
+  // TODO: 备案后接入 POST /pay/single/create，返回 wx.requestPayment 所需参数
+  return Promise.resolve({ code: 0, data: { ok: true, source: 'local-stub', payload } })
+}
+
+function verifySinglePayCallback(payload) {
+  // TODO: 备案后接入 POST /pay/single/verify
+  return Promise.resolve({ code: 0, data: { ok: true, source: 'local-stub', payload } })
+}
+
+function createMembershipOrder(payload) {
+  // TODO: 备案后接入 POST /pay/membership/create
+  return Promise.resolve({ code: 0, data: { ok: true, source: 'local-stub', payload } })
+}
+
+function verifyMembershipCallback(payload) {
+  // TODO: 备案后接入 POST /pay/membership/verify
+  return Promise.resolve({ code: 0, data: { ok: true, source: 'local-stub', payload } })
 }
 
 // ==================== 测试 ====================
@@ -219,6 +251,11 @@ module.exports = {
   commentTreeHole,
   likeTreeHole,
   checkVipStatus,
+  verifyAdUnlock,
+  createSinglePayOrder,
+  verifySinglePayCallback,
+  createMembershipOrder,
+  verifyMembershipCallback,
   getMessageList,
   markMessagesRead,
   markMessageRead,

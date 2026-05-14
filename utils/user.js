@@ -327,6 +327,49 @@ storage.setStorage('vipMember', info);
 return info;
 }
 
+/**
+* 获取会员到期时间戳（毫秒）
+* @returns {number} 到期时间戳，0 表示无会员
+*/
+function getMembershipExpiry() {
+  const vip = storage.getStorage('vipMember');
+  if (!vip || typeof vip !== 'object') return 0;
+  return vip.expireAt || 0;
+}
+
+/**
+* 获取已永久解锁的测试 ID 列表（B 方案：单次付费即永久解锁该测试）
+* @returns {string[]}
+*/
+function getUnlockedTests() {
+  const list = storage.getStorage('unlockedTests');
+  return Array.isArray(list) ? list : [];
+}
+
+/**
+* 该测试是否已永久解锁
+* @param {string} testId
+* @returns {boolean}
+*/
+function isTestUnlocked(testId) {
+  if (!testId) return false;
+  return getUnlockedTests().indexOf(String(testId)) >= 0;
+}
+
+/**
+* 标记测试为已永久解锁（幂等）
+* @param {string} testId
+* @returns {string[]} 更新后的列表
+*/
+function markTestUnlocked(testId) {
+  if (!testId) return getUnlockedTests();
+  const id = String(testId);
+  const list = getUnlockedTests();
+  if (list.indexOf(id) < 0) list.push(id);
+  storage.setStorage('unlockedTests', list);
+  return list;
+}
+
 module.exports = {
 createUserProfile,
 getUserProfile,
@@ -344,4 +387,8 @@ hasPaidOnce,
 markPaidOnce,
 isVipMember,
 markVipMember,
+getMembershipExpiry,
+getUnlockedTests,
+isTestUnlocked,
+markTestUnlocked,
 };

@@ -1,168 +1,155 @@
-const { getStorage, setStorage } = require('../../../utils/storage.js')
+const api = require('../../../utils/api.js')
+
+// 后端分类映射
+const CATEGORY_LABELS = {
+  love: '情感',
+  work: '工作',
+  family: '家庭',
+  friendship: '友情',
+  mood: '心情',
+  other: '其他',
+}
+
+const CATEGORY_EMOJI = {
+  love: '💕',
+  work: '💼',
+  family: '🏠',
+  friendship: '🤝',
+  mood: '💭',
+  other: '📝',
+}
+
+function formatTime(dateStr) {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  const now = new Date()
+  const diff = now - date
+  const minutes = Math.floor(diff / 60000)
+  const hours = Math.floor(diff / 3600000)
+  const days = Math.floor(diff / 86400000)
+
+  if (minutes < 1) return '刚刚'
+  if (minutes < 60) return `${minutes}分钟前`
+  if (hours < 24) return `${hours}小时前`
+  if (days < 7) return `${days}天前`
+  return `${date.getMonth() + 1}月${date.getDate()}日`
+}
+
+// 后端评论 -> 前端格式
+function mapComment(c) {
+  return {
+    id: c._id,
+    avatar: c.isAnonymous ? '😊' : '👤',
+    username: c.isAnonymous ? '记录者' : '匿名用户',
+    time: formatTime(c.createdAt),
+    content: c.content,
+    likes: c.likeCount || 0,
+    liked: c.isLiked || false,
+    replies: [], // 后端暂不支持二级评论
+  }
+}
+
+// 后端树洞 -> 前端格式
+function mapTreeHole(t) {
+  return {
+    id: t._id,
+    avatar: CATEGORY_EMOJI[t.category] || '📝',
+    username: t.isAnonymous ? '记录者' : '匿名用户',
+    time: formatTime(t.createdAt),
+    category: t.category,
+    categoryLabel: CATEGORY_LABELS[t.category] || '其他',
+    title: t.title,
+    content: t.content,
+    likes: t.likeCount || 0,
+    comments: t.commentCount || 0,
+    views: 0,
+    isLiked: t.isLiked || false,
+  }
+}
 
 Page({
   data: {
-    treeId: 0,
+    treeId: '',
     treeData: {},
     isLiked: false,
     comments: [],
     commentText: '',
     canSubmitComment: false,
+    loading: false,
   },
 
   onLoad(options) {
-    const treeId = parseInt(options.id)
+    const treeId = options.id
+    if (!treeId) {
+      wx.showToast({ title: '参数错误', icon: 'error' })
+      setTimeout(() => wx.navigateBack(), 1000)
+      return
+    }
     this.setData({ treeId })
     this.loadTreeData(treeId)
   },
 
   loadTreeData(treeId) {
-    // 从storage获取记录数据
-    const allTrees = getStorage('all_tree_holes') || this.getMockTrees()
-    const tree = allTrees.find(t => t.id === treeId)
+    this.setData({ loading: true })
+    wx.showLoading({ title: '加载中...' })
 
-    if (!tree) {
-      wx.showToast({ title: '内容不存在', icon: 'error' })
-      wx.navigateBack()
-      return
-    }
+    api.getTreeHoleDetail(treeId)
+      .then((res) => {
+        const data = (res && res.data) || {}
+        const treeData = mapTreeHole(data)
+        const comments = (data.comments || []).map(mapComment)
 
-    this.setData({ treeData: tree })
-
-    // 加载补充内容
-    this.loadComments(treeId)
-
-    // 检查是否已标记
-    const likedTrees = getStorage('liked_trees') || []
-    const isLiked = likedTrees.includes(treeId)
-    this.setData({ isLiked })
+        this.setData({
+          treeData,
+          isLiked: treeData.isLiked,
+          comments,
+          loading: false,
+        })
+      })
+      .catch((err) => {
+        console.error('[tree-detail] load failed', err)
+        this.setData({ loading: false })
+        wx.showToast({ title: (err && err.message) || '加载失败', icon: 'none' })
+        setTimeout(() => wx.navigateBack(), 1500)
+      })
+      .finally(() => wx.hideLoading())
   },
 
-  loadComments(treeId) {
-    const mockComments = [
-      {
-        id: 1,
-        avatar: '😊',
-        username: '记录者A',
-        time: '1小时前',
-        content: '我也有同样的感受，你不孤独。',
-        likes: 12,
-        liked: false,
-        replies: [
-          {
-            id: 101,
-            avatar: '💙',
-            username: '原记录者',
-            time: '50分钟前',
-            content: '谢谢你的理解，这对我很有帮助。',
-            likes: 3,
-            liked: false,
-          },
-          {
-            id: 102,
-            avatar: '🌟',
-            username: '记录者B',
-            time: '30分钟前',
-            content: '大家都会有这样的时候，加油！',
-            likes: 5,
-            liked: false,
-          },
-        ],
-      },
-      {
-        id: 2,
-        avatar: '💪',
-        username: '记录参考',
-        time: '2小时前',
-        content: '建议你可以尝试一下冥想或者瑜伽，对调整心态很有帮助。',
-        likes: 28,
-        liked: false,
-        replies: [
-          {
-            id: 201,
-            avatar: '✨',
-            username: '用户B',
-            time: '1小时前',
-            content: '我试过了，真的很有效果！',
-            likes: 8,
-            liked: false,
-          },
-        ],
-      },
-      {
-        id: 3,
-        avatar: '🎯',
-        username: '行动派',
-        time: '3小时前',
-        content: '与其想那么多，不如制定一个小目标，然后逐步实现。这样会更有成就感。',
-        likes: 35,
-        liked: false,
-        replies: [],
-      },
-      {
-        id: 4,
-        avatar: '👋',
-        username: '记录者C',
-        time: '4小时前',
-        content: '换个环境确实会不容易，先把节奏慢下来也没关系。',
-        likes: 42,
-        liked: false,
-        replies: [
-          {
-            id: 401,
-            avatar: '❤️',
-            username: '记录者D',
-            time: '2小时前',
-            content: '这样的温暖互动真的很棒！',
-            likes: 15,
-            liked: false,
-          },
-        ],
-      },
-    ]
-
-    this.setData({ comments: mockComments })
-    setStorage(`tree_${treeId}_comments`, mockComments)
-  },
-
-  // 标记/取消标记
+  // 点赞/取消点赞
   onToggleLike() {
-    const isLiked = !this.data.isLiked
-    const newLikes = this.data.treeData.likes + (isLiked ? 1 : -1)
+    api.likeTreeHole(this.data.treeId)
+      .then((res) => {
+        const data = (res && res.data) || {}
+        const isLiked = data.liked
+        const newLikes = data.likeCount
 
-    const updatedTree = { ...this.data.treeData, likes: newLikes }
-    this.setData({
-      isLiked,
-      treeData: updatedTree,
-    })
+        this.setData({
+          isLiked,
+          'treeData.likes': newLikes,
+        })
 
-    // 保存到storage
-    let likedTrees = getStorage('liked_trees') || []
-    if (isLiked) {
-      if (!likedTrees.includes(this.data.treeId)) {
-        likedTrees.push(this.data.treeId)
-      }
-    } else {
-      likedTrees = likedTrees.filter(id => id !== this.data.treeId)
-    }
-    setStorage('liked_trees', likedTrees)
-
-    wx.showToast({
-      title: isLiked ? '已标记' : '已取消',
-      icon: 'success',
-      duration: 1000,
-    })
+        wx.showToast({
+          title: isLiked ? '已标记' : '已取消',
+          icon: 'success',
+          duration: 1000,
+        })
+      })
+      .catch((err) => {
+        console.error('[tree-detail] like failed', err)
+        wx.showToast({ title: (err && err.message) || '操作失败', icon: 'none' })
+      })
   },
 
-  // 补充内容标记
+  // 评论点赞（后端暂不支持单独评论点赞，仅本地反馈）
   onToggleCommentLike(e) {
     const commentId = e.currentTarget.dataset.id
     const comments = this.data.comments.map(comment => {
       if (comment.id === commentId) {
+        const newLiked = !comment.liked
         return {
           ...comment,
-          liked: !comment.liked,
-          likes: comment.likes + (comment.liked ? -1 : 1),
+          liked: newLiked,
+          likes: comment.likes + (newLiked ? 1 : -1),
         }
       }
       return comment
@@ -172,19 +159,20 @@ Page({
     wx.showToast({ title: '✓', icon: 'success', duration: 800 })
   },
 
-  // 二级补充标记
+  // 二级补充（后端暂不支持）
   onToggleReplyLike(e) {
     const replyId = e.currentTarget.dataset.id
     const parentId = e.currentTarget.dataset.parent
-    
+
     const comments = this.data.comments.map(comment => {
       if (comment.id === parentId) {
         const replies = comment.replies.map(reply => {
           if (reply.id === replyId) {
+            const newLiked = !reply.liked
             return {
               ...reply,
-              liked: !reply.liked,
-              likes: reply.likes + (reply.liked ? -1 : 1),
+              liked: newLiked,
+              likes: reply.likes + (newLiked ? 1 : -1),
             }
           }
           return reply
@@ -198,7 +186,7 @@ Page({
     wx.showToast({ title: '✓', icon: 'success', duration: 800 })
   },
 
-  // 补充输入
+  // 评论输入
   onCommentInput(e) {
     const commentText = e.detail.value
     this.setData({
@@ -207,7 +195,7 @@ Page({
     })
   },
 
-  // 保存补充内容
+  // 发布评论
   onPublishComment() {
     const text = this.data.commentText.trim()
 
@@ -216,74 +204,47 @@ Page({
       return
     }
 
-    if (text.length > 200) {
-      wx.showToast({ title: '内容过长（最多200字）', icon: 'none' })
+    if (text.length > 500) {
+      wx.showToast({ title: '内容过长（最多500字）', icon: 'none' })
       return
     }
 
-    // 创建新补充内容
-    const newComment = {
-      id: Math.max(...this.data.comments.map(c => c.id), 0) + 1,
-      avatar: '😊',
-      username: '我',
-      time: '刚刚',
-      content: text,
-      likes: 0,
-      liked: false,
-      replies: [],
-    }
+    wx.showLoading({ title: '发送中...' })
 
-    const updatedComments = [newComment, ...this.data.comments]
-    this.setData({
-      comments: updatedComments,
-      commentText: '',
-      canSubmitComment: false,
-    })
+    api.commentTreeHole(this.data.treeId, text, true)
+      .then((res) => {
+        wx.hideLoading()
 
-    // 更新记录的补充数
-    const updatedTree = {
-      ...this.data.treeData,
-      comments: this.data.treeData.comments + 1,
-    }
-    this.setData({ treeData: updatedTree })
+        const newComment = mapComment((res && res.data) || {})
 
-    wx.showToast({ title: '已保存补充', icon: 'success' })
+        this.setData({
+          comments: [newComment, ...this.data.comments],
+          commentText: '',
+          canSubmitComment: false,
+          'treeData.comments': this.data.treeData.comments + 1,
+        })
 
-    // 保存到storage
-    setStorage(`tree_${this.data.treeId}_comments`, updatedComments)
+        wx.showToast({ title: '已保存补充', icon: 'success' })
+      })
+      .catch((err) => {
+        wx.hideLoading()
+        console.error('[tree-detail] comment failed', err)
+        wx.showToast({ title: (err && err.message) || '发送失败', icon: 'none' })
+      })
   },
 
-  // 添加二级补充
+  // 二级补充（后端暂不支持）
   onReplyComment(e) {
-    const commentId = e.currentTarget.dataset.id
-    // 实际应用中可以展开补充输入框或者弹出输入框
-    wx.showToast({ title: '补充功能整理中', icon: 'none' })
+    wx.showToast({ title: '功能整理中', icon: 'none' })
   },
 
   // 复制内容
   onShare() {
     wx.setClipboardData({
-      data: `记录内容：${this.data.treeData.content.substring(0, 50)}...`,
+      data: `记录内容：${this.data.treeData.content.substring(0, 100)}...`,
       success: () => {
         wx.showToast({ title: '已复制内容', icon: 'success' })
       },
     })
-  },
-
-  getMockTrees() {
-    return [
-      {
-        id: 1,
-        avatar: '😔',
-        username: '记录者',
-        time: '2小时前',
-        category: 'confess',
-        categoryLabel: '随记',
-        content: '最近工作压力很大，总是熬夜到凌晨。感觉生活没有方向，不知道自己要什么...',
-        likes: 245,
-        comments: 32,
-        views: 1203,
-      },
-    ]
   },
 })

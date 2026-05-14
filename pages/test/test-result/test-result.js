@@ -1,6 +1,7 @@
 const api = require('../../../utils/api.js')
 const { formatParticipants } = require('../../../utils/format.js')
 const userMgr = require('../../../utils/user.js')
+const unlockMgr = require('../../../utils/unlock.js')
 
 const CATEGORY_EMOJI = {
   fun: '🤪', personality: '👤', love: '💕',
@@ -76,9 +77,8 @@ Page({
         const hasPaidOnce = userMgr.hasPaidOnce()
         let unlocked
         if (forceLocked) unlocked = false
-        else if (isVip) unlocked = true
         else if (record.unlocked === true) unlocked = true
-        else unlocked = hasPaidOnce
+        else unlocked = unlockMgr.isResultUnlocked({ testId, runId: recordId })
 
         this.setData({
           result: view.result,
@@ -179,31 +179,45 @@ Page({
 
   // ===== 付费/解锁 =====
   onWatchAd() {
-    wx.showLoading({ title: '加载广告...' })
-    setTimeout(() => {
-      wx.hideLoading()
-      const result = { ...(this.data.result || {}), unlocked: true }
-      this.setData({ result, unlocked: true, showRetestModal: false })
-      wx.showToast({ title: '已解锁', icon: 'success' })
-    }, 800)
+    const runId = this.data.recordId || this.data.testId
+    wx.showLoading({ title: '加载广告...', mask: true })
+    unlockMgr.unlockByAd(runId)
+      .then(() => {
+        wx.hideLoading()
+        const result = { ...(this.data.result || {}), unlocked: true }
+        this.setData({ result, unlocked: true, showRetestModal: false })
+        wx.showToast({ title: '已解锁', icon: 'success' })
+      })
+      .catch((err) => {
+        wx.hideLoading()
+        wx.showToast({ title: (err && err.errMsg) || '广告播放失败', icon: 'none' })
+      })
   },
 
   onPaySingle() {
     wx.showModal({
       title: '单次解锁',
-      content: '支付 ¥9.9 解锁完整解读？',
+      content: '支付 ¥9.9 永久解锁该测试的完整解读？',
       success: (res) => {
         if (!res.confirm) return
-        userMgr.markPaidOnce()
-        const result = { ...(this.data.result || {}), unlocked: true }
-        this.setData({
-          result,
-          unlocked: true,
-          hasPaidOnce: true,
-          showStickyUpgrade: !this.data.isVip,
-          showRetestModal: false,
-        })
-        wx.showToast({ title: '已解锁', icon: 'success' })
+        wx.showLoading({ title: '处理中...', mask: true })
+        unlockMgr.unlockBySinglePay(this.data.testId)
+          .then(() => {
+            wx.hideLoading()
+            const result = { ...(this.data.result || {}), unlocked: true }
+            this.setData({
+              result,
+              unlocked: true,
+              hasPaidOnce: true,
+              showStickyUpgrade: !this.data.isVip,
+              showRetestModal: false,
+            })
+            wx.showToast({ title: '已解锁', icon: 'success' })
+          })
+          .catch((err) => {
+            wx.hideLoading()
+            wx.showToast({ title: (err && err.message) || '支付失败', icon: 'none' })
+          })
       },
     })
   },
@@ -217,21 +231,29 @@ Page({
   onPayVip(e) {
     const channel = (e && e.currentTarget && e.currentTarget.dataset.channel) || 'wechat'
     wx.showModal({
-      title: '升级会员',
-      content: '通过 ' + (channel === 'wechat' ? '微信' : '抖音') + ' 支付 ¥9.9 开通首月会员？',
+      title: '升级月度会员',
+      content: '通过 ' + (channel === 'wechat' ? '微信' : '抖音') + ' 支付 ¥19.9 开通月度会员？期内不限次数解锁所有测试',
       success: (res) => {
         if (!res.confirm) return
-        userMgr.markVipMember({ months: 1 })
-        const result = { ...(this.data.result || {}), unlocked: true }
-        this.setData({
-          result,
-          unlocked: true,
-          isVip: true,
-          showStickyUpgrade: false,
-          showUpgradeModal: false,
-          showRetestModal: false,
-        })
-        wx.showToast({ title: '会员已开通', icon: 'success' })
+        wx.showLoading({ title: '处理中...', mask: true })
+        unlockMgr.unlockByMembership({ months: 1 })
+          .then(() => {
+            wx.hideLoading()
+            const result = { ...(this.data.result || {}), unlocked: true }
+            this.setData({
+              result,
+              unlocked: true,
+              isVip: true,
+              showStickyUpgrade: false,
+              showUpgradeModal: false,
+              showRetestModal: false,
+            })
+            wx.showToast({ title: '会员已开通', icon: 'success' })
+          })
+          .catch((err) => {
+            wx.hideLoading()
+            wx.showToast({ title: (err && err.message) || '开通失败', icon: 'none' })
+          })
       },
     })
   },

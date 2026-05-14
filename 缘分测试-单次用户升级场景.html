@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>缘分测试 - 单次付费用户重新测试场景</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+      background: #0a0a0f;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: #fff;
+      font-size: 20px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    
+    .subtitle {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .scenario-label {
+      color: #22c55e;
+      font-size: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .phones-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .phone-frame {
+      width: 375px;
+      background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+      border-radius: 40px;
+      padding: 20px;
+      box-shadow: 0 0 60px rgba(138, 43, 226, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .phone-frame::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    
+    .result-card {
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 165, 0, 0.1) 100%);
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      border-radius: 24px;
+      padding: 30px 20px;
+      text-align: center;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    
+    .fate-emoji {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    
+    .fate-type {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    
+    .fate-level {
+      background: linear-gradient(90deg, #ff6b6b, #ffa500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    
+    .fate-score {
+      font-size: 42px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    
+    .fate-score span {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .couple-name {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .signature {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      font-style: italic;
+    }
+    
+    /* 专属优惠提示 */
+    .vip-hint {
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 165, 0, 0.15) 100%);
+      border: 1px solid rgba(255, 107, 107, 0.4);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    
+    .vip-hint-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .vip-hint-title {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    
+    .vip-hint-desc {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    
+    .vip-hint-highlight {
+      color: #ffa500;
+      font-weight: 600;
+    }
+    
+    .unlock-section {
+      margin-top: 24px;
+    }
+    
+    .unlock-title {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    
+    .unlock-desc {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .unlock-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    /* 免费广告按钮 */
+    .btn-ad {
+      background: transparent;
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+      padding: 12px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s;
+    }
+    
+    .btn-ad:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .btn-ad-title {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-ad-tag {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 11px;
+    }
+    
+    /* 单次付费按钮 */
+    .btn-single {
+      background: transparent;
+      border: 1px solid rgba(138, 43, 226, 0.5);
+      border-radius: 16px;
+      padding: 14px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s;
+    }
+    
+    .btn-single:hover {
+      border-color: rgba(138, 43, 226, 0.8);
+      background: rgba(138, 43, 226, 0.1);
+    }
+    
+    .btn-single-title {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-single-price {
+      color: #a855f7;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    /* VIP按钮 - 专属优惠版 */
+    .btn-vip-special {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+      border: none;
+      border-radius: 16px;
+      padding: 16px 20px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
+    }
+    
+    .btn-vip-special::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) rotate(45deg); }
+    }
+    
+    .btn-vip-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .btn-vip-left {
+      text-align: left;
+    }
+    
+    .btn-vip-title {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-vip-sub {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 12px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+    
+    .btn-vip-price {
+      text-align: right;
+    }
+    
+    .btn-vip-price-original {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12px;
+      text-decoration: line-through;
+    }
+    
+    .btn-vip-price-special {
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    .btn-vip-price-special span {
+      font-size: 12px;
+      font-weight: normal;
+    }
+    
+    .exclusive-tag {
+      position: absolute;
+      top: -8px;
+      right: 12px;
+      background: linear-gradient(90deg, #ffd700, #ffa500);
+      color: #000;
+      font-size: 10px;
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    
+    /* 弹窗样式 */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    
+    .modal {
+      background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+      border-radius: 24px;
+      padding: 24px;
+      width: 320px;
+      position: relative;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 20px;
+      cursor: pointer;
+    }
+    
+    .modal-title {
+      text-align: center;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    
+    .modal-highlight {
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 165, 0, 0.15) 100%);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .modal-highlight-text {
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    
+    .modal-highlight-text strong {
+      color: #ffa500;
+    }
+    
+    .modal-benefits {
+      margin-bottom: 20px;
+    }
+    
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      padding: 8px 0;
+    }
+    
+    .benefit-check {
+      color: #22c55e;
+    }
+    
+    .price-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .price-compare {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+    
+    .price-main {
+      color: #fff;
+      font-size: 32px;
+      font-weight: bold;
+    }
+    
+    .price-main span {
+      font-size: 14px;
+      font-weight: normal;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .price-save {
+      color: #22c55e;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    
+    .pay-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .pay-btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .pay-btn-wechat {
+      background: #07c160;
+      color: #fff;
+    }
+    
+    .pay-btn-douyin {
+      background: #000;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .pay-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 24px 0;
+    }
+    
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .divider-text {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 12px;
+      padding: 0 16px;
+    }
+    
+    .bottom-actions {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .bottom-btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .bottom-btn-share {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .bottom-btn-retest {
+      background: linear-gradient(90deg, #a855f7, #7c3aed);
+      color: #fff;
+    }
+    
+    /* 底部常驻提示条 */
+    .sticky-upgrade {
+      background: linear-gradient(90deg, rgba(255, 107, 107, 0.2), rgba(255, 165, 0, 0.2));
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+    
+    .sticky-upgrade-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .sticky-upgrade-text {
+      color: #fff;
+      font-size: 13px;
+    }
+    
+    .sticky-upgrade-text strong {
+      color: #ffa500;
+    }
+    
+    .sticky-upgrade-btn {
+      background: linear-gradient(90deg, #ff6b6b, #ffa500);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .sticky-upgrade-close {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>单次付费用户重新测试场景</h1>
+    <p class="subtitle">方案B：解锁页特殊提示 + 专属优惠</p>
+    
+    <div class="phones-row">
+      <!-- 场景1：单次用户再次进入解锁页 -->
+      <div class="phone-frame">
+        <div class="status-bar">
+          <span>14:32</span>
+          <span>📶 🔋</span>
+        </div>
+        
+        <div class="scenario-label">📌 场景：单次用户再次测试</div>
+        
+        <!-- 结果卡片 -->
+        <div class="result-card">
+          <div class="fate-emoji">⚡</div>
+          <div class="fate-type">「一个想冲一个想躺」</div>
+          <div class="fate-level">A级 · 珍惜级缘分</div>
+          <div class="fate-score">85<span>分</span></div>
+          <div class="couple-name">小明 ♈ × 小花 ♉</div>
+          <div class="signature">"你的计划，永远赶不上TA的变动"</div>
+        </div>
+        
+        <!-- 解锁区域 -->
+        <div class="unlock-section">
+          <div class="unlock-title">🔒 解锁完整解读</div>
+          <div class="unlock-desc">包含：默契分析、相处指南、专属文案</div>
+          
+          <!-- 专属优惠提示 -->
+          <div class="vip-hint">
+            <div class="vip-hint-icon">💡</div>
+            <div class="vip-hint-title">已付费用户专属优惠</div>
+            <div class="vip-hint-desc">
+              你上次花了 <span class="vip-hint-highlight">¥9.9</span><br>
+              开通会员仅再加 <span class="vip-hint-highlight">¥10</span> = 无限测试！
+            </div>
+          </div>
+          
+          <div class="unlock-buttons">
+            <!-- 免费广告 -->
+            <button class="btn-ad">
+              <span class="btn-ad-title">📺 看广告解锁 <span class="btn-ad-tag">免费</span></span>
+              <span>→</span>
+            </button>
+            
+            <!-- 单次付费 -->
+            <button class="btn-single">
+              <span class="btn-single-title">💎 单次解锁</span>
+              <span class="btn-single-price">¥9.9</span>
+            </button>
+            
+            <!-- VIP专属优惠 -->
+            <button class="btn-vip-special" onclick="showUpgradeModal()">
+              <span class="exclusive-tag">专属</span>
+              <div class="btn-vip-content">
+                <div class="btn-vip-left">
+                  <div class="btn-vip-title">👑 升级会员</div>
+                  <div class="btn-vip-sub">首月¥9.9 · 无限测试</div>
+                </div>
+                <div class="btn-vip-price">
+                  <div class="btn-vip-price-original">¥19.9/月</div>
+                  <div class="btn-vip-price-special">¥9.9<span>/首月</span></div>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 场景2：完整解读页底部提示 -->
+      <div class="phone-frame">
+        <div class="status-bar">
+          <span>14:35</span>
+          <span>📶 🔋</span>
+        </div>
+        
+        <div class="scenario-label">📌 场景：完整解读页底部</div>
+        
+        <!-- 结果卡片简化版 -->
+        <div class="result-card">
+          <div class="fate-emoji">🔥</div>
+          <div class="fate-type">「双火象地狱」</div>
+          <div class="fate-level">S级 · 命运级缘分</div>
+          <div class="fate-score">92<span>分</span></div>
+          <div class="couple-name">小明 ♊ × 小红 ♌</div>
+        </div>
+        
+        <!-- 模拟内容区 -->
+        <div style="color: rgba(255,255,255,0.6); font-size: 13px; padding: 16px 0; text-align: center;">
+          [完整解读内容...]<br>
+          为什么吸引 · 日常场景 · 吵架TOP<br>
+          相处秘籍 · 朋友圈文案
+        </div>
+        
+        <!-- 底部常驻提示条 -->
+        <div class="sticky-upgrade">
+          <div class="sticky-upgrade-left">
+            <span>💡</span>
+            <div class="sticky-upgrade-text">
+              已付费用户专属：<br>
+              升级会员<strong>首月¥9.9</strong>
+            </div>
+          </div>
+          <button class="sticky-upgrade-btn" onclick="showUpgradeModal()">立即升级</button>
+          <button class="sticky-upgrade-close">×</button>
+        </div>
+        
+        <div class="divider">
+          <div class="divider-line"></div>
+          <div class="divider-text">操作</div>
+          <div class="divider-line"></div>
+        </div>
+        
+        <!-- 底部操作 -->
+        <div class="bottom-actions">
+          <button class="bottom-btn bottom-btn-share">🎨 分享海报</button>
+          <button class="bottom-btn bottom-btn-retest" onclick="showRetestModal()">🔄 重新测试</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 升级会员弹窗 -->
+  <div class="modal-overlay hidden" id="upgradeModal" onclick="closeModal('upgradeModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('upgradeModal')">×</button>
+      <div class="modal-title">👑 升级会员</div>
+      
+      <div class="modal-highlight">
+        <div class="modal-highlight-text">
+          你已付费 <strong>¥9.9</strong><br>
+          升级会员首月仅需 <strong>¥9.9</strong><br>
+          <span style="color: rgba(255,255,255,0.7); font-size: 12px;">= 和单次同价，但无限测试！</span>
+        </div>
+      </div>
+      
+      <div class="modal-benefits">
+        <div class="benefit-item"><span class="benefit-check">✅</span> 无限次缘分测试</div>
+        <div class="benefit-item"><span class="benefit-check">✅</span> 所有测试完整解读</div>
+        <div class="benefit-item"><span class="benefit-check">✅</span> 所有海报模板</div>
+        <div class="benefit-item"><span class="benefit-check">✅</span> 测试历史永久保存</div>
+        <div class="benefit-item"><span class="benefit-check">✅</span> 专属会员标识</div>
+      </div>
+      
+      <div class="price-section">
+        <div class="price-compare">原价 ¥19.9/月</div>
+        <div class="price-main">¥9.9<span>/首月</span></div>
+        <div class="price-save">续费 ¥19.9/月 · 年卡¥99.9省¥138</div>
+      </div>
+      
+      <div class="pay-buttons">
+        <button class="pay-btn pay-btn-wechat">微信支付</button>
+        <button class="pay-btn pay-btn-douyin">抖音支付</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 重新测试弹窗 -->
+  <div class="modal-overlay hidden" id="retestModal" onclick="closeModal('retestModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('retestModal')">×</button>
+      <div class="modal-title">🔄 重新测试</div>
+      
+      <div class="modal-highlight">
+        <div class="modal-highlight-text">
+          你上次花了 <strong>¥9.9</strong> 测试一次<br>
+          开通会员仅再加 <strong>¥10</strong><br>
+          = 无限次测试！
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <button class="btn-vip-special" style="width: 100%;" onclick="showUpgradeModal(); closeModal('retestModal');">
+          <span class="exclusive-tag">推荐</span>
+          <div class="btn-vip-content">
+            <div class="btn-vip-left">
+              <div class="btn-vip-title">👑 升级会员</div>
+              <div class="btn-vip-sub">首月¥9.9 · 无限测试</div>
+            </div>
+            <div class="btn-vip-price">
+              <div class="btn-vip-price-original">¥19.9</div>
+              <div class="btn-vip-price-special">¥9.9<span>/首月</span></div>
+            </div>
+          </div>
+        </button>
+      </div>
+      
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-text">或</div>
+        <div class="divider-line"></div>
+      </div>
+      
+      <div class="pay-buttons" style="margin-top: 16px;">
+        <button class="pay-btn" style="background: rgba(138, 43, 226, 0.3); color: #fff; border: 1px solid rgba(138, 43, 226, 0.5);">单次¥9.9</button>
+        <button class="pay-btn" style="background: rgba(34, 197, 94, 0.3); color: #fff; border: 1px solid rgba(34, 197, 94, 0.5);">看广告</button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function showUpgradeModal() {
+      document.getElementById('upgradeModal').classList.remove('hidden');
+    }
+    
+    function showRetestModal() {
+      document.getElementById('retestModal').classList.remove('hidden');
+    }
+    
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

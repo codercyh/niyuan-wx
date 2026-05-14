@@ -20,10 +20,45 @@
     </view>
   </view>
 
-  <!-- ============ 场景1：未解锁视图 ============ -->
+  <!-- ============ 基础结果（始终可见） ============ -->
+  <!-- 结果描述：一句话结论，免费看 -->
+  <view class="description-card">
+    <view class="card-title">📋 结果解读</view>
+    <view class="description-content">
+      <text>{{result.description || '感谢完成测试！'}}</text>
+    </view>
+  </view>
+
+  <!-- 完成信息：基础元数据 -->
+  <view class="info-card">
+    <view class="info-item">
+      <text class="info-label">完成时间</text>
+      <text class="info-value">{{completedAt}}</text>
+    </view>
+    <view class="info-item" wx:if="{{result.correctCount !== undefined}}">
+      <text class="info-label">答对题数</text>
+      <text class="info-value">{{result.correctCount}} / {{result.totalQuestions}}</text>
+    </view>
+  </view>
+
+  <!-- ============ 场景1：未解锁视图（深度内容前的解锁 CTA） ============ -->
   <view wx:if="{{!unlocked}}" class="unlock-section">
-    <view class="unlock-title">🔒 解锁完整解读</view>
-    <view class="unlock-desc">包含：详细分析、性格画像、专属建议</view>
+    <view class="unlock-title">🔒 解锁深度解读</view>
+    <view class="unlock-desc">包含：维度详情、性格画像、专属建议</view>
+
+    <!-- 深度内容预览（蒙版/模糊预览，提升解锁意愿） -->
+    <view class="deep-preview" wx:if="{{result.details || result.traits}}">
+      <view class="deep-preview-mask">
+        <view class="detail-item deep-preview-item" wx:for="{{result.details || result.traits}}" wx:for-index="key" wx:for-item="value" wx:key="key">
+          <text class="detail-key">{{key}}</text>
+          <view class="detail-bar">
+            <view class="detail-fill" style="width: {{value * 10}}%"></view>
+          </view>
+          <text class="detail-value">{{value}}</text>
+        </view>
+      </view>
+      <view class="deep-preview-cover">🔒 解锁查看完整详情</view>
+    </view>
 
     <view wx:if="{{hasPaidOnce}}" class="vip-hint">
       <view class="vip-hint-icon">💡</view>
@@ -65,17 +100,9 @@
     </view>
   </view>
 
-  <!-- ============ 已解锁完整内容 ============ -->
+  <!-- ============ 深度内容（已解锁可见） ============ -->
   <block wx:if="{{unlocked}}">
-    <!-- 结果描述 -->
-    <view class="description-card">
-      <view class="card-title">📋 结果解读</view>
-      <view class="description-content">
-        <text>{{result.description || '感谢完成测试！'}}</text>
-      </view>
-    </view>
-
-    <!-- 详细信息（如果有） -->
+    <!-- 详细维度数据 -->
     <view class="details-card" wx:if="{{result.details || result.traits}}">
       <view class="card-title">📊 详细数据</view>
       <view class="details-content">
@@ -86,18 +113,6 @@
           </view>
           <text class="detail-value">{{value}}</text>
         </view>
-      </view>
-    </view>
-
-    <!-- 完成信息 -->
-    <view class="info-card">
-      <view class="info-item">
-        <text class="info-label">完成时间</text>
-        <text class="info-value">{{completedAt}}</text>
-      </view>
-      <view class="info-item" wx:if="{{result.correctCount !== undefined}}">
-        <text class="info-label">答对题数</text>
-        <text class="info-value">{{result.correctCount}} / {{result.totalQuestions}}</text>
       </view>
     </view>
 
@@ -113,50 +128,50 @@
       <view class="sticky-upgrade-btn" bindtap="onShowUpgradeModal">立即升级</view>
       <view class="sticky-upgrade-close" bindtap="onCloseSticky">×</view>
     </view>
+  </block>
 
-    <!-- 操作按钮 -->
-    <view class="action-container">
-      <button class="btn btn-primary btn-block" bindtap="onShare">
-        <text class="btn-icon">📤</text>
-        <text>复制结果</text>
+  <!-- ============ 操作按钮（始终可见） ============ -->
+  <view class="action-container">
+    <button class="btn btn-primary btn-block" bindtap="onShare">
+      <text class="btn-icon">📤</text>
+      <text>复制结果</text>
+    </button>
+    <view class="btn-row">
+      <button class="btn btn-secondary btn-half" bindtap="onRetake">
+        <text class="btn-icon">🔄</text>
+        <text>重新测试</text>
       </button>
-      <view class="btn-row">
-        <button class="btn btn-secondary btn-half" bindtap="onRetake">
-          <text class="btn-icon">🔄</text>
-          <text>重新测试</text>
-        </button>
-        <button class="btn btn-secondary btn-half" bindtap="onSaveResult">
-          <text class="btn-icon">💾</text>
-          <text>保存结果</text>
-        </button>
-      </view>
-      <button class="btn btn-outline btn-block" bindtap="onBackHome">
-        <text class="btn-icon">🏠</text>
-        <text>返回首页</text>
+      <button class="btn btn-secondary btn-half" bindtap="onSaveResult">
+        <text class="btn-icon">💾</text>
+        <text>保存结果</text>
       </button>
     </view>
+    <button class="btn btn-outline btn-block" bindtap="onBackHome">
+      <text class="btn-icon">🏠</text>
+      <text>返回首页</text>
+    </button>
+  </view>
 
-    <!-- 推荐测试 -->
-    <view class="recommend-card" wx:if="{{recommendTests.length > 0}}">
-      <view class="card-header">
-        <text class="card-title">🔥 更多测试推荐</text>
-        <text class="card-more" bindtap="onViewAllTests">查看全部 ›</text>
-      </view>
-      <view class="recommend-items">
-        <view class="recommend-item" wx:for="{{recommendTests}}" wx:key="id" bindtap="onOpenTest" data-id="{{item.id}}">
-          <text class="recommend-emoji">{{item.emoji}}</text>
-          <view class="recommend-info">
-            <text class="recommend-name">{{item.name}}</text>
-            <text class="recommend-desc">{{item.description}}</text>
-          </view>
-          <view class="recommend-stats">
-            <text class="recommend-people">{{item.participantsText}}人</text>
-            <text class="recommend-arrow">›</text>
-          </view>
+  <!-- ============ 推荐测试（始终可见，导流） ============ -->
+  <view class="recommend-card" wx:if="{{recommendTests.length > 0}}">
+    <view class="card-header">
+      <text class="card-title">🔥 更多测试推荐</text>
+      <text class="card-more" bindtap="onViewAllTests">查看全部 ›</text>
+    </view>
+    <view class="recommend-items">
+      <view class="recommend-item" wx:for="{{recommendTests}}" wx:key="id" bindtap="onOpenTest" data-id="{{item.id}}">
+        <text class="recommend-emoji">{{item.emoji}}</text>
+        <view class="recommend-info">
+          <text class="recommend-name">{{item.name}}</text>
+          <text class="recommend-desc">{{item.description}}</text>
+        </view>
+        <view class="recommend-stats">
+          <text class="recommend-people">{{item.participantsText}}人</text>
+          <text class="recommend-arrow">›</text>
         </view>
       </view>
     </view>
-  </block>
+  </view>
 
   <view class="bottom-space"></view>
 </scroll-view>
