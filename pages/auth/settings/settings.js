@@ -1,5 +1,5 @@
 // 用户偏好设置页面逻辑
-const { getPreferences, setPreference, setNotificationTypeEnabled, setPrivacySetting, setMediaChange } = require('../../../utils/preferences.js');
+const { getPreferences, setPreference, setNotificationTypeEnabled, setPrivacySetting } = require('../../../utils/preferences.js');
 const { getUserProfile } = require('../../../utils/user.js');
 const { getStorage } = require('../../../utils/storage.js');
 

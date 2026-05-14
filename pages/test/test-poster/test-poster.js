@@ -31,12 +31,7 @@ Page({
     // 获取测试名称
     let testName = '心理测试'
     if (testId) {
-      const allTests = [
-        ...testsData.MBTI_TESTS,
-        ...testsData.SBTCI_TESTS,
-        ...testsData.LOVE_TESTS,
-        ...testsData.ENNEAGRAM_TESTS,
-      ]
+      const allTests = testsData.getAllTests ? testsData.getAllTests() : []
       const test = allTests.find(t => t.id === testId)
       if (test) testName = test.name
     }

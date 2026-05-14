@@ -151,9 +151,22 @@ Page({
 
   // 统一应用生日数据
   _applyBirthday(who, solarDate, lunarText) {
+    // 参数验证
+    if (!solarDate || typeof solarDate !== 'string') {
+      console.warn('无效的日期格式:', solarDate)
+      return
+    }
     const parts = solarDate.split('-')
+    if (parts.length < 3) {
+      console.warn('日期格式不完整:', solarDate)
+      return
+    }
     const month = parseInt(parts[1])
     const day = parseInt(parts[2])
+    if (isNaN(month) || isNaN(day) || month < 1 || month > 12 || day < 1 || day > 31) {
+      console.warn('无效的月日:', month, day)
+      return
+    }
     const zodiac = getZodiacByBirthday(month, day)
     const lifePath = getLifePathNumber(solarDate)
 

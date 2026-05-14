@@ -188,8 +188,30 @@ Page({
     ctx.closePath()
   },
 
+  // 加载二维码图片
+  async loadQrImage(canvas) {
+    try {
+      const img = canvas.createImage()
+      // 使用 assets/qrcode.png 作为小程序码
+      img.src = '/assets/qrcode.png'
+      await new Promise((resolve, reject) => {
+        img.onload = resolve
+        img.onerror = () => {
+          console.warn('二维码图片加载失败，使用默认处理')
+          resolve()
+        }
+        // 设置超时，避免无限等待
+        setTimeout(resolve, 2000)
+      })
+      return img
+    } catch (error) {
+      console.warn('加载二维码失败:', error)
+      return null
+    }
+  },
+
   // 搞怪风海报
-  async drawFunnyPoster(ctx, result, w, h) {
+  async drawFunnyPoster(ctx, result, w, h, qrImg) {
     // 背景渐变
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
     gradient.addColorStop(0, '#0F0C29')
@@ -259,7 +281,7 @@ Page({
   },
 
   // 文艺风海报
-  async drawArtisticPoster(ctx, result, w, h) {
+  async drawArtisticPoster(ctx, result, w, h, qrImg) {
     // 深蓝渐变背景
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
     gradient.addColorStop(0, '#1a1a2e')
@@ -314,7 +336,7 @@ Page({
   },
 
   // 极简风海报
-  async drawMinimalPoster(ctx, result, w, h) {
+  async drawMinimalPoster(ctx, result, w, h, qrImg) {
     // 纯黑背景
     ctx.fillStyle = '#0a0a0a'
     ctx.fillRect(0, 0, w, h)
@@ -352,7 +374,7 @@ Page({
   },
 
   // 表情包风海报
-  async drawMemePoster(ctx, result, w, h) {
+  async drawMemePoster(ctx, result, w, h, qrImg) {
     // 白色背景
     ctx.fillStyle = '#FFFFFF'
     ctx.fillRect(0, 0, w, h)

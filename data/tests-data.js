@@ -731,19 +731,21 @@ function calculateResult(id, answers) {
   }
 
   if (id === 'loversbti') {
+    // 找出得分最高的两个维度，组合成 SBTI-XY 类型键
     const dims = ['S', 'N', 'B', 'T', 'I']
-    let maxDim = 'S'
-    let maxScore = 0
-    dims.forEach((d) => {
-      if ((scores[d] || 0) > maxScore) {
-        maxScore = scores[d]
-        maxDim = d
-      }
-    })
-    const typeConfig = test.resultTypes[maxDim]
+    const dimScores = dims.map(d => ({ dim: d, score: scores[d] || 0 }))
+    dimScores.sort((a, b) => b.score - a.score)
+    const dim1 = dimScores[0].dim
+    const dim2 = dimScores[1].dim
+    const typeKey = `SBTI-${dim1}${dim2}`
+    const typeConfig = test.resultTypes[typeKey]
     if (typeConfig) {
-      return { id: maxDim, ...typeConfig, scores, totalScore: Object.values(scores).reduce((a, b) => a + b, 0) }
+      return { id: typeKey, ...typeConfig, scores, totalScore: Object.values(scores).reduce((a, b) => a + b, 0) }
     }
+    // 如果组合不存在，使用第一个 resultTypes
+    const fallbackKey = Object.keys(test.resultTypes)[0]
+    const fallbackConfig = test.resultTypes[fallbackKey]
+    return { id: fallbackKey, ...fallbackConfig, scores, totalScore: Object.values(scores).reduce((a, b) => a + b, 0) }
   }
 
   let totalScore = Object.values(scores).reduce((a, b) => a + b, 0)

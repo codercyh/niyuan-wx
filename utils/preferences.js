@@ -126,7 +126,7 @@ function getPreference(key) {
  * @returns {object} 更新后的配置
  */
 function updateNotificationPreferences(notificationPrefs) {
-  return setPreference('notificationTy type', {
+  return setPreference('notificationType', {
     ...getPreference('notificationType'),
     ...notificationPrefs,
   });
