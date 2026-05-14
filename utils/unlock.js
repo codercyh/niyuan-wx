@@ -25,6 +25,7 @@ const api = require('./api.js')
 const PRICE = {
   SINGLE: 9.9,
   MEMBERSHIP_MONTHLY: 19.9,
+  MEMBERSHIP_FIRST_MONTH: 9.9,  // 已付费用户升级会员首月优惠价
 }
 
 function _getAdUnlockedRuns() {

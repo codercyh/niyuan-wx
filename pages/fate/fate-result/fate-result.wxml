@@ -79,8 +79,8 @@
       <view class="vip-hint-icon">💡</view>
       <view class="vip-hint-title">已付费用户专属优惠</view>
       <view class="vip-hint-desc">
-        你上次花了 <text class="vip-hint-highlight">¥9.9</text>{{'\n'}}
-        开通会员仅再加 <text class="vip-hint-highlight">¥10</text> = 无限测试！
+        你已付费 <text class="vip-hint-highlight">¥9.9</text>{{'\n'}}
+        升级会员首月仅需 <text class="vip-hint-highlight">¥9.9</text>
       </view>
     </view>
 
@@ -260,9 +260,9 @@
     <view class="modal-highlight">
       <view class="modal-highlight-text">
         <block wx:if="{{hasPaidOnce}}">
-          你已付费 <text class="modal-strong">¥9.9</text>{{'\n'}}
+          你已付费 <text class="modal-strong">¥9.9</text> 测试一次{{'\n'}}
           升级会员首月仅需 <text class="modal-strong">¥9.9</text>{{'\n'}}
-          <text class="modal-sub">= 和单次同价，但无限测试！</text>
+          <text class="modal-sub">= 同样的价格，无限次测试！</text>
         </block>
         <block wx:else>
           首月 <text class="modal-strong">¥9.9</text> 解锁全部测试{{'\n'}}
@@ -300,14 +300,14 @@
 
     <view class="modal-highlight">
       <view class="modal-highlight-text">
-        你上次花了 <text class="modal-strong">¥9.9</text> 测试一次{{'\n'}}
-        开通会员仅再加 <text class="modal-strong">¥10</text>{{'\n'}}
-        = 无限次测试！
+        你已付费 <text class="modal-strong">¥9.9</text> 测试一次{{'\n'}}
+        升级会员首月仅需 <text class="modal-strong">¥9.9</text>{{'\n'}}
+        <text class="modal-sub">= 同样的价格，无限次测试！</text>
       </view>
     </view>
 
     <view class="btn-vip-special btn-vip-block" bindtap="onShowUpgradeModal">
-      <view class="exclusive-tag">推荐</view>
+      <view class="exclusive-tag">专属优惠</view>
       <view class="btn-vip-shine"></view>
       <view class="btn-vip-content">
         <view class="btn-vip-left">
