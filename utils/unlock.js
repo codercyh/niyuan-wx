@@ -7,7 +7,7 @@
  *   3) 月度会员 ¥19.9 (期内不限次数所有测试解锁)
  *
  * 当前阶段：本地优先 + 服务端钩子占位
- *   - api.js 中 verify*/create* 均为 stub，直接 resolve
+ *   - api.js 中 verifyXxx/createXxx 均为 stub，直接 resolve
  *   - 备案完成后：把 api.js 的 stubs 替换为真实接口；
  *     unlock.js 这里的调用顺序无需改动
  *
