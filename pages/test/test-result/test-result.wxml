@@ -146,10 +146,6 @@
         <text>保存结果</text>
       </button>
     </view>
-    <button class="btn btn-outline btn-block" bindtap="onBackHome">
-      <text class="btn-icon">🏠</text>
-      <text>返回首页</text>
-    </button>
   </view>
 
   <!-- ============ 推荐测试（始终可见，导流） ============ -->

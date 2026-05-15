@@ -174,7 +174,6 @@ Page({
     wx.redirectTo({ url: `/pages/test/test-detail/test-detail?id=${testId}` })
   },
 
-  onBackHome() { wx.switchTab({ url: '/pages/home/home' }) },
   onViewAllTests() { wx.switchTab({ url: '/pages/test/test-list/test-list' }) },
 
   // ===== 付费/解锁 =====
