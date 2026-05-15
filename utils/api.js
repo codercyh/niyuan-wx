@@ -12,12 +12,9 @@
 const IS_PRODUCTION = true
 
 // API 基础地址配置
-// 注意：域名 api.yuanfen.love 需完成 ICP 备案后才能使用
-// 备案期间使用旧 IP 地址进行开发测试
 const API_BASE_URL = IS_PRODUCTION
-  ? 'https://api.yuanfen.love'     // 正式：备案完成后启用
-  // ? 'http://121.43.246.140:8099' // 临时：IP 直连（需勾选「不校验合法域名」）
-  : 'http://localhost:3000'        // 本地开发环境
+  ? 'https://yuanfen.love'           // 正式：后端 API 地址
+  : 'http://localhost:3000'          // 本地开发环境
 
 const storage = require('./storage.js')
 
