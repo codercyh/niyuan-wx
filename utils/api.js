@@ -112,33 +112,26 @@ function checkVipStatus() {
   return request('GET', '/users/vip-status')
 }
 
-// ==================== 解锁/支付 (备案后接入) ====================
-// TODO: 备案完成后，把以下 stubs 替换为真实接口调用
-// 现阶段所有方法直接 resolve，让本地解锁流程走通
+// ==================== 解锁/支付 ====================
 
 function verifyAdUnlock(payload) {
-  // TODO: 备案后接入 POST /unlock/ad-verify
-  return Promise.resolve({ code: 0, data: { ok: true, source: 'local-stub', payload } })
+  return request('POST', '/unlock/ad-verify', payload)
 }
 
 function createSinglePayOrder(payload) {
-  // TODO: 备案后接入 POST /pay/single/create，返回 wx.requestPayment 所需参数
-  return Promise.resolve({ code: 0, data: { ok: true, source: 'local-stub', payload } })
+  return request('POST', '/pay/single/create', payload)
 }
 
-function verifySinglePayCallback(payload) {
-  // TODO: 备案后接入 POST /pay/single/verify
-  return Promise.resolve({ code: 0, data: { ok: true, source: 'local-stub', payload } })
+function verifyPayment(orderId) {
+  return request('GET', `/pay/verify/${orderId}`)
 }
 
 function createMembershipOrder(payload) {
-  // TODO: 备案后接入 POST /pay/membership/create
-  return Promise.resolve({ code: 0, data: { ok: true, source: 'local-stub', payload } })
+  return request('POST', '/pay/membership/create', payload)
 }
 
-function verifyMembershipCallback(payload) {
-  // TODO: 备案后接入 POST /pay/membership/verify
-  return Promise.resolve({ code: 0, data: { ok: true, source: 'local-stub', payload } })
+function getPaymentOrders(page = 1, limit = 10) {
+  return request('GET', `/pay/orders?page=${page}&limit=${limit}`)
 }
 
 // ==================== 测试 ====================
@@ -253,9 +246,9 @@ module.exports = {
   checkVipStatus,
   verifyAdUnlock,
   createSinglePayOrder,
-  verifySinglePayCallback,
+  verifyPayment,
   createMembershipOrder,
-  verifyMembershipCallback,
+  getPaymentOrders,
   getMessageList,
   markMessagesRead,
   markMessageRead,

@@ -77,6 +77,38 @@ App({
     })
   },
 
+  /** 支付成功后同步状态（刷新 VIP 状态 + 用户解锁信息） */
+  refreshAfterPayment() {
+    return Promise.all([
+      api.checkVipStatus(),
+      api.getUserInfo().catch(() => null),
+    ]).then(([vipRes, userRes]) => {
+      const vip = (vipRes && vipRes.data) || {}
+      this.globalData.vipInfo = vip
+      this.globalData.vipStatus = !!vip.isVip
+
+      // 更新本地存储
+      storage.setStorage('vipMember', vip.isVip ? {
+        activatedAt: Date.now(),
+        expireAt: vip.vipExpire ? new Date(vip.vipExpire).getTime() : 0,
+        level: vip.vipLevel || 1,
+      } : null)
+
+      // 同步用户解锁信息
+      if (userRes && userRes.data) {
+        const userData = userRes.data
+        if (userData.unlockedTests) {
+          storage.setStorage('unlockedTests', userData.unlockedTests)
+        }
+        if (typeof userData.hasPaidOnce === 'boolean') {
+          storage.setStorage('hasPaidOnce', userData.hasPaidOnce)
+        }
+      }
+
+      return { vip, user: userRes?.data }
+    })
+  },
+
   // 获取当前资料
   getUserInfo() {
     return this.globalData.userInfo
