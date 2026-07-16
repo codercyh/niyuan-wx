@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 缘起 (YuanQi) - 微信原生小程序，融合趣味测试、缘分分析、社区倾诉等功能。
 
-**当前阶段**：核心模块（首页 / 测试 / 缘分 / 社区 / 认证 / 个人中心 / 消息 API）已完成；后端 `niyuan-api`（Node.js + Express + MongoDB）已接入生产环境（`https://yuanfen.love`）。微信支付代码已接入（生产模式 `PAY_MODE='production'`），但**因小程序主体仍为个人、未转企业，收款暂不可用**，待主体升级 + 商户号开通后启用。后端仓库位于同级目录 `../niyuan-api`。
+**当前阶段**：核心模块（首页 / 测试 / 缘分 / 社区 / 认证 / 个人中心 / 消息 API）已完成；后端 `niyuan-api`（Node.js + Express + MongoDB）已接入生产环境（`https://yuanfen.love`）。主体已迁移企业，变现走**小程序虚拟支付**（道具直购，适配 iOS 审核，已部署生产、安卓联调通过）；广告解锁入口暂隐藏（UV 未达 1000，未开流量主）。后端仓库位于同级目录 `../niyuan-api`。
 
 **技术栈**: 微信小程序原生框架 (WXML + WXSS + JS) + Node.js 测试运行环境
 
@@ -77,17 +77,17 @@ onLaunch → bootstrap() → wx.login → 后端换 token → 拉取用户信息
 ### 解锁系统 (`utils/unlock.js`)
 
 三种解锁路径：
-1. 看广告免费解锁 (单次 runId)
-2. 单次付费 ¥9.9 (按 testId 永久解锁)
-3. 月度会员 ¥19.9 (期内不限次数)
+1. 看广告免费解锁 (单次 runId) —— **当前隐藏**，见下
+2. 单次付费 ¥9.9 (按 testId 永久解锁) —— 虚拟支付·道具直购
+3. 月度会员 ¥9.9 活动价 (期内不限次数) —— 虚拟支付·道具直购
 
-**当前状态**（`PAY_MODE = 'production'`）：
-- 单次付费 / 月度会员：代码已接入微信支付（下单 → `wx.requestPayment` → `GET /pay/verify/:orderId` 服务端校验 → 本地标记解锁，`payment.js` 写入 `user.unlockedTests` / VIP）。**但当前主体仍为个人、未转企业、无商户号，支付收款实际不可用**（用户触发会下单失败），待主体升级后启用。
-- 广告解锁：**过渡期内唯一可用的变现路径**，两项待办 — ① `AD_UNIT_ID` 仍为占位符 `adunit-xxxxxxxxxxxxxxxx`，需在 mp.weixin.qq.com 申请真实广告位后替换；② 服务端校验接口 `POST /unlock/ad-verify` 后端尚未实现，前端以 `.catch(()=>{})` 静默忽略，故广告解锁目前仅本地生效、无服务端记账。
+**当前状态**：
+- 单次付费 / 月度会员：走**小程序虚拟支付**（道具直购 `short_series_goods`），适配 iOS 审核。前端 `wx.login` → 后端 `/pay/virtual/create` 组 signData + 双签名（paySig/signature）→ `wx.requestVirtualPayment` → 乐观本地解锁 + `/pay/virtual/confirm` 查单履约。已部署生产（`VP_ENV=0`），安卓沙箱联调通过。配置见 `../niyuan-api` 的 `VP_*` 环境变量。旧 JSAPI 方案（`wx.requestPayment` + `/pay/single|membership/create`）代码保留但前端不再调用。
+- 广告解锁：**入口已隐藏**（结果页 `enableAdUnlock=false`，4 处按钮包 `wx:if`）。原因：小程序 UV 未达 1000，无法开通「流量主」。UV 达标后流程：开通流量主 → 建激励视频广告位拿真实 `AD_UNIT_ID`（替换 `utils/unlock.js` 占位符）→ 两页面 `enableAdUnlock` 改 `true`。后端校验 `POST /unlock/ad-verify` 仍未实现（前端 `.catch(()=>{})` 静默忽略，仅本地生效）。
 
 ## 前后端接口契约
 
-前端调用统一收敛在 `utils/api.js`，后端路由见 `../niyuan-api/src/routes/`（挂载于 `src/app.js`：`/auth /users /tests /niyuan /tree-holes /messages /pay`）。除广告解锁校验 `POST /unlock/ad-verify` 外，26 个前端接口均有对应后端路由。Envelope 约定：`{ code, message, data }`，`code===0` 成功。
+前端调用统一收敛在 `utils/api.js`，后端路由见 `../niyuan-api/src/routes/`（挂载于 `src/app.js`：`/auth /users /tests /niyuan /tree-holes /messages /pay`）。除广告解锁校验 `POST /unlock/ad-verify`（入口已隐藏，暂不需要）外，其余前端接口（含虚拟支付 `/pay/virtual/*`）均有对应后端路由。Envelope 约定：`{ code, message, data }`，`code===0` 成功。
 
 ## 编码规范
 
@@ -114,7 +114,7 @@ onLaunch → bootstrap() → wx.login → 后端换 token → 拉取用户信息
 ## 已知限制
 
 - 登录已改用 button 组件获取头像昵称（规避已废弃的 `wx.getUserProfile`）
-- 广告解锁闭环未完成：`utils/unlock.js` 的 `AD_UNIT_ID` 为占位符 + 后端 `POST /unlock/ad-verify` 未实现（详见「解锁系统」）
+- 广告解锁入口已隐藏（UV 未达 1000，未开流量主）；`AD_UNIT_ID` 仍为占位符、后端 `POST /unlock/ad-verify` 未实现，详见「解锁系统」
 - Token 安全校验：客户端侧使用硬编码 key；服务端走 JWT（见 niyuan-api `src/utils/jwt.js`）
 - 消息：前后端 API 已就绪，但未注册独立消息页面（`app.json` 无 message 页）
 - 主包体积约 950KB（< 2MB 限制），暂无需分包加载

@@ -11,6 +11,7 @@ Page({
     // 付费状态
     unlocked: true,        // 当前结果是否已解锁完整解读
     hasPaidOnce: false,    // 是否曾经单次付费
+    enableAdUnlock: false,    // 看广告解锁：UV 达 1000 开通流量主后改 true 并填真实 AD_UNIT_ID
     isVip: false,          // 是否会员
     showStickyUpgrade: true, // 底部常驻升级条是否显示
     // 弹窗

@@ -40,6 +40,7 @@ Page({
     completedAt: '',
     unlocked: true,
     hasPaidOnce: false,
+    enableAdUnlock: false,  // 看广告解锁：UV 达 1000 开通流量主后改 true 并填真实 AD_UNIT_ID
     isVip: false,
     showStickyUpgrade: true,
     showUpgradeModal: false,

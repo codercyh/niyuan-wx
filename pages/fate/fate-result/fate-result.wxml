@@ -86,7 +86,7 @@
 
     <view class="unlock-buttons">
       <!-- 看广告解锁 -->
-      <view class="btn-ad" bindtap="onWatchAd">
+      <view class="btn-ad" bindtap="onWatchAd" wx:if="{{enableAdUnlock}}">
         <view class="btn-ad-title">
           <text>📺 看广告解锁</text>
           <text class="btn-ad-tag">免费</text>
@@ -328,7 +328,7 @@
 
     <view class="pay-buttons retest-pay">
       <view class="pay-btn pay-btn-single" bindtap="onRetestConfirm">单次¥9.9</view>
-      <view class="pay-btn pay-btn-ad" bindtap="onWatchAd">看广告</view>
+      <view class="pay-btn pay-btn-ad" bindtap="onWatchAd" wx:if="{{enableAdUnlock}}">看广告</view>
     </view>
   </view>
 </view>
