@@ -160,6 +160,56 @@ Page({
       })
   },
 
+  // 删除心理测试记录
+  onDeleteTest(e) {
+    const id = e.currentTarget.dataset.id
+    wx.showModal({
+      title: '删除记录',
+      content: '确定删除这条测试记录？删除后不可恢复',
+      confirmColor: '#FF6B6B',
+      success: (res) => {
+        if (!res.confirm) return
+        wx.showLoading({ title: '删除中...', mask: true })
+        api.deleteTestRecord(id)
+          .then(() => {
+            wx.hideLoading()
+            const testRecords = this.data.testRecords.filter(r => r.id !== id)
+            this.setData({ testRecords })
+            wx.showToast({ title: '已删除', icon: 'success' })
+          })
+          .catch((err) => {
+            wx.hideLoading()
+            wx.showToast({ title: (err && err.message) || '删除失败', icon: 'none' })
+          })
+      },
+    })
+  },
+
+  // 删除缘分记录
+  onDeleteFate(e) {
+    const id = e.currentTarget.dataset.id
+    wx.showModal({
+      title: '删除记录',
+      content: '确定删除这条缘分记录？删除后不可恢复',
+      confirmColor: '#FF6B6B',
+      success: (res) => {
+        if (!res.confirm) return
+        wx.showLoading({ title: '删除中...', mask: true })
+        api.deleteNiyuanRecord(id)
+          .then(() => {
+            wx.hideLoading()
+            const fateRecords = this.data.fateRecords.filter(r => r.id !== id)
+            this.setData({ fateRecords })
+            wx.showToast({ title: '已删除', icon: 'success' })
+          })
+          .catch((err) => {
+            wx.hideLoading()
+            wx.showToast({ title: (err && err.message) || '删除失败', icon: 'none' })
+          })
+      },
+    })
+  },
+
   // 构建结果视图
   buildResultView(record) {
     // 五维度列表

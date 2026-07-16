@@ -34,6 +34,7 @@
     <block wx:else>
       <view class="history-list">
         <view class="history-card" wx:for="{{testRecords}}" wx:key="id" bindtap="viewTestDetail" data-id="{{item.id}}">
+          <view class="card-delete" catchtap="onDeleteTest" data-id="{{item.id}}">×</view>
           <view class="history-header">
             <view class="history-emoji">{{item.emoji}}</view>
             <view class="history-info">
@@ -64,6 +65,7 @@
     <block wx:else>
       <view class="fate-list">
         <view class="fate-card" wx:for="{{fateRecords}}" wx:key="id" bindtap="viewFateDetail" data-id="{{item.id}}">
+          <view class="card-delete" catchtap="onDeleteFate" data-id="{{item.id}}">×</view>
           <view class="fate-header">
             <view class="fate-names">
               <text class="fate-name">{{item.personA.name}}</text>
