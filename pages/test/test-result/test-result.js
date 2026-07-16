@@ -227,11 +227,10 @@ Page({
   onCloseRetestModal() { this.setData({ showRetestModal: false }) },
   onCloseSticky() { this.setData({ showStickyUpgrade: false }) },
 
-  onPayVip(e) {
-    const channel = (e && e.currentTarget && e.currentTarget.dataset.channel) || 'wechat'
+  onPayVip() {
     wx.showModal({
       title: '升级月度会员',
-      content: '通过 ' + (channel === 'wechat' ? '微信' : '抖音') + ' 支付 ¥19.9 开通月度会员？期内不限次数解锁所有测试',
+      content: '微信支付 ¥9.9 开通月度会员？期内不限次数解锁所有测试',
       success: (res) => {
         if (!res.confirm) return
         wx.showLoading({ title: '处理中...', mask: true })

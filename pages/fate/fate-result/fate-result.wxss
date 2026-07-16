@@ -897,11 +897,6 @@
   background: #07C160;
   color: #fff;
 }
-.pay-btn-douyin {
-  background: #000;
-  color: #fff;
-  border: 1rpx solid rgba(255, 255, 255, 0.2);
-}
 .pay-btn-single {
   background: rgba(168, 85, 247, 0.3);
   color: #fff;

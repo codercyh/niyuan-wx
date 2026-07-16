@@ -4,7 +4,11 @@
  * 三种解锁路径：
  *   1) 看广告免费解锁 (单次 runId)
  *   2) 单次付费 ¥9.9 (按 testId 永久解锁该测试)
- *   3) 月度会员 ¥19.9 (期内不限次数所有测试解锁)
+ *   3) 月度会员 ¥9.9 活动价 (期内不限次数所有测试解锁)
+ *
+ * 付费走「小程序虚拟支付」（道具直购 mode=short_series_goods），适配 iOS 审核。
+ * 流程：wx.login(拿新鲜 code) → 后端组装 signData + 双签名 → wx.requestVirtualPayment → 乐观本地解锁 + 服务端查单确认。
+ * 前端 success 仅为弱确认，最终以服务端发货推送 / 查单为准。
  *
  * 数据存储 (storage)：
  *   - hasPaidOnce: boolean         // 历史首付标记 (向下兼容)
@@ -17,14 +21,15 @@ const userMgr = require('./user.js')
 const storage = require('./storage.js')
 const api = require('./api.js')
 
-const PRICE = {
-  SINGLE: 9.9,
-  MEMBERSHIP_MONTHLY: 19.9,
-  MEMBERSHIP_FIRST_MONTH: 9.9,  // 已付费用户升级会员首月优惠价
+// 获取 app 实例（支付成功后用于同步服务端状态）
+function _getApp() {
+  try { return getApp() } catch (e) { return null }
 }
 
-// 支付模式：'production' 使用真实支付，'dev' 使用本地兜底
-const PAY_MODE = 'production'
+const PRICE = {
+  SINGLE: 9.9,
+  MEMBERSHIP_MONTHLY: 9.9,   // 活动期统一 ¥9.9
+}
 
 function _getAdUnlockedRuns() {
   const list = storage.getStorage('adUnlockedRuns')
@@ -45,7 +50,7 @@ function _markRunAdUnlocked(runId) {
 
 /**
  * 当前结果是否已解锁 (深度内容)
- * 优先级：会员 > 测试永久解锁 > 本次广告解锁 > (兼容) hasPaidOnce
+ * 优先级：会员 > 测试永久解锁 > 本次广告解锁
  *
  * @param {object} ctx
  * @param {string} [ctx.testId] - 测试 ID (单次付费按此粒度解锁)
@@ -56,8 +61,6 @@ function isResultUnlocked(ctx = {}) {
   if (userMgr.isVipMember()) return true
   if (ctx.testId && userMgr.isTestUnlocked(ctx.testId)) return true
   if (ctx.runId && _getAdUnlockedRuns().indexOf(String(ctx.runId)) >= 0) return true
-  // 兼容历史：曾付过单次费的老用户全部默认解锁
-  if (userMgr.hasPaidOnce()) return true
   return false
 }
 
@@ -115,24 +118,26 @@ function unlockByAd(runId) {
 }
 
 /**
- * 调用微信支付
- * @param {object} payParams - wx.requestPayment 所需参数
+ * 拉起小程序虚拟支付（道具直购）
+ * @param {object} params - 后端 /pay/virtual/create 返回的参数
  * @returns {Promise<void>}
  */
-function _wxRequestPayment(payParams) {
+function _requestVirtualPayment(params) {
   return new Promise((resolve, reject) => {
-    wx.requestPayment({
-      timeStamp: payParams.timeStamp,
-      nonceStr: payParams.nonceStr,
-      package: payParams.package,
-      signType: payParams.signType,
-      paySign: payParams.paySign,
+    wx.requestVirtualPayment({
+      env: params.env,
+      mode: params.mode,           // 'short_series_goods'
+      offerId: params.offerId,
+      signData: params.signData,
+      paySig: params.paySig,
+      signature: params.signature,
       success: () => resolve(),
       fail: (err) => {
-        if (err.errMsg.includes('cancel')) {
+        const msg = (err && err.errMsg) || ''
+        if (msg.indexOf('cancel') >= 0) {
           reject(new Error('用户取消支付'))
         } else {
-          reject(new Error(err.errMsg || '支付失败'))
+          reject(new Error(msg || '支付失败'))
         }
       },
     })
@@ -140,119 +145,83 @@ function _wxRequestPayment(payParams) {
 }
 
 /**
- * 单次付费 ¥9.9 永久解锁该测试
- * @param {string} testId
- * @returns {Promise<{ok:boolean, source:string, orderId?:string}>}
+ * 虚拟支付通用流程：wx.login → 后端组单+签名 → 拉起支付 → 服务端确认
+ * @param {object} opts - { type: 'single'|'membership', testId? }
+ * @returns {Promise<{ orderId: string }>}
  */
-function unlockBySinglePay(testId) {
+function _payVirtual(opts) {
   return new Promise((resolve, reject) => {
-    if (!testId) {
-      reject(new Error('testId 不能为空'))
-      return
-    }
-
-    api.createSinglePayOrder({ testId, amount: PRICE.SINGLE })
-      .then((orderRes) => {
-        const orderData = orderRes.data
-
-        // 如果已解锁，直接返回成功
-        if (orderData.alreadyUnlocked) {
-          resolve({ ok: true, source: 'already-unlocked' })
+    wx.login({
+      success: (loginRes) => {
+        if (!loginRes.code) {
+          reject(new Error('微信登录失败，请重试'))
           return
         }
-
-        // 开发模式：跳过支付，直接本地解锁
-        if (PAY_MODE === 'dev') {
-          userMgr.markTestUnlocked(testId)
-          userMgr.markPaidOnce()
-          resolve({ ok: true, source: 'local-fallback' })
-          return
-        }
-
-        // 生产模式：调用微信支付
-        return _wxRequestPayment(orderData.payParams)
-          .then(() => api.verifyPayment(orderData.orderId))
-          .then(() => {
-            userMgr.markTestUnlocked(testId)
-            userMgr.markPaidOnce()
-            resolve({ ok: true, source: 'single-pay', orderId: orderData.orderId })
+        api.createVirtualOrder({
+          type: opts.type,
+          testId: opts.testId,
+          code: loginRes.code,
+        })
+          .then((orderRes) => {
+            const d = orderRes.data
+            return _requestVirtualPayment(d).then(() => d.orderId)
           })
-      })
-      .catch((err) => {
-        // 支付失败或用户取消，不本地解锁
-        if (err.message.includes('取消支付')) {
-          reject(err)
-        } else {
-          // 网络错误等服务端问题时，本地兜底（仅限开发调试）
-          if (PAY_MODE === 'dev') {
-            userMgr.markTestUnlocked(testId)
-            userMgr.markPaidOnce()
-            resolve({ ok: true, source: 'local-fallback', err })
-          } else {
-            reject(err)
-          }
-        }
-      })
+          .then((orderId) => {
+            // 前端 success 仅弱确认；后台查单确认不阻塞本地解锁
+            api.confirmVirtualOrder(orderId).catch(() => {})
+            const app = _getApp()
+            if (app && typeof app.refreshAfterPayment === 'function') {
+              app.refreshAfterPayment().catch(() => {})
+            }
+            resolve({ orderId })
+          })
+          .catch(reject)
+      },
+      fail: () => reject(new Error('微信登录失败')),
+    })
   })
 }
 
 /**
- * 月度会员 ¥19.9 (期内不限次数解锁所有测试)
+ * 单次付费 ¥9.9 永久解锁该测试（虚拟支付-道具直购）
+ * @param {string} testId
+ * @returns {Promise<{ok:boolean, source:string, orderId?:string}>}
+ */
+function unlockBySinglePay(testId) {
+  if (!testId) return Promise.reject(new Error('testId 不能为空'))
+  // 本地已解锁则直接成功
+  if (userMgr.isTestUnlocked(testId)) {
+    return Promise.resolve({ ok: true, source: 'already-unlocked' })
+  }
+  return _payVirtual({ type: 'single', testId })
+    .then((info) => {
+      userMgr.markTestUnlocked(testId)
+      userMgr.markPaidOnce()
+      return { ok: true, source: 'virtual-single', orderId: info.orderId }
+    })
+}
+
+/**
+ * 月度会员 ¥9.9 活动价（虚拟支付-道具直购，期内不限次数解锁所有测试）
  * @param {object} [opts] - { months: 1 }
  * @returns {Promise<{ok:boolean, source:string, expireAt?:number, orderId?:string}>}
  */
 function unlockByMembership(opts) {
+  // 本地已是有效会员则直接成功
+  if (userMgr.isVipMember()) {
+    return Promise.resolve({ ok: true, source: 'already-vip' })
+  }
   const months = (opts && opts.months) || 1
-  return new Promise((resolve, reject) => {
-    api.createMembershipOrder({ months })
-      .then((orderRes) => {
-        const orderData = orderRes.data
-
-        // 如果已是会员，直接返回成功
-        if (orderData.alreadyVip) {
-          const info = userMgr.markVipMember({ months })
-          resolve({ ok: true, source: 'already-vip', expireAt: info.expireAt })
-          return
-        }
-
-        // 开发模式：跳过支付，直接本地解锁
-        if (PAY_MODE === 'dev') {
-          const info = userMgr.markVipMember({ months })
-          userMgr.markPaidOnce()
-          resolve({ ok: true, source: 'local-fallback', expireAt: info.expireAt })
-          return
-        }
-
-        // 生产模式：调用微信支付
-        return _wxRequestPayment(orderData.payParams)
-          .then(() => api.verifyPayment(orderData.orderId))
-          .then(() => {
-            const info = userMgr.markVipMember({ months })
-            userMgr.markPaidOnce()
-            resolve({ ok: true, source: 'membership', expireAt: info.expireAt, orderId: orderData.orderId })
-          })
-      })
-      .catch((err) => {
-        // 支付失败或用户取消，不本地解锁
-        if (err.message.includes('取消支付')) {
-          reject(err)
-        } else {
-          // 网络错误等服务端问题时，本地兜底（仅限开发调试）
-          if (PAY_MODE === 'dev') {
-            const info = userMgr.markVipMember({ months })
-            userMgr.markPaidOnce()
-            resolve({ ok: true, source: 'local-fallback', expireAt: info.expireAt, err })
-          } else {
-            reject(err)
-          }
-        }
-      })
-  })
+  return _payVirtual({ type: 'membership' })
+    .then((info) => {
+      const vip = userMgr.markVipMember({ months })
+      userMgr.markPaidOnce()
+      return { ok: true, source: 'virtual-membership', expireAt: vip.expireAt, orderId: info.orderId }
+    })
 }
 
 module.exports = {
   PRICE,
-  PAY_MODE,
   isResultUnlocked,
   unlockByAd,
   unlockBySinglePay,

@@ -207,8 +207,7 @@
     </view>
 
     <view class="pay-buttons">
-      <view class="pay-btn pay-btn-wechat" data-channel="wechat" bindtap="onPayVip">微信支付</view>
-      <view class="pay-btn pay-btn-douyin" data-channel="douyin" bindtap="onPayVip">抖音支付</view>
+      <view class="pay-btn pay-btn-wechat" bindtap="onPayVip">微信支付 ¥9.9</view>
     </view>
   </view>
 </view>

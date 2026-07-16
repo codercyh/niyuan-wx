@@ -127,6 +127,17 @@ function createMembershipOrder(payload) {
   return request('POST', '/pay/membership/create', payload)
 }
 
+function createVirtualOrder(payload) {
+  // payload: { type: 'single'|'membership', testId?, code }
+  // 返回 wx.requestVirtualPayment 所需参数（signData/paySig/signature/offerId/env/mode）
+  return request('POST', '/pay/virtual/create', payload)
+}
+
+function confirmVirtualOrder(orderId) {
+  // 支付成功后服务端查单确认 + 履约（best-effort，不阻塞本地解锁）
+  return request('POST', `/pay/virtual/confirm/${orderId}`)
+}
+
 function getPaymentOrders(page = 1, limit = 10) {
   return request('GET', `/pay/orders?page=${page}&limit=${limit}`)
 }
@@ -173,6 +184,14 @@ function getNiyuanRecord(recordId) {
 
 function getNiyuanHistory(page = 1, limit = 10) {
   return request('GET', `/users/niyuan-records?page=${page}&limit=${limit}`)
+}
+
+function deleteTestRecord(recordId) {
+  return request('DELETE', `/users/test-records/${recordId}`)
+}
+
+function deleteNiyuanRecord(recordId) {
+  return request('DELETE', `/users/niyuan-records/${recordId}`)
 }
 
 // ==================== 树洞 ====================
@@ -232,9 +251,11 @@ module.exports = {
   getTestDetail,
   submitTestAnswer,
   getUserTestRecords,
+  deleteTestRecord,
   analyzeNiyuan,
   getNiyuanRecord,
   getNiyuanHistory,
+  deleteNiyuanRecord,
   getTreeHoleList,
   getTreeHoleDetail,
   createTreeHole,
@@ -245,6 +266,8 @@ module.exports = {
   createSinglePayOrder,
   verifyPayment,
   createMembershipOrder,
+  createVirtualOrder,
+  confirmVirtualOrder,
   getPaymentOrders,
   getMessageList,
   markMessagesRead,
