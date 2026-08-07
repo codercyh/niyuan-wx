@@ -1,5 +1,5 @@
 const api = require('../../../utils/api.js')
-const { formatParticipants } = require('../../../utils/format.js')
+const { formatParticipants, formatDateTime } = require('../../../utils/format.js')
 const userMgr = require('../../../utils/user.js')
 const unlockMgr = require('../../../utils/unlock.js')
 
@@ -26,7 +26,7 @@ function buildResultView(record, testInfo) {
   return {
     result,
     testName: (testInfo && testInfo.title) || record.testTitle || '测试',
-    completedAt: record.createdAt ? new Date(record.createdAt).toLocaleString('zh-CN') : new Date().toLocaleString('zh-CN'),
+    completedAt: formatDateTime(new Date(record.createdAt || Date.now())),
   }
 }
 

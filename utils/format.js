@@ -28,7 +28,18 @@ function formatDate(date) {
   return `${year}-${month}-${day}`
 }
 
+/**
+ * 格式化日期时间为 YYYY-MM-DD HH:mm:ss（24 小时制，补零）
+ * @param {Date} date
+ * @returns {string}
+ */
+function formatDateTime(date) {
+  const pad = (n) => String(n).padStart(2, '0')
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
+}
+
 module.exports = {
   formatParticipants,
   formatDate,
+  formatDateTime,
 }

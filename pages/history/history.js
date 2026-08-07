@@ -1,4 +1,5 @@
 const api = require('../../utils/api.js')
+const { formatDateTime } = require('../../utils/format.js')
 
 // 关系状态映射
 const RELATION_LABELS = {
@@ -90,16 +91,9 @@ Page({
   // 格式化日期
   formatDate(isoString) {
     if (!isoString) return '未知时间'
-    try {
-      const date = new Date(isoString)
-      const month = date.getMonth() + 1
-      const day = date.getDate()
-      const hour = date.getHours()
-      const min = date.getMinutes()
-      return `${month}月${day}日 ${hour}:${String(min).padStart(2, '0')}`
-    } catch (e) {
-      return '未知时间'
-    }
+    const date = new Date(isoString)
+    if (isNaN(date.getTime())) return '未知时间'
+    return formatDateTime(date)
   },
 
   // 切换 Tab

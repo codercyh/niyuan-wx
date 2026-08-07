@@ -6,14 +6,9 @@
   flex-direction: column;
 }
 
-.status-bar {
-  height: 44px;
-  background: transparent;
-}
-
 .home-scroll {
   flex: 1;
-  height: calc(100vh - 44px);
+  height: 100vh;
 }
 
 /* 个性化问候头部 */

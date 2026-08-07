@@ -1,7 +1,4 @@
 <view class="home-page">
-  <!-- 状态栏占位 -->
-  <view class="status-bar"></view>
-
   <!-- 滚动内容区 -->
   <scroll-view class="home-scroll" scroll-y scroll-with-animation>
     <!-- 个性化问候头部 -->
