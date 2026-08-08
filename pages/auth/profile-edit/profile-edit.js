@@ -127,7 +127,16 @@ Page({
     userInfo = { ...userInfo, ...updates }
     setStorage('userInfo', userInfo)
 
-    api.updateProfile(updates.nickName, updates.avatarUrl).catch(() => {})
+    // 持久化到后端:发送后端支持的全部字段(nickName/avatarUrl/gender/birthDate/bio)
+    // province/city 仅本地保存(后端未开放这两个字段)
+    const serverUpdates = {
+      nickName: updates.nickName,
+      avatarUrl: updates.avatarUrl,
+      gender: updates.gender,
+      birthDate: updates.birthDate,
+      bio: updates.bio,
+    }
+    api.updateUserInfo(serverUpdates).catch(() => {})
 
     this.setData({ saving: false, isModified: false })
     this.showMessage('保存成功', 'success')

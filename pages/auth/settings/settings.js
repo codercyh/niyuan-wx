@@ -363,10 +363,15 @@ Page({
             const auth = require('../../../utils/auth.js');
             auth.clearAuthentication?.();
 
-            // 清除资料信息
-            wx.removeStorageSync('userToken');
+            // 彻底清除所有用户状态(含鉴权 token / 会员 / 解锁)
+            wx.removeStorageSync('accessToken');
             wx.removeStorageSync('userInfo');
             wx.removeStorageSync('userProfile');
+            wx.removeStorageSync('userToken');
+            wx.removeStorageSync('vipMember');
+            wx.removeStorageSync('unlockedTests');
+            wx.removeStorageSync('hasPaidOnce');
+            wx.removeStorageSync('adUnlockedRuns');
 
             this.setData({ loading: false });
 

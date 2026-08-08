@@ -54,10 +54,17 @@ App({
       })
   },
 
-  /** 等待启动完成；页面可在 onLoad 中 await */
+  /** 等待启动完成；页面可在 onLoad 中 await。失败后允许重试，不会卡在 rejected promise 上 */
   ensureBootstrapped() {
     if (this.globalData.bootstrapped) return Promise.resolve(this.globalData.vipInfo)
-    if (this.globalData.bootstrapPromise) return this.globalData.bootstrapPromise
+    if (this.globalData.bootstrapPromise) {
+      // 复用进行中的 promise；如果已失败则清除并重新发起
+      const p = this.globalData.bootstrapPromise
+      return p.catch(() => {
+        this.globalData.bootstrapPromise = this.bootstrap()
+        return this.globalData.bootstrapPromise
+      })
+    }
     this.globalData.bootstrapPromise = this.bootstrap()
     return this.globalData.bootstrapPromise
   },

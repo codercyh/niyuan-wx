@@ -139,7 +139,7 @@
         <view class="dialogue-line {{item.speaker === 'A' ? 'dialogue-left' : 'dialogue-right'}}"
           wx:for="{{result.dailyDialogue.lines}}" wx:key="index">
           <view class="dialogue-bubble">
-            <text class="dialogue-name">{{item.zodiac.emoji}} {{item.name}}</text>
+            <text class="dialogue-name">{{item.zodiac.emoji || '✨'}} {{item.name}}</text>
             <text class="dialogue-text">"{{item.text}}"</text>
           </view>
         </view>

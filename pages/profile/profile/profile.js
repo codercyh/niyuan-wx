@@ -24,12 +24,12 @@ Page({
   },
 
   loadUserData() {
-    // 尝试从多种来源获取用户信息
-    let userInfo = wx.getStorageSync('userInfo')
+    // 用 getStorage 读取(自动处理 JSON 字符串解析,兼容 storage.setStorage 的序列化)
+    let userInfo = getStorage('userInfo')
 
     // 兼容旧格式
     if (!userInfo) {
-      userInfo = getStorage('userInfo') || getStorage('userToken')
+      userInfo = getStorage('userToken')
     }
 
     const isLoggedIn = !!(userInfo && userInfo.nickName)
@@ -280,11 +280,16 @@ Page({
       confirmColor: '#E8A8BF',
       success: (res) => {
         if (res.confirm) {
-          // 清除用户数据
-          wx.removeStorageSync('userInfo')
+          // 彻底清除所有用户状态(含鉴权 token / 会员 / 解锁)
+          removeStorage('accessToken')
           removeStorage('userInfo')
           removeStorage('userToken')
-          
+          removeStorage('userProfile')
+          removeStorage('vipMember')
+          removeStorage('unlockedTests')
+          removeStorage('hasPaidOnce')
+          removeStorage('adUnlockedRuns')
+
           // 重置页面数据
           this.setData({
             userInfo: null,
@@ -297,7 +302,7 @@ Page({
             tempAvatarUrl: '',
             tempNickName: '',
           })
-          
+
           wx.showToast({ title: '已退出', icon: 'success' })
         }
       }
