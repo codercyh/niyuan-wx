@@ -1,4 +1,4 @@
-/* 设置页 - 深色渐变主题 */
+/* 设置页 - 梦幻渐变主题 */
 
 .settings-page {
   min-height: 100vh;
@@ -198,7 +198,7 @@ switch {
   border-radius: var(--radius-lg);
   font-size: 26rpx;
   font-weight: 500;
-  color: #FFFFFF;
+  color: #5A4A5A;
   backdrop-filter: blur(20px);
   z-index: 1000;
   animation: slideDown 0.3s ease-out;

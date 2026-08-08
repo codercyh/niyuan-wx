@@ -1,38 +1,38 @@
-/* 历史记录页 - 深色渐变主题 */
+/* 历史记录页 - 梦幻渐变主题 */
 .page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+  background: linear-gradient(180deg, #FFF5F7 0%, #FAEEFF 40%, #F3E8FF 100%);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
 .header {
-  background: linear-gradient(135deg, rgba(255,107,53,0.2) 0%, rgba(255,0,110,0.15) 100%);
+  background: linear-gradient(135deg, rgba(255,123,169,0.2) 0%, rgba(155,107,255,0.15) 100%);
   padding: 48rpx 40rpx 64rpx;
-  border-bottom: 1px solid rgba(255,107,53,0.2);
+  border-bottom: 1px solid rgba(255,123,169,0.2);
 }
 
 .title {
   display: block;
   font-size: 48rpx;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #5A4A5A;
   margin-bottom: 8rpx;
 }
 
 .subtitle {
   display: block;
   font-size: 28rpx;
-  color: rgba(255,255,255,0.6);
+  color: rgba(90,74,90,1.0);
 }
 
 /* Tab 切换 */
 .tab-bar {
   display: flex;
-  background: rgba(255,255,255,0.05);
+  background: rgba(155,107,255,0.04);
   margin: -32rpx 32rpx 32rpx;
   border-radius: 32rpx;
   padding: 16rpx;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(155,107,255,0.15);
 }
 
 .tab-item {
@@ -47,7 +47,7 @@
 }
 
 .tab-active {
-  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%);
+  background: linear-gradient(135deg, #FF7BA9 0%, #9B6BFF 100%);
 }
 
 .tab-icon {
@@ -56,26 +56,26 @@
 
 .tab-label {
   font-size: 28rpx;
-  color: rgba(255,255,255,0.6);
+  color: rgba(90,74,90,1.0);
 }
 
 .tab-active .tab-label {
-  color: #FFFFFF;
+  color: #5A4A5A;
   font-weight: 600;
 }
 
 .tab-count {
   font-size: 24rpx;
-  background: rgba(255,107,53,0.2);
-  color: #FF6B35;
+  background: rgba(255,123,169,0.2);
+  color: #FF7BA9;
   padding: 4rpx 16rpx;
   border-radius: 20rpx;
   font-weight: 600;
 }
 
 .tab-active .tab-count {
-  background: rgba(255,255,255,0.3);
-  color: #FFFFFF;
+  background: rgba(255,255,255,0.8);
+  color: #5A4A5A;
 }
 
 /* 空状态 */
@@ -93,19 +93,19 @@
 
 .empty-text {
   font-size: 36rpx;
-  color: #FFFFFF;
+  color: #5A4A5A;
   font-weight: 600;
   margin-bottom: 16rpx;
 }
 
 .empty-sub {
   font-size: 28rpx;
-  color: rgba(255,255,255,0.5);
+  color: rgba(90,74,90,1.0);
   margin-bottom: 48rpx;
 }
 
 .empty-btn {
-  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%) !important;
+  background: linear-gradient(135deg, #FF7BA9 0%, #9B6BFF 100%) !important;
   color: #FFFFFF !important;
   font-size: 30rpx;
   padding: 24rpx 64rpx;
@@ -123,7 +123,7 @@
 }
 
 .empty-btn text {
-  color: #FFFFFF;
+  color: #5A4A5A;
   font-size: 30rpx;
 }
 
@@ -134,11 +134,11 @@
 
 .history-card {
   position: relative;
-  background: rgba(255,255,255,0.05);
+  background: rgba(155,107,255,0.04);
   border-radius: 32rpx;
   padding: 32rpx;
   margin-bottom: 24rpx;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(155,107,255,0.15);
 }
 
 /* 卡片右上角删除按钮 */
@@ -151,8 +151,8 @@
   line-height: 40rpx;
   text-align: center;
   border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.6);
+  color: rgba(90,74,90,1.0);
   font-size: 32rpx;
   z-index: 2;
 }
@@ -166,14 +166,14 @@
 .history-emoji {
   width: 96rpx;
   height: 96rpx;
-  background: rgba(255,107,53,0.15);
+  background: rgba(255,123,169,0.15);
   border-radius: 24rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 48rpx;
   margin-right: 24rpx;
-  border: 1px solid rgba(255,107,53,0.2);
+  border: 1px solid rgba(255,123,169,0.2);
 }
 
 .history-info {
@@ -184,14 +184,14 @@
   display: block;
   font-size: 32rpx;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #5A4A5A;
   margin-bottom: 8rpx;
 }
 
 .history-date {
   display: block;
   font-size: 24rpx;
-  color: rgba(255,255,255,0.5);
+  color: rgba(90,74,90,1.0);
 }
 
 .history-result {
@@ -202,7 +202,7 @@
 
 .result-title {
   font-size: 28rpx;
-  color: rgba(255,255,255,0.6);
+  color: rgba(90,74,90,1.0);
 }
 
 .result-emoji {
@@ -216,11 +216,11 @@
 
 .fate-card {
   position: relative;
-  background: rgba(255,255,255,0.05);
+  background: rgba(155,107,255,0.04);
   border-radius: 32rpx;
   padding: 32rpx;
   margin-bottom: 24rpx;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(155,107,255,0.15);
 }
 
 .fate-header {
@@ -239,17 +239,17 @@
 .fate-name {
   font-size: 32rpx;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #5A4A5A;
 }
 
 .fate-x {
   font-size: 28rpx;
-  color: #FF6B35;
+  color: #FF7BA9;
 }
 
 .fate-date {
   font-size: 24rpx;
-  color: rgba(255,255,255,0.5);
+  color: rgba(90,74,90,1.0);
 }
 
 .fate-body {
@@ -263,7 +263,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%);
+  background: linear-gradient(135deg, #FF7BA9 0%, #9B6BFF 100%);
   border-radius: 24rpx;
   padding: 24rpx 40rpx;
 }
@@ -271,12 +271,12 @@
 .fate-score {
   font-size: 56rpx;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #5A4A5A;
 }
 
 .fate-level {
   font-size: 24rpx;
-  color: rgba(255,255,255,0.9);
+  color: rgba(90,74,90,1.0);
 }
 
 .fate-info {
@@ -291,16 +291,16 @@
 
 .zodiac-tag {
   font-size: 24rpx;
-  background: rgba(255,107,53,0.15);
-  color: #FF6B35;
+  background: rgba(255,123,169,0.15);
+  color: #FF7BA9;
   padding: 8rpx 24rpx;
   border-radius: 24rpx;
-  border: 1px solid rgba(255,107,53,0.2);
+  border: 1px solid rgba(255,123,169,0.2);
 }
 
 .fate-type {
   font-size: 28rpx;
-  color: rgba(255,255,255,0.6);
+  color: rgba(90,74,90,1.0);
 }
 
 .fate-relation {
@@ -312,29 +312,29 @@
   font-size: 24rpx;
   padding: 8rpx 24rpx;
   border-radius: 24rpx;
-  background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.6);
+  color: rgba(90,74,90,1.0);
 }
 
 .relation-tag.dating,
 .relation-tag.together {
-  background: rgba(255,107,53,0.2);
-  color: #FF6B35;
+  background: rgba(255,123,169,0.2);
+  color: #FF7BA9;
 }
 
 .relation-tag.married {
-  background: rgba(255,0,110,0.2);
-  color: #FF006E;
+  background: rgba(155,107,255,0.2);
+  color: #9B6BFF;
 }
 
 .relation-tag.breakup {
-  background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.6);
+  color: rgba(90,74,90,1.0);
 }
 
 .relation-tag.crush {
-  background: rgba(255,107,53,0.2);
-  color: #FF6B35;
+  background: rgba(255,123,169,0.2);
+  color: #FF7BA9;
 }
 
 .relation-tag.ambiguous {

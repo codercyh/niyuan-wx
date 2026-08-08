@@ -1,8 +1,8 @@
-/* 用户信息编辑页面样式 - 深色渐变主题 */
+/* 用户信息编辑页面样式 - 梦幻渐变主题 */
 
 .profile-edit-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+  background: linear-gradient(180deg, #FFF5F7 0%, #FAEEFF 40%, #F3E8FF 100%);
   padding-bottom: 200rpx;
 }
 
@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 32rpx;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(155,107,255,0.15);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -23,13 +23,13 @@
 .header-title {
   font-size: 36rpx;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #5A4A5A;
 }
 
 .btn-save {
   padding: 16rpx 40rpx;
-  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%) !important;
-  color: #fff !important;
+  background: linear-gradient(135deg, #FF7BA9 0%, #9B6BFF 100%) !important;
+  color: #FFFFFF !important;
   border: none !important;
   border-radius: 12rpx;
   font-size: 28rpx;
@@ -45,7 +45,7 @@
 }
 
 .btn-save text {
-  color: #FFFFFF;
+  color: #5A4A5A;
   font-size: 28rpx;
 }
 
@@ -56,14 +56,14 @@
 /* 分组样式 */
 .section {
   padding: 48rpx 32rpx;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(155,107,255,0.15);
 }
 
 .section-title {
   display: block;
   font-size: 28rpx;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #5A4A5A;
   margin-bottom: 32rpx;
   padding-left: 0;
 }
@@ -80,8 +80,8 @@
   margin: 0 auto 40rpx;
   border-radius: 50%;
   overflow: hidden;
-  border: 6rpx solid rgba(255,107,53,0.5);
-  box-shadow: 0 0 40rpx rgba(255,107,53,0.3);
+  border: 6rpx solid rgba(255,123,169,0.5);
+  box-shadow: 0 0 40rpx rgba(255,123,169,0.3);
 }
 
 .avatar-image {
@@ -96,7 +96,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(90,74,90,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,8 +110,8 @@
 
 .btn-change-avatar {
   padding: 16rpx 32rpx;
-  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%) !important;
-  color: #fff !important;
+  background: linear-gradient(135deg, #FF7BA9 0%, #9B6BFF 100%) !important;
+  color: #FFFFFF !important;
   border: none !important;
   border-radius: 12rpx;
   font-size: 24rpx;
@@ -127,7 +127,7 @@
 }
 
 .btn-change-avatar text {
-  color: #FFFFFF;
+  color: #5A4A5A;
   font-size: 24rpx;
 }
 
@@ -142,7 +142,7 @@
 
 .progress-bar {
   height: 8rpx;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255,255,255,0.6);
   border-radius: 4rpx;
   overflow: hidden;
   margin-bottom: 16rpx;
@@ -150,13 +150,13 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #FF6B35 0%, #FF006E 100%);
+  background: linear-gradient(90deg, #FF7BA9 0%, #9B6BFF 100%);
   transition: width 0.3s ease;
 }
 
 .progress-text {
   font-size: 24rpx;
-  color: rgba(255,255,255,0.6);
+  color: rgba(90,74,90,1.0);
 }
 
 /* 表单项 */
@@ -164,7 +164,7 @@
   display: flex;
   align-items: center;
   padding: 28rpx 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(155,107,255,0.15);
   position: relative;
 }
 
@@ -175,7 +175,7 @@
 .label {
   min-width: 120rpx;
   font-size: 28rpx;
-  color: #FFFFFF;
+  color: #5A4A5A;
   font-weight: 500;
 }
 
@@ -183,21 +183,21 @@
   flex: 1;
   padding: 16rpx 24rpx;
   margin: 0 24rpx;
-  background-color: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background-color: rgba(155,107,255,0.04);
+  border: 1px solid rgba(155,107,255,0.15);
   border-radius: 12rpx;
-  color: #FFFFFF;
+  color: #5A4A5A;
   font-size: 28rpx;
   line-height: 1.5;
 }
 
 .input-field::placeholder {
-  color: rgba(255,255,255,0.4);
+  color: rgba(90,74,90,1.0);
 }
 
 .char-count {
   font-size: 24rpx;
-  color: rgba(255,255,255,0.5);
+  color: rgba(90,74,90,1.0);
   min-width: 80rpx;
   text-align: right;
 }
@@ -206,14 +206,14 @@
   flex: 1;
   padding: 16rpx 24rpx;
   margin: 0 24rpx;
-  background-color: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background-color: rgba(155,107,255,0.04);
+  border: 1px solid rgba(155,107,255,0.15);
   border-radius: 12rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 28rpx;
-  color: #FFFFFF;
+  color: #5A4A5A;
 }
 
 .picker-text {
@@ -221,11 +221,11 @@
 }
 
 .picker-text.disabled {
-  color: rgba(255,255,255,0.4);
+  color: rgba(90,74,90,1.0);
 }
 
 .picker-icon {
-  color: rgba(255,255,255,0.5);
+  color: rgba(90,74,90,1.0);
   font-size: 32rpx;
 }
 
@@ -237,10 +237,10 @@
 
 .bio-textarea {
   padding: 24rpx;
-  background-color: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background-color: rgba(155,107,255,0.04);
+  border: 1px solid rgba(155,107,255,0.15);
   border-radius: 12rpx;
-  color: #FFFFFF;
+  color: #5A4A5A;
   font-size: 28rpx;
   line-height: 1.6;
   min-height: 200rpx;
@@ -248,7 +248,7 @@
 }
 
 .bio-textarea::placeholder {
-  color: rgba(255,255,255,0.4);
+  color: rgba(90,74,90,1.0);
 }
 
 /* 按钮组 */
@@ -260,7 +260,7 @@
   padding: 24rpx 32rpx;
   background: rgba(15,12,41,0.95);
   backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(155,107,255,0.15);
   z-index: 99;
 }
 
@@ -290,12 +290,12 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%) !important;
-  color: #fff !important;
+  background: linear-gradient(135deg, #FF7BA9 0%, #9B6BFF 100%) !important;
+  color: #FFFFFF !important;
 }
 
 .btn-primary text {
-  color: #FFFFFF;
+  color: #5A4A5A;
 }
 
 .btn-primary:active {
@@ -312,16 +312,16 @@
 
 .btn-text {
   background-color: transparent !important;
-  color: rgba(255,255,255,0.6) !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
+  color: rgba(90,74,90,1.0) !important;
+  border: 1px solid rgba(155,107,255,0.15) !important;
 }
 
 .btn-text text {
-  color: rgba(255,255,255,0.6);
+  color: rgba(90,74,90,1.0);
 }
 
 .btn-text:active {
-  background-color: rgba(255,255,255,0.05) !important;
+  background-color: rgba(155,107,255,0.04) !important;
 }
 
 /* 加载状态 */
@@ -349,8 +349,8 @@
 .spinner-ring {
   width: 100%;
   height: 100%;
-  border: 6rpx solid rgba(255,107,53,0.2);
-  border-top: 6rpx solid #FF6B35;
+  border: 6rpx solid rgba(255,123,169,0.2);
+  border-top: 6rpx solid #FF7BA9;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -365,7 +365,7 @@
 }
 
 .loading-text {
-  color: rgba(255,255,255,0.6);
+  color: rgba(90,74,90,1.0);
   font-size: 28rpx;
 }
 

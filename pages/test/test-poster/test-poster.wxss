@@ -1,7 +1,7 @@
 /* 测试海报页面样式 */
 .poster-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+  background: linear-gradient(180deg, #FFF5F7 0%, #FAEEFF 40%, #F3E8FF 100%);
   padding: 32rpx;
   padding-bottom: 200rpx;
 }
@@ -23,7 +23,7 @@
 .poster-funny {
   width: 100%;
   min-height: 600rpx;
-  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+  background: linear-gradient(180deg, #FFF5F7 0%, #FAEEFF 40%, #F3E8FF 100%);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -44,7 +44,7 @@
   position: absolute;
   width: 8rpx;
   height: 8rpx;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255,255,255,0.8);
   border-radius: 50%;
 }
 
@@ -74,34 +74,34 @@
 .result-title {
   font-size: 44rpx;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #5A4A5A;
   margin-bottom: 16rpx;
 }
 
 .fate-level {
   font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(90,74,90,1.0);
   margin-bottom: 20rpx;
 }
 
 .score-big {
   font-size: 144rpx;
   font-weight: bold;
-  color: #FF6B35;
+  color: #FF7BA9;
   line-height: 1.2;
-  text-shadow: 0 0 40rpx rgba(255, 107, 53, 0.5);
+  text-shadow: 0 0 40rpx rgba(255,123,169, 0.5);
 }
 
 .test-name {
   font-size: 26rpx;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(90,74,90,1.0);
   margin-top: 16rpx;
   margin-bottom: 16rpx;
 }
 
 .description {
   font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(90,74,90,1.0);
   max-width: 600rpx;
   line-height: 1.6;
   display: -webkit-box;
@@ -147,14 +147,14 @@
 
 .artistic-header text {
   font-size: 28rpx;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(90,74,90,1.0);
   line-height: 1.8;
 }
 
 .divider-line {
   width: 160rpx;
   height: 2rpx;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255,255,255,0.8);
   margin: 32rpx 0;
 }
 
@@ -165,7 +165,7 @@
 
 .test-name-artistic {
   font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(90,74,90,1.0);
   margin-bottom: 40rpx;
 }
 
@@ -178,7 +178,7 @@
 }
 
 .poster-artistic .description {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(90,74,90,1.0);
   margin-top: 40rpx;
 }
 
@@ -196,28 +196,28 @@
 
 .test-name-minimal {
   font-size: 28rpx;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(90,74,90,1.0);
   margin-bottom: 32rpx;
 }
 
 .result-title-minimal {
   font-size: 40rpx;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #5A4A5A;
   margin-bottom: 40rpx;
 }
 
 .score-minimal {
   font-size: 180rpx;
   font-weight: bold;
-  color: #FF6B35;
+  color: #FF7BA9;
   line-height: 1;
-  text-shadow: 0 0 60rpx rgba(255, 107, 53, 0.5);
+  text-shadow: 0 0 60rpx rgba(255,123,169, 0.5);
 }
 
 .description-minimal {
   font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(90,74,90,1.0);
   margin-top: 32rpx;
   max-width: 600rpx;
   text-align: center;
@@ -253,7 +253,7 @@
 .score-meme {
   font-size: 64rpx;
   font-weight: bold;
-  color: #FF6B35;
+  color: #FF7BA9;
   margin-bottom: 24rpx;
 }
 
@@ -282,7 +282,7 @@
 
 .style-title {
   font-size: 28rpx;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(90,74,90,1.0);
   margin-bottom: 20rpx;
   text-align: center;
 }
@@ -299,15 +299,15 @@
   flex-direction: column;
   align-items: center;
   padding: 24rpx 16rpx;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.6);
   border-radius: 16rpx;
-  border: 2rpx solid rgba(255, 255, 255, 0.1);
+  border: 2rpx solid rgba(155,107,255,0.15);
   transition: all 0.3s;
 }
 
 .style-item.style-selected {
-  background: rgba(255, 107, 53, 0.2);
-  border-color: #FF6B35;
+  background: rgba(255,123,169, 0.2);
+  border-color: #FF7BA9;
 }
 
 .style-emoji {
@@ -317,11 +317,11 @@
 
 .style-name {
   font-size: 22rpx;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(90,74,90,1.0);
 }
 
 .style-selected .style-name {
-  color: #FF6B35;
+  color: #FF7BA9;
 }
 
 /* 操作按钮 */
@@ -331,7 +331,7 @@
   left: 0;
   right: 0;
   padding: 32rpx;
-  background: linear-gradient(180deg, transparent 0%, #0F0C29 30%);
+  background: linear-gradient(180deg, transparent 0%, #FFF5F7 30%);
   display: flex;
   flex-direction: column;
   gap: 16rpx;
@@ -340,7 +340,7 @@
 .btn-save {
   width: 100%;
   height: 88rpx;
-  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%) !important;
+  background: linear-gradient(135deg, #FF7BA9 0%, #9B6BFF 100%) !important;
   border-radius: 44rpx;
   font-size: 30rpx;
   font-weight: bold;
@@ -359,7 +359,7 @@
 }
 
 .btn-save text {
-  color: #FFFFFF;
+  color: #5A4A5A;
   font-size: 30rpx;
   font-weight: bold;
 }
@@ -371,11 +371,11 @@
 .btn-share {
   width: 100%;
   height: 88rpx;
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255,255,255,0.8) !important;
   border-radius: 44rpx;
   font-size: 30rpx;
-  color: #FFFFFF !important;
-  border: 1rpx solid rgba(255, 255, 255, 0.3) !important;
+  color: #5A4A5A !important;
+  border: 1rpx solid rgba(155,107,255,0.15) !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -389,7 +389,7 @@
 }
 
 .btn-share text {
-  color: #FFFFFF;
+  color: #5A4A5A;
   font-size: 30rpx;
 }
 
@@ -398,7 +398,7 @@
   height: 72rpx;
   background: transparent !important;
   font-size: 26rpx;
-  color: rgba(255, 255, 255, 0.6) !important;
+  color: rgba(90,74,90,1.0) !important;
   border: none !important;
   display: flex;
   align-items: center;
@@ -413,7 +413,7 @@
 }
 
 .btn-back text {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(90,74,90,1.0);
   font-size: 26rpx;
 }
 

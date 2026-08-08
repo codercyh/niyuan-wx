@@ -1,17 +1,17 @@
-/* 结果卡片页 - 深色渐变主题 */
+/* 结果卡片页 - 梦幻渐变主题 */
 
 .page-scroll {
   min-height: 100vh;
-  background: linear-gradient(180deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+  background: linear-gradient(180deg, #FFF5F7 0%, #FAEEFF 40%, #F3E8FF 100%);
 }
 
 /* 卡片预览 */
 .share-preview {
   margin: 40rpx;
   padding: 48rpx;
-  background: rgba(255,255,255,0.05);
+  background: rgba(155,107,255,0.04);
   border-radius: 32rpx;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(155,107,255,0.15);
 }
 
 .share-header {
@@ -29,18 +29,18 @@
 .share-title {
   font-size: 40rpx;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #5A4A5A;
 }
 
 .share-result {
   font-size: 28rpx;
-  color: #FF6B35;
+  color: #FF7BA9;
   margin-top: 8rpx;
 }
 
 .share-content {
   font-size: 26rpx;
-  color: rgba(255,255,255,0.7);
+  color: rgba(90,74,90,1.0);
   line-height: 1.8;
   text-align: center;
 }
@@ -57,12 +57,12 @@
   gap: 16rpx;
   width: 100%;
   height: 96rpx;
-  background: linear-gradient(135deg, #FF6B35 0%, #FF006E 100%);
+  background: linear-gradient(135deg, #FF7BA9 0%, #9B6BFF 100%);
   border-radius: 24rpx;
   color: #FFFFFF;
   font-size: 32rpx;
   font-weight: 600;
-  box-shadow: 0 8rpx 28rpx rgba(255,107,53,0.3);
+  box-shadow: 0 8rpx 28rpx rgba(255,123,169,0.3);
 }
 
 .share-btn-icon {
