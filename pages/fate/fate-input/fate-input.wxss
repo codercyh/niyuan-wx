@@ -1,7 +1,7 @@
 /* 页面背景 */
 .page-bg {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FBF7F9 0%, #F8F5FB 40%, #F5F3F8 100%);
+  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
   padding: 0 32rpx;
   box-sizing: border-box;
 }
@@ -20,12 +20,12 @@
 
 .progress-text {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .progress-label {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .progress-track {
@@ -37,15 +37,15 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #E8A8BF, #B8A4D8);
+  background: linear-gradient(90deg, #E8A8BF, #9DD4B8);
   border-radius: 4rpx;
   transition: width 0.3s ease;
 }
 
 /* ==================== 卡片 ==================== */
 .section-card {
-  background: rgba(184,164,216,0.04);
-  border: 1px solid rgba(184,164,216,0.15);
+  background: rgba(157,212,184,0.04);
+  border: 1px solid rgba(157,212,184,0.15);
   border-radius: 32rpx;
   padding: 32rpx;
   margin-bottom: 24rpx;
@@ -54,7 +54,7 @@
 .section-title {
   font-size: 32rpx;
   font-weight: 600;
-  color: #7A6E7A;
+  color: #6A6068;
   margin-bottom: 24rpx;
 }
 
@@ -65,7 +65,7 @@
 
 .input-label {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   margin-bottom: 12rpx;
   display: block;
 }
@@ -76,10 +76,10 @@
 
 .input-field {
   background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
   border-radius: 16rpx;
   padding: 0 24rpx;
-  color: #7A6E7A;
+  color: #6A6068;
   font-size: 28rpx;
   width: 100%;
   height: 88rpx;
@@ -92,15 +92,15 @@
 }
 
 .input-placeholder {
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .picker-field {
   background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
   border-radius: 16rpx;
   padding: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   font-size: 28rpx;
   position: relative;
   display: flex;
@@ -113,16 +113,16 @@
 .picker-field::after {
   content: '›';
   font-size: 32rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   margin-left: 16rpx;
 }
 
 .picker-field.has-value {
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .picker-field.has-value::after {
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* 时长选择器 */
@@ -155,14 +155,14 @@
 }
 
 .zodiac-tag.life-path {
-  background: rgba(184,164,216,0.15);
-  border-color: rgba(184,164,216,0.3);
-  color: #B8A4D8;
+  background: rgba(157,212,184,0.15);
+  border-color: rgba(157,212,184,0.3);
+  color: #9DD4B8;
 }
 
 /* ==================== 初步预测卡 ==================== */
 .preview-card {
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border: 1px solid rgba(232,168,191,0.3);
   border-radius: 32rpx;
   padding: 32rpx;
@@ -187,19 +187,19 @@
 
 .preview-zodiac {
   font-size: 30rpx;
-  color: #7A6E7A;
+  color: #6A6068;
   font-weight: 500;
 }
 
 .preview-x {
   font-size: 28rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .preview-element {
   font-size: 32rpx;
   font-weight: 600;
-  background: linear-gradient(135deg, #E8A8BF, #B8A4D8);
+  background: linear-gradient(135deg, #E8A8BF, #9DD4B8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 12rpx;
@@ -207,14 +207,14 @@
 
 .preview-desc {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   line-height: 1.6;
   margin-bottom: 16rpx;
 }
 
 .preview-range {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .highlight {
@@ -235,7 +235,7 @@
 
 .btn-primary {
   flex: 1;
-  background: linear-gradient(135deg, #E8A8BF, #B8A4D8) !important;
+  background: linear-gradient(135deg, #E8A8BF, #9DD4B8) !important;
   color: #FFFFFF !important;
   border: none !important;
   height: 100rpx;
@@ -256,7 +256,7 @@
 }
 
 .btn-primary text {
-  color: #7A6E7A;
+  color: #6A6068;
   font-size: 30rpx;
   font-weight: 600;
 }
@@ -269,8 +269,8 @@
 .btn-secondary {
   flex: 0.6;
   background: transparent !important;
-  color: rgba(122,110,122,1.0) !important;
-  border: 1px solid rgba(184,164,216,0.15) !important;
+  color: rgba(106,96,104,1.0) !important;
+  border: 1px solid rgba(157,212,184,0.15) !important;
   height: 100rpx;
   line-height: 100rpx;
   border-radius: 50rpx;
@@ -287,7 +287,7 @@
 }
 
 .btn-secondary text {
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   font-size: 28rpx;
 }
 
@@ -300,8 +300,8 @@
 }
 
 .relation-item {
-  background: rgba(184,164,216,0.04);
-  border: 1px solid rgba(184,164,216,0.15);
+  background: rgba(157,212,184,0.04);
+  border: 1px solid rgba(157,212,184,0.15);
   border-radius: 24rpx;
   padding: 24rpx 16rpx;
   text-align: center;
@@ -321,14 +321,14 @@
 
 .relation-label {
   font-size: 28rpx;
-  color: #7A6E7A;
+  color: #6A6068;
   font-weight: 500;
   margin-bottom: 6rpx;
 }
 
 .relation-desc {
   font-size: 22rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* ==================== 情感反馈卡 ==================== */
@@ -343,14 +343,14 @@
 
 .feedback-title {
   font-size: 30rpx;
-  color: #7A6E7A;
+  color: #6A6068;
   font-weight: 600;
   margin-bottom: 12rpx;
 }
 
 .feedback-quote {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   font-style: italic;
   margin-bottom: 12rpx;
   line-height: 1.6;
@@ -368,7 +368,7 @@
 
 .extra-title {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   margin-bottom: 16rpx;
 }
 
@@ -385,11 +385,11 @@
 
 .option-item {
   background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
   border-radius: 16rpx;
   padding: 14rpx 24rpx;
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .option-item.option-selected {
@@ -403,10 +403,10 @@
   width: 100%;
   height: 200rpx;
   background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
   border-radius: 16rpx;
   padding: 20rpx 24rpx;
-  color: #7A6E7A;
+  color: #6A6068;
   font-size: 26rpx;
   box-sizing: border-box;
   line-height: 1.6;
@@ -415,7 +415,7 @@
 .story-count {
   text-align: right;
   font-size: 22rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   margin-top: 8rpx;
 }
 
@@ -429,20 +429,20 @@
 
 .confirm-label {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   flex-shrink: 0;
 }
 
 .confirm-value {
   font-size: 26rpx;
-  color: #7A6E7A;
+  color: #6A6068;
   text-align: right;
   max-width: 60%;
 }
 
 .confirm-value.story-text {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   line-height: 1.6;
 }
 
@@ -457,8 +457,8 @@
   display: flex;
   align-items: flex-start;
   gap: 12rpx;
-  background: rgba(184,164,216,0.04);
-  border: 1px solid rgba(184,164,216,0.15);
+  background: rgba(157,212,184,0.04);
+  border: 1px solid rgba(157,212,184,0.15);
   border-radius: 16rpx;
   padding: 20rpx 24rpx;
   margin-bottom: 24rpx;
@@ -471,7 +471,7 @@
 
 .disclaimer-text {
   font-size: 22rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   line-height: 1.6;
 }
 
@@ -493,13 +493,13 @@
   padding: 12rpx 0;
   font-size: 26rpx;
   color: #A0A0A0;
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border: 1rpx solid #333;
   border-radius: 12rpx;
   transition: all 0.2s;
 }
 .calendar-tab.active {
-  color: #7A6E7A;
+  color: #6A6068;
   background: linear-gradient(135deg, #E89AAA, #E8A8BF);
   border-color: transparent;
 }
@@ -508,7 +508,7 @@
 .lunar-mask {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(122,110,122,0.5);
+  background: rgba(106,96,104,0.5);
   z-index: 999;
   visibility: hidden;
   opacity: 0;
@@ -523,7 +523,7 @@
   left: 0; right: 0; bottom: 0;
   background: linear-gradient(180deg, #2A2351 0%, #1F1B3F 100%);
   border-top: 1rpx solid rgba(232,154,170, 0.25);
-  box-shadow: 0 -8rpx 32rpx rgba(184,164,216,0.1);
+  box-shadow: 0 -8rpx 32rpx rgba(157,212,184,0.1);
   border-radius: 28rpx 28rpx 0 0;
   padding-bottom: env(safe-area-inset-bottom);
   transform: translateY(100%);
@@ -537,16 +537,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 28rpx 32rpx;
-  border-bottom: 1rpx solid rgba(184,164,216,0.15);
+  border-bottom: 1rpx solid rgba(157,212,184,0.15);
 }
 .lunar-cancel {
   font-size: 30rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   padding: 8rpx 12rpx;
 }
 .lunar-title {
   font-size: 32rpx;
-  color: #7A6E7A;
+  color: #6A6068;
   font-weight: 600;
   letter-spacing: 2rpx;
 }
@@ -568,7 +568,7 @@
   line-height: 80rpx;
   text-align: center;
   font-size: 30rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 .lunar-indicator {
   height: 80rpx;

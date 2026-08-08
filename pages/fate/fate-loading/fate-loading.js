@@ -7,7 +7,7 @@ function buildResultView(record) {
   // 五维度列表
   const dimensionList = [
     { key: 'constellation', name: '星座匹配', emoji: '⭐', color: '#E8A8BF', score: record.scores?.zodiac || 0, percentage: record.scores?.zodiac || 0, desc: `${record.zodiacA?.name || '未知'}×${record.zodiacB?.name || '未知'}` },
-    { key: 'name', name: '姓名缘分', emoji: '✍️', color: '#B8A4D8', score: record.scores?.name || 0, percentage: record.scores?.name || 0, desc: '笔画互补' },
+    { key: 'name', name: '姓名缘分', emoji: '✍️', color: '#9DD4B8', score: record.scores?.name || 0, percentage: record.scores?.name || 0, desc: '笔画互补' },
     { key: 'numerology', name: '数字缘分', emoji: '🔢', color: '#00D9FF', score: record.scores?.lifePath || 0, percentage: record.scores?.lifePath || 0, desc: `灵数${record.myInfo?.lifePath || 0}×${record.partnerInfo?.lifePath || 0}` },
     { key: 'personality', name: '性格互补', emoji: '🧩', color: '#00FF87', score: record.scores?.personality || 0, percentage: record.scores?.personality || 0, desc: '性格互补' },
     { key: 'metaphysics', name: '命理玄学', emoji: '🔮', color: '#A855F7', score: record.scores?.mystical || 0, percentage: record.scores?.mystical || 0, desc: '命理玄学' },

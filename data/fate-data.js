@@ -470,7 +470,7 @@ function generateMomentsText(fateType, score, nameA, nameB) {
 // ==================== 维度定义 ====================
 const DIMENSIONS = {
   constellation: { name: '星座匹配', emoji: '⭐', color: '#E8A8BF' },
-  name: { name: '姓名缘分', emoji: '✍️', color: '#B8A4D8' },
+  name: { name: '姓名缘分', emoji: '✍️', color: '#9DD4B8' },
   numerology: { name: '数字缘分', emoji: '🔢', color: '#00D9FF' },
   personality: { name: '性格互补', emoji: '🧩', color: '#00FF87' },
   metaphysics: { name: '命理玄学', emoji: '🔮', color: '#A855F7' },

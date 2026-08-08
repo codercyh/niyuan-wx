@@ -5,51 +5,51 @@ page {
   padding: 0;
   box-sizing: border-box;
 
-  /* 主色调 - 淡藕粉(柔和低饱和) */
+  /* 主色调 - 柔粉配薄荷绿(水彩渐变) */
   --primary-color: #E8A8BF;
   --primary-light: #F0C4D4;
   --primary-dark: #D88EA8;
   --primary-bg: rgba(232,168,191,0.12);
-  --accent-color: #B8A4D8;
-  --accent-light: #D4C5E8;
-  --accent-bg: rgba(184,164,216,0.12);
+  --accent-color: #9DD4B8;
+  --accent-light: #C1E8D4;
+  --accent-bg: rgba(157,212,184,0.12);
 
   /* 渐变色 */
-  --gradient-primary: linear-gradient(135deg, #F0B6CB 0%, #C4B5E0 100%);
-  --gradient-bg: linear-gradient(180deg, #FBF7F9 0%, #F8F5FB 40%, #F5F3F8 100%);
+  --gradient-primary: linear-gradient(135deg, #F0B6CB 0%, #9DD4B8 100%);
+  --gradient-bg: linear-gradient(135deg, #FDF0F0 0%, #FFF8F0 40%, #F0F8F4 100%);
   --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.75) 100%);
-  --gradient-button: linear-gradient(135deg, #F0B6CB 0%, #C4B5E0 100%);
+  --gradient-button: linear-gradient(135deg, #F0B6CB 0%, #9DD4B8 100%);
 
   /* 背景色 - 浅色系 */
-  --bg-page: #FBF7F9;
-  --bg-light: rgba(184,164,216,0.05);
-  --bg-card: rgba(255,255,255,0.8);
-  --bg-card-hover: rgba(255,255,255,0.92);
-  --bg-input: rgba(255,255,255,0.85);
-  --bg-mask: rgba(120, 110, 120, 0.4);
+  --bg-page: #FDF6F6;
+  --bg-light: rgba(157,212,184,0.05);
+  --bg-card: rgba(255,255,255,0.85);
+  --bg-card-hover: rgba(255,255,255,0.94);
+  --bg-input: rgba(255,255,255,0.88);
+  --bg-mask: rgba(120, 110, 110, 0.4);
 
   /* 文字颜色 */
-  --text-primary: #7A6E7A;
-  --text-secondary: rgba(122,110,122,0.6);
-  --text-tertiary: rgba(122,110,122,0.4);
-  --text-placeholder: rgba(122,110,122,0.3);
+  --text-primary: #6A6068;
+  --text-secondary: rgba(106,96,104,0.6);
+  --text-tertiary: rgba(106,96,104,0.4);
+  --text-placeholder: rgba(106,96,104,0.3);
   --text-white: #FFFFFF;
 
   /* 边框颜色 */
-  --border-color: rgba(184,164,216,0.12);
-  --border-light: rgba(184,164,216,0.06);
+  --border-color: rgba(157,212,184,0.12);
+  --border-light: rgba(157,212,184,0.06);
   --border-active: rgba(232,168,191,0.4);
 
   /* 辅助色 */
   --success-color: #8FD4B5;
   --warning-color: #F0CB8A;
   --danger-color: #E89AAA;
-  --info-color: #A8B8E0;
+  --info-color: #A8C5E0;
 
   /* 阴影 */
-  --shadow-sm: 0 2px 8px rgba(184,164,216,0.06);
-  --shadow-md: 0 4px 16px rgba(184,164,216,0.08);
-  --shadow-lg: 0 8px 32px rgba(184,164,216,0.1);
+  --shadow-sm: 0 2px 8px rgba(157,212,184,0.06);
+  --shadow-md: 0 4px 16px rgba(157,212,184,0.08);
+  --shadow-lg: 0 8px 32px rgba(157,212,184,0.1);
   --shadow-primary: 0 4px 20px rgba(232,168,191,0.15);
   --shadow-glow: 0 0 20px rgba(232,168,191,0.2);
 

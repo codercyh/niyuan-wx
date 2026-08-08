@@ -18,7 +18,6 @@
     "pages/fate/fate-poster/fate-poster",
     "pages/fate/fate-loading/fate-loading",
     "pages/privacy/privacy",
-    
     "pages/social/tree-list/tree-list",
     "pages/social/tree-create/tree-create",
     "pages/social/tree-detail/tree-detail",
@@ -26,14 +25,14 @@
     "pages/share/share"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#FBF7F9",
+    "navigationBarBackgroundColor": "#FDF6F6",
     "navigationBarTitleText": "兴趣与测试",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#FBF7F9",
+    "backgroundColor": "#FDF6F6",
     "backgroundTextStyle": "dark"
   },
   "tabBar": {
-    "color": "#9B8AA0",
+    "color": "#9AAA9A",
     "selectedColor": "#E8A8BF",
     "borderStyle": "white",
     "backgroundColor": "#FFFFFF",

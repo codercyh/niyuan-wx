@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  background: #FBF7F9;
+  background: #FDF6F6;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,7 +70,7 @@
 .glow-mid {
   width: 220rpx;
   height: 220rpx;
-  background: radial-gradient(circle, rgba(184,164,216, 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(157,212,184, 0.3) 0%, transparent 70%);
   animation: pulse 2s ease-in-out infinite;
   animation-delay: 0.2s;
 }
@@ -90,7 +90,7 @@
 /* 加载文字 */
 .loading-text {
   font-size: 32rpx;
-  color: #7A6E7A;
+  color: #6A6068;
   margin-bottom: 24rpx;
   letter-spacing: 2rpx;
 }
@@ -99,7 +99,7 @@
 .progress-number {
   font-size: 48rpx;
   font-weight: bold;
-  color: #7A6E7A;
+  color: #6A6068;
   margin-bottom: 20rpx;
 }
 
@@ -117,7 +117,7 @@
 .progress-bar-fill {
   height: 100%;
   border-radius: 3px;
-  background: linear-gradient(90deg, #E8A8BF, #B8A4D8);
+  background: linear-gradient(90deg, #E8A8BF, #9DD4B8);
   transition: width 80ms linear;
   position: relative;
 }
@@ -161,11 +161,11 @@
 
 /* 状态样式 */
 .step-done .step-label {
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .step-loading .step-label {
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .step-loading .step-icon {
@@ -178,9 +178,9 @@
 }
 
 .step-waiting .step-label {
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .step-waiting .step-icon {
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }

@@ -2,16 +2,16 @@
 
 .page-scroll {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FBF7F9 0%, #F8F5FB 40%, #F5F3F8 100%);
+  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
 }
 
 /* 卡片预览 */
 .share-preview {
   margin: 40rpx;
   padding: 48rpx;
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border-radius: 32rpx;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
 }
 
 .share-header {
@@ -29,7 +29,7 @@
 .share-title {
   font-size: 40rpx;
   font-weight: 700;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .share-result {
@@ -40,7 +40,7 @@
 
 .share-content {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   line-height: 1.8;
   text-align: center;
 }
@@ -57,7 +57,7 @@
   gap: 16rpx;
   width: 100%;
   height: 96rpx;
-  background: linear-gradient(135deg, #E8A8BF 0%, #B8A4D8 100%);
+  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%);
   border-radius: 24rpx;
   color: #FFFFFF;
   font-size: 32rpx;

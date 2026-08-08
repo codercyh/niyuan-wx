@@ -194,7 +194,7 @@ function applyTheme(theme) {
   } else {
     currentPage.setData({
       '--bg-dark': '#0A0A14',
-      '--bg-light': '#F5F3F8',
+      '--bg-light': '#F0F8F4',
       '--text-primary': '#FFFFFF',
       '--text-secondary': '#CCCCCC',
       '--text-tertiary': '#999999',

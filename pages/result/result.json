@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "测试结果",
-  "navigationBarBackgroundColor": "#FBF7F9",
+  "navigationBarBackgroundColor": "#FDF6F6",
   "navigationBarTextStyle": "black",
-  "backgroundColor": "#FBF7F9",
+  "backgroundColor": "#FDF6F6",
   "backgroundTextStyle": "dark"
 }

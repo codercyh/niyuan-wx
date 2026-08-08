@@ -169,9 +169,9 @@ Page({
   async drawFunnyPoster(ctx, result, w, h) {
     // 背景渐变
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
-    gradient.addColorStop(0, '#FBF7F9')
-    gradient.addColorStop(0.5, '#F8F5FB')
-    gradient.addColorStop(1, '#F5F3F8')
+    gradient.addColorStop(0, '#FDF6F6')
+    gradient.addColorStop(0.5, '#FFF8F0')
+    gradient.addColorStop(1, '#F0F8F4')
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, w, h)
 
@@ -239,7 +239,7 @@ Page({
   async drawArtisticPoster(ctx, result, w, h) {
     // 深蓝渐变背景
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
-    gradient.addColorStop(0, '#F5F3F8')
+    gradient.addColorStop(0, '#F0F8F4')
     gradient.addColorStop(1, '#16213e')
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, w, h)

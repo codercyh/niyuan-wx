@@ -4,14 +4,14 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(180deg, #FBF7F9 0%, #F8F5FB 40%, #F5F3F8 100%);
+  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
 }
 
 /* 进度条 */
 .progress-container {
   padding: 32rpx 40rpx;
-  background: rgba(184,164,216,0.04);
-  border-bottom: 1px solid rgba(184,164,216,0.15);
+  background: rgba(157,212,184,0.04);
+  border-bottom: 1px solid rgba(157,212,184,0.15);
 }
 
 .progress-info {
@@ -23,7 +23,7 @@
 .progress-text {
   font-size: 28rpx;
   font-weight: 600;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .progress-percentage {
@@ -41,7 +41,7 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #E8A8BF 0%, #B8A4D8 100%);
+  background: linear-gradient(90deg, #E8A8BF 0%, #9DD4B8 100%);
   border-radius: 6rpx;
   transition: width 0.3s ease;
 }
@@ -73,14 +73,14 @@
 .test-title {
   font-size: 44rpx;
   font-weight: 700;
-  color: #7A6E7A;
+  color: #6A6068;
   margin-bottom: 16rpx;
 }
 
 .test-badge {
   font-size: 22rpx;
   padding: 8rpx 24rpx;
-  background: linear-gradient(135deg, #E8A8BF 0%, #B8A4D8 100%);
+  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%);
   color: #FFFFFF;
   border-radius: 48rpx;
   font-weight: 600;
@@ -92,8 +92,8 @@
   justify-content: center;
   gap: 48rpx;
   padding: 32rpx 40rpx;
-  background: rgba(184,164,216,0.04);
-  border-bottom: 1px solid rgba(184,164,216,0.15);
+  background: rgba(157,212,184,0.04);
+  border-bottom: 1px solid rgba(157,212,184,0.15);
 }
 
 .meta-item {
@@ -108,28 +108,28 @@
 
 .meta-text {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* 测试说明 */
 .test-description-box {
   margin: 32rpx;
   padding: 32rpx;
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border-radius: 32rpx;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
 }
 
 .description-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #7A6E7A;
+  color: #6A6068;
   margin-bottom: 16rpx;
 }
 
 .description-text {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   line-height: 1.6;
 }
 
@@ -155,21 +155,21 @@
 .test-about {
   margin: 0 32rpx 32rpx;
   padding: 32rpx;
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border-radius: 32rpx;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
 }
 
 .about-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #7A6E7A;
+  color: #6A6068;
   margin-bottom: 16rpx;
 }
 
 .about-text {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   line-height: 1.6;
 }
 
@@ -200,7 +200,7 @@
   align-items: flex-start;
   gap: 16rpx;
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .tips-bullet {
@@ -271,7 +271,7 @@
 /* 答题容器 */
 .answering-container {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FBF7F9 0%, #F8F5FB 40%, #F5F3F8 100%);
+  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
 }
 
 /* 题目信息 */
@@ -287,22 +287,22 @@
 
 .question-type {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* 题干 */
 .question-content {
   margin: 0 32rpx 40rpx;
   padding: 40rpx;
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border-radius: 32rpx;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
 }
 
 .question-text {
   font-size: 32rpx;
   font-weight: 500;
-  color: #7A6E7A;
+  color: #6A6068;
   line-height: 1.6;
 }
 
@@ -316,7 +316,7 @@
   align-items: flex-start;
   gap: 24rpx;
   padding: 32rpx;
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border-radius: 32rpx;
   margin-bottom: 24rpx;
   border: 4rpx solid transparent;
@@ -332,7 +332,7 @@
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
-  border: 4rpx solid rgba(184,164,216,0.15);
+  border: 4rpx solid rgba(157,212,184,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -355,7 +355,7 @@
 
 .option-text {
   font-size: 28rpx;
-  color: #7A6E7A;
+  color: #6A6068;
   line-height: 1.5;
 }
 

@@ -1,7 +1,7 @@
 /* 个人页面样式 - 梦幻渐变主题 */
 .profile-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FBF7F9 0%, #F8F5FB 40%, #F5F3F8 100%);
+  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
   padding: 32rpx;
   box-sizing: border-box;
 }
@@ -11,7 +11,7 @@
   background: linear-gradient(
     135deg,
     rgba(232,168,191, 0.2) 0%,
-    rgba(184,164,216, 0.15) 100%
+    rgba(157,212,184, 0.15) 100%
   );
   border-radius: 32rpx;
   padding: 48rpx 40rpx;
@@ -68,7 +68,7 @@
   align-items: center;
   margin-bottom: 10rpx;
   padding: 0;
-  border-bottom: 2rpx solid rgba(184,164,216,0.15);
+  border-bottom: 2rpx solid rgba(157,212,184,0.15);
   box-sizing: border-box;
 }
 
@@ -78,7 +78,7 @@
   min-height: 72rpx;
   font-size: 34rpx;
   font-weight: 600;
-  color: #7A6E7A;
+  color: #6A6068;
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
@@ -89,7 +89,7 @@
 }
 
 .nickname-input::placeholder {
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .nickname-input:focus {
@@ -113,13 +113,13 @@
   display: block;
   font-size: 40rpx;
   font-weight: 700;
-  color: #7A6E7A;
+  color: #6A6068;
   margin-bottom: 8rpx;
 }
 
 .join-date {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .avatar-static {
@@ -145,7 +145,7 @@
   background: rgba(255,255,255,0.6);
   border-radius: 24rpx;
   padding: 32rpx 0;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
 }
 
 .stat-item {
@@ -157,21 +157,21 @@
   display: block;
   font-size: 48rpx;
   font-weight: 700;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .stat-label {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* 区块 */
 .section {
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border-radius: 32rpx;
   padding: 32rpx;
   margin-bottom: 32rpx;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
 }
 
 .section-header {
@@ -184,7 +184,7 @@
 .section-title {
   font-size: 32rpx;
   font-weight: 600;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .section-more {
@@ -203,9 +203,9 @@
   display: flex;
   align-items: center;
   padding: 24rpx;
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border-radius: 24rpx;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
 }
 
 .history-emoji {
@@ -221,12 +221,12 @@
   display: block;
   font-size: 28rpx;
   font-weight: 500;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .history-date {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .history-score {
@@ -237,17 +237,17 @@
 
 /* 菜单 */
 .menu-section {
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border-radius: 32rpx;
   overflow: hidden;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
 }
 
 .menu-item {
   display: flex;
   align-items: center;
   padding: 32rpx;
-  border-bottom: 1px solid rgba(184,164,216,0.15);
+  border-bottom: 1px solid rgba(157,212,184,0.15);
 }
 
 .menu-item:last-child {
@@ -262,12 +262,12 @@
 .menu-text {
   flex: 1;
   font-size: 30rpx;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .menu-arrow {
   font-size: 28rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* 退出使用 */
@@ -317,7 +317,7 @@
   background: linear-gradient(
     135deg,
     rgba(232,168,191, 0.1) 0%,
-    rgba(184,164,216, 0.08) 100%
+    rgba(157,212,184, 0.08) 100%
   );
   border: 1px solid rgba(232,168,191, 0.2);
   border-radius: 24rpx;
@@ -334,7 +334,7 @@
 .fate-pair {
   font-size: 30rpx;
   font-weight: 600;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .fate-level {
@@ -366,7 +366,7 @@
 
 .fate-level.level-d {
   background: #6366f1;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .fate-score-row {
@@ -384,10 +384,10 @@
 
 .fate-type-name {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .fate-time {
   font-size: 22rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }

@@ -198,7 +198,7 @@ switch {
   border-radius: var(--radius-lg);
   font-size: 26rpx;
   font-weight: 500;
-  color: #7A6E7A;
+  color: #6A6068;
   backdrop-filter: blur(20px);
   z-index: 1000;
   animation: slideDown 0.3s ease-out;

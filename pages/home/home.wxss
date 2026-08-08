@@ -1,7 +1,7 @@
 /* 首页样式 - 梦幻渐变主题 */
 .home-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FBF7F9 0%, #F8F5FB 40%, #F5F3F8 100%);
+  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
   display: flex;
   flex-direction: column;
 }
@@ -13,7 +13,7 @@
 
 /* 个性化问候头部 */
 .greeting-header {
-  background: linear-gradient(135deg, rgba(232,168,191,0.2) 0%, rgba(184,164,216,0.15) 100%);
+  background: linear-gradient(135deg, rgba(232,168,191,0.2) 0%, rgba(157,212,184,0.15) 100%);
   padding: 40rpx 32rpx 56rpx;
   border-radius: 0 0 48rpx 48rpx;
   border: 1px solid rgba(232,168,191,0.2);
@@ -52,13 +52,13 @@
 .greeting-main {
   font-size: 40rpx;
   font-weight: 700;
-  color: #7A6E7A;
+  color: #6A6068;
   line-height: 1.3;
 }
 
 .greeting-sub {
   font-size: 28rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   line-height: 1.4;
 }
 
@@ -67,11 +67,11 @@
   display: flex;
   justify-content: space-around;
   padding: 40rpx 32rpx;
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   margin: -32rpx 32rpx 32rpx;
   border-radius: 32rpx;
-  border: 1px solid rgba(184,164,216,0.15);
-  box-shadow: 0 8rpx 32rpx rgba(184,164,216,0.1);
+  border: 1px solid rgba(157,212,184,0.15);
+  box-shadow: 0 8rpx 32rpx rgba(157,212,184,0.1);
 }
 
 .action-item {
@@ -87,7 +87,7 @@
 
 .action-title {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* 推荐测试区 */
@@ -105,7 +105,7 @@
 .section-title {
   font-size: 36rpx;
   font-weight: 700;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .section-more {
@@ -120,10 +120,10 @@
 }
 
 .test-card {
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border-radius: 32rpx;
   padding: 32rpx;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
   transition: all 0.3s ease;
 }
 
@@ -168,11 +168,11 @@
 .test-name {
   font-size: 32rpx;
   font-weight: 600;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .test-badge {
-  background: linear-gradient(135deg, #E8A8BF 0%, #B8A4D8 100%);
+  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%);
   color: #FFFFFF;
   font-size: 20rpx;
   padding: 4rpx 16rpx;
@@ -181,7 +181,7 @@
 
 .test-desc {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -203,7 +203,7 @@
 .test-people,
 .test-time {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .test-rating {

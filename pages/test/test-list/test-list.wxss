@@ -4,14 +4,14 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(180deg, #FBF7F9 0%, #F8F5FB 40%, #F5F3F8 100%);
+  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
 }
 
 /* 顶部搜索栏 */
 .search-container {
   padding: 24rpx 32rpx;
-  background: rgba(184,164,216,0.04);
-  border-bottom: 1px solid rgba(184,164,216,0.15);
+  background: rgba(157,212,184,0.04);
+  border-bottom: 1px solid rgba(157,212,184,0.15);
 }
 
 .search-box {
@@ -21,13 +21,13 @@
   border-radius: 48rpx;
   padding: 20rpx 28rpx;
   gap: 16rpx;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
 }
 
 .search-icon {
   font-size: 32rpx;
   opacity: 0.5;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .search-input {
@@ -36,25 +36,25 @@
   border: none;
   padding: 0;
   font-size: 28rpx;
-  color: #7A6E7A;
+  color: #6A6068;
   line-height: normal;
 }
 
 .search-input::placeholder {
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .clear-btn {
   font-size: 32rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   padding: 8rpx;
 }
 
 /* 分类Tab */
 .category-scroll {
   white-space: nowrap;
-  background: rgba(184,164,216,0.04);
-  border-bottom: 1px solid rgba(184,164,216,0.15);
+  background: rgba(157,212,184,0.04);
+  border-bottom: 1px solid rgba(157,212,184,0.15);
 }
 
 .category-list {
@@ -71,13 +71,13 @@
   background: rgba(255,255,255,0.6);
   border-radius: 48rpx;
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
-  border: 1px solid rgba(184,164,216,0.15);
+  color: rgba(106,96,104,1.0);
+  border: 1px solid rgba(157,212,184,0.15);
   transition: all 0.3s ease;
 }
 
 .category-item.active {
-  background: linear-gradient(135deg, #E8A8BF 0%, #B8A4D8 100%);
+  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%);
   color: #FFFFFF;
   border-color: transparent;
   box-shadow: 0 4rpx 16rpx rgba(232,168,191,0.3);
@@ -102,8 +102,8 @@
   display: flex;
   padding: 24rpx 32rpx;
   gap: 32rpx;
-  background: rgba(184,164,216,0.04);
-  border-bottom: 1px solid rgba(184,164,216,0.15);
+  background: rgba(157,212,184,0.04);
+  border-bottom: 1px solid rgba(157,212,184,0.15);
 }
 
 .sort-item {
@@ -111,7 +111,7 @@
   align-items: center;
   gap: 8rpx;
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   padding: 8rpx 16rpx;
   border-radius: 12rpx;
   transition: all 0.3s ease;
@@ -134,10 +134,10 @@
 
 .test-card {
   padding: 32rpx;
-  background: rgba(184,164,216,0.04);
+  background: rgba(157,212,184,0.04);
   border-radius: 32rpx;
   margin-bottom: 24rpx;
-  border: 1px solid rgba(184,164,216,0.15);
+  border: 1px solid rgba(157,212,184,0.15);
   transition: all 0.3s ease;
 }
 
@@ -157,7 +157,7 @@
 .test-emoji {
   width: 96rpx;
   height: 96rpx;
-  background: linear-gradient(135deg, rgba(232,168,191,0.3) 0%, rgba(184,164,216,0.2) 100%);
+  background: linear-gradient(135deg, rgba(232,168,191,0.3) 0%, rgba(157,212,184,0.2) 100%);
   border-radius: 24rpx;
   display: flex;
   align-items: center;
@@ -177,12 +177,12 @@
 .test-name {
   font-size: 32rpx;
   font-weight: 600;
-  color: #7A6E7A;
+  color: #6A6068;
 }
 
 .test-category {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .test-stats {
@@ -204,12 +204,12 @@
 
 .stat-label {
   font-size: 22rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .test-description {
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
   line-height: 1.5;
   margin-bottom: 24rpx;
   display: -webkit-box;
@@ -223,7 +223,7 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 24rpx;
-  border-top: 1px solid rgba(184,164,216,0.15);
+  border-top: 1px solid rgba(157,212,184,0.15);
 }
 
 .test-tags {
@@ -265,7 +265,7 @@
 
 .arrow {
   font-size: 36rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* 加载更多 */
@@ -273,7 +273,7 @@
   padding: 40rpx;
   text-align: center;
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* 没有更多 */
@@ -281,7 +281,7 @@
   padding: 40rpx;
   text-align: center;
   font-size: 26rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* 空状态 */
@@ -299,12 +299,12 @@
 
 .empty-text {
   font-size: 28rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 .empty-hint {
   font-size: 24rpx;
-  color: rgba(122,110,122,1.0);
+  color: rgba(106,96,104,1.0);
 }
 
 /* 底部占位 */
