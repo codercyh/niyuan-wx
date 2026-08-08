@@ -1,4 +1,5 @@
 const { getStorage, removeStorage } = require('../../../utils/storage.js')
+const api = require('../../../utils/api.js')
 
 Page({
   data: {
@@ -25,41 +26,13 @@ Page({
   loadUserData() {
     // 尝试从多种来源获取用户信息
     let userInfo = wx.getStorageSync('userInfo')
-    
+
     // 兼容旧格式
     if (!userInfo) {
       userInfo = getStorage('userInfo') || getStorage('userToken')
     }
-    
+
     const isLoggedIn = !!(userInfo && userInfo.nickName)
-    
-    // 获取心理测试历史
-    const testHistory = getStorage('test_records') || []
-    const recentTests = testHistory.slice(0, 3).map((test, index) => ({
-      id: test.id || index,
-      emoji: test.testEmoji || '📊',
-      name: test.testName || '测试',
-      date: test.completedAt || '未知',
-      score: test.score || 0,
-    }))
-
-    // 获取缘分测试历史
-    const fateRecords = wx.getStorageSync('fate_records') || []
-    const recentFate = fateRecords.slice(0, 3).map((record, index) => ({
-      id: record.id || index,
-      nameA: record.personA?.name || 'A',
-      nameB: record.personB?.name || 'B',
-      score: record.score || 0,
-      level: record.level || 'C',
-      levelClass: `level-${(record.level || 'C').toLowerCase()}`,
-      fateType: record.fateType || '未知',
-      date: this.formatDate(record.createdAt),
-    }))
-
-    // 计算平均分
-    const avgScore = testHistory.length > 0 
-      ? Math.round(testHistory.reduce((sum, t) => sum + (t.score || 70), 0) / testHistory.length)
-      : 0
 
     // 计算加入天数
     const joinDateStr = userInfo?.joinDate || wx.getStorageSync('user_join_date') || new Date().toISOString().split('T')[0]
@@ -70,13 +43,76 @@ Page({
     this.setData({
       userInfo: userInfo,
       isLoggedIn: isLoggedIn,
-      testCount: testHistory.length,
-      fateCount: fateRecords.length,
-      avgScore: avgScore,
       daysJoined: daysJoined > 0 ? daysJoined : 1,
-      testHistory: recentTests,
-      fateHistory: recentFate,
     })
+
+    // 从后端拉取真实历史记录（与 pages/history/history.js 同源）
+    // 未登录或 token 缺失时跳过，统计保持为 0
+    const app = getApp()
+    const ready = (app && typeof app.ensureBootstrapped === 'function')
+      ? app.ensureBootstrapped()
+      : Promise.resolve()
+
+    ready
+      .then(() => {
+        if (!isLoggedIn) return
+        return this.loadStatsFromApi()
+      })
+      .catch((err) => {
+        console.warn('[profile] loadUserData skipped:', err && err.message)
+      })
+  },
+
+  // 从后端拉取心理测试与缘分测试历史，并刷新统计与最近列表
+  loadStatsFromApi() {
+    return Promise.all([
+      api.getUserTestRecords(1, 50),
+      api.getNiyuanHistory(1, 50),
+    ])
+      .then(([testRes, fateRes]) => {
+        const testRecords = (testRes && testRes.data && testRes.data.records) || []
+        const fateRecords = (fateRes && fateRes.data && fateRes.data.records) || []
+
+        const recentTests = testRecords.slice(0, 3).map((record, index) => ({
+          id: record._id || record.id || index,
+          emoji: '🧪',
+          name: record.testTitle || '心理测试',
+          date: this.formatDate(record.createdAt),
+          score: record.totalScore || 0,
+        }))
+
+        const recentFate = fateRecords.slice(0, 3).map((record, index) => {
+          const level = record.level?.level || 'C'
+          return {
+            id: record._id || record.id || index,
+            nameA: record.myInfo?.name || 'A',
+            nameB: record.partnerInfo?.name || 'B',
+            score: record.totalScore || 0,
+            level: level,
+            levelClass: `level-${level.toLowerCase()}`,
+            fateType: record.fateType?.name || '缘分',
+            date: this.formatDate(record.createdAt),
+          }
+        })
+
+        // 平均分：以缘分测试分数为口径（心理测试 totalScore 不具可比性）
+        const fateScores = fateRecords.map((r) => r.totalScore || 0).filter((s) => s > 0)
+        const avgScore = fateScores.length > 0
+          ? Math.round(fateScores.reduce((a, b) => a + b, 0) / fateScores.length)
+          : 0
+
+        this.setData({
+          testCount: testRecords.length,
+          fateCount: fateRecords.length,
+          avgScore: avgScore,
+          testHistory: recentTests,
+          fateHistory: recentFate,
+        })
+      })
+      .catch((err) => {
+        console.error('[profile] loadStatsFromApi failed:', err)
+        // 失败时保持为空，不打断页面
+      })
   },
 
   formatDate(isoString) {
@@ -175,42 +211,56 @@ Page({
 
   onViewFateResult(e) {
     const id = e.currentTarget.dataset.id
-    const records = wx.getStorageSync('fate_records') || []
-    const record = records.find(r => r.id === id)
-    
-    if (record) {
-      wx.setStorageSync('fate_latest_result', {
-        score: record.score || 50,
-        level: { level: record.level || 'C', label: this.getLevelLabel(record.level || 'C') },
-        fateType: { name: record.fateType || '缘分待定', emoji: this.getFateEmoji(record.level), hashtags: ['#缘分测试', '#缘分'] },
-        personA: record.personA || {},
-        personB: record.personB || {},
-        zodiacA: { name: (record.personA && record.personA.zodiac) || '未知', emoji: '✨', element: 'unknown', en: '' },
-        zodiacB: { name: (record.personB && record.personB.zodiac) || '未知', emoji: '✨', element: 'unknown', en: '' },
-        elementMatch: { label: '缘分', shortDesc: '', desc: '' },
-        dimensionList: [
-          { key: 'constellation', name: '星座匹配', emoji: '⭐', color: '#FF6B35', score: record.score || 50, percentage: record.score || 50, desc: '星座配对' },
-        ],
-        dailyDialogue: { lines: [], comment: '' },
-        conflictTopics: [],
-        adviceList: [],
-        whyAttract: '',
-        specialHint: null,
+    if (!id) return
+
+    wx.showLoading({ title: '加载中...' })
+    api.getNiyuanRecord(id)
+      .then((res) => {
+        wx.hideLoading()
+        const record = res && res.data
+        if (!record) {
+          wx.showToast({ title: '记录不存在', icon: 'none' })
+          return
+        }
+        wx.setStorageSync('fate_latest_result', this.buildFateView(record))
+        wx.navigateTo({ url: '/pages/fate/fate-result/fate-result' })
       })
-      wx.navigateTo({
-        url: '/pages/fate/fate-result/fate-result'
+      .catch((err) => {
+        wx.hideLoading()
+        console.error('[profile] get fate record failed:', err)
+        wx.showToast({ title: '加载失败', icon: 'none' })
       })
+  },
+
+  // 把后端缘分记录转成 fate-result 页面所需视图（与 history.js 保持一致）
+  buildFateView(record) {
+    const dimensionList = [
+      { key: 'constellation', name: '星座匹配', emoji: '⭐', color: '#FF6B35', score: record.scores?.zodiac || 0, percentage: record.scores?.zodiac || 0, desc: `${record.zodiacA?.name || '未知'}×${record.zodiacB?.name || '未知'}` },
+      { key: 'name', name: '姓名缘分', emoji: '✍️', color: '#FF006E', score: record.scores?.name || 0, percentage: record.scores?.name || 0, desc: '笔画互补' },
+      { key: 'numerology', name: '数字缘分', emoji: '🔢', color: '#00D9FF', score: record.scores?.lifePath || 0, percentage: record.scores?.lifePath || 0, desc: `灵数${record.myInfo?.lifePath || 0}×${record.partnerInfo?.lifePath || 0}` },
+      { key: 'personality', name: '性格互补', emoji: '🧩', color: '#00FF87', score: record.scores?.personality || 0, percentage: record.scores?.personality || 0, desc: '性格互补' },
+      { key: 'metaphysics', name: '命理玄学', emoji: '🔮', color: '#A855F7', score: record.scores?.mystical || 0, percentage: record.scores?.mystical || 0, desc: '命理玄学' },
+    ]
+    return {
+      recordId: record._id || record.id,
+      score: record.totalScore || 0,
+      level: record.level || { level: 'C', label: '缘分待定', emoji: '✨', color: '#A855F7', desc: '' },
+      fateType: record.fateType || { name: '缘分', emoji: '✨', level: 'C', tagline: '', hashtags: [] },
+      zodiacA: record.zodiacA || { name: '未知', emoji: '✨', element: 'unknown' },
+      zodiacB: record.zodiacB || { name: '未知', emoji: '✨', element: 'unknown' },
+      elementMatch: record.elementMatch || { label: '缘分', shortDesc: '', desc: '' },
+      dimensionList,
+      whyAttract: record.whyAttract || '',
+      dailyDialogue: record.dailyDialogue || { lines: [], comment: '' },
+      conflictTopics: record.conflictTopics || [],
+      adviceList: record.adviceList || [],
+      momentsText: record.momentsText || [],
+      specialHint: record.specialHint || null,
+      personA: { name: record.myInfo?.name || '', birthday: record.myInfo?.birthDate || '' },
+      personB: { name: record.partnerInfo?.name || '', birthday: record.partnerInfo?.birthDate || '' },
+      relation: record.relationType,
+      story: record.story || '',
     }
-  },
-
-  getLevelLabel(level) {
-    const labels = { 'S': '天作之合', 'A': '缘分深厚', 'B': '心心相印', 'C': '考验之路', 'D': '波折之旅' }
-    return labels[level] || '未知'
-  },
-
-  getFateEmoji(level) {
-    const emojis = { 'S': '💫', 'A': '💕', 'B': '💗', 'C': '🌀', 'D': '💔' }
-    return emojis[level] || '✨'
   },
 
   onFeedback() {
