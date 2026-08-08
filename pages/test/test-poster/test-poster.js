@@ -239,7 +239,7 @@ Page({
   async drawArtisticPoster(ctx, result, w, h) {
     // 深蓝渐变背景
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
-    gradient.addColorStop(0, '#1a1a2e')
+    gradient.addColorStop(0, '#F3E8FF')
     gradient.addColorStop(1, '#16213e')
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, w, h)

@@ -30,7 +30,7 @@ Page({
     const scoreAngle = Math.round(((result.score || 0) / 100) * 360)
 
     const levelBgMap = {
-      'S': 'linear-gradient(135deg, #FFD700 0%, #FF7BA9 50%, #9B6BFF 100%)',
+      'S': 'linear-gradient(135deg, #FFC85C 0%, #FF7BA9 50%, #9B6BFF 100%)',
       'A': 'linear-gradient(135deg, #00D9FF 0%, #0066FF 50%, #6366F1 100%)',
       'B': 'linear-gradient(135deg, #00FF87 0%, #00D9FF 50%, #6366F1 100%)',
       'C': 'linear-gradient(135deg, #A855F7 0%, #6366F1 50%, #302B63 100%)',

@@ -160,7 +160,7 @@ Page({
     wx.showModal({
       title: '删除记录',
       content: '确定删除这条测试记录？删除后不可恢复',
-      confirmColor: '#FF6B6B',
+      confirmColor: '#FF6B8A',
       success: (res) => {
         if (!res.confirm) return
         wx.showLoading({ title: '删除中...', mask: true })
@@ -185,7 +185,7 @@ Page({
     wx.showModal({
       title: '删除记录',
       content: '确定删除这条缘分记录？删除后不可恢复',
-      confirmColor: '#FF6B6B',
+      confirmColor: '#FF6B8A',
       success: (res) => {
         if (!res.confirm) return
         wx.showLoading({ title: '删除中...', mask: true })

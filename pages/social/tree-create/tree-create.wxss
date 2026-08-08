@@ -106,7 +106,7 @@ page {
 }
 
 .word-count.error {
-  color: #FF6B6B;
+  color: #FF6B8A;
   font-weight: 600;
 }
 
@@ -129,8 +129,8 @@ page {
 }
 
 .content-textarea.error {
-  border-color: #FF6B6B;
-  background: rgba(255,107,107,0.05);
+  border-color: #FF6B8A;
+  background: rgba(255,107,138,0.05);
 }
 
 .textarea-placeholder {

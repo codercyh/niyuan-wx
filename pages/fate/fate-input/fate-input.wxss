@@ -500,7 +500,7 @@
 }
 .calendar-tab.active {
   color: #5A4A5A;
-  background: linear-gradient(135deg, #FF6B6B, #FF7BA9);
+  background: linear-gradient(135deg, #FF6B8A, #FF7BA9);
   border-color: transparent;
 }
 
@@ -522,7 +522,7 @@
   position: absolute;
   left: 0; right: 0; bottom: 0;
   background: linear-gradient(180deg, #2A2351 0%, #1F1B3F 100%);
-  border-top: 1rpx solid rgba(255, 107, 107, 0.25);
+  border-top: 1rpx solid rgba(255,107,138, 0.25);
   box-shadow: 0 -8rpx 32rpx rgba(155,107,255,0.1);
   border-radius: 28rpx 28rpx 0 0;
   padding-bottom: env(safe-area-inset-bottom);
@@ -572,7 +572,7 @@
 }
 .lunar-indicator {
   height: 80rpx;
-  background: rgba(255, 107, 107, 0.08);
-  border-top: 1rpx solid rgba(255, 107, 107, 0.5);
-  border-bottom: 1rpx solid rgba(255, 107, 107, 0.5);
+  background: rgba(255,107,138, 0.08);
+  border-top: 1rpx solid rgba(255,107,138, 0.5);
+  border-bottom: 1rpx solid rgba(255,107,138, 0.5);
 }

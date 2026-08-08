@@ -131,7 +131,7 @@
 .poster-artistic {
   width: 100%;
   min-height: 600rpx;
-  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(180deg, #F3E8FF 0%, #16213e 100%);
   display: flex;
   flex-direction: column;
   align-items: center;

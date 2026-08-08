@@ -589,8 +589,8 @@
 
 /* 已付费用户专属优惠提示 */
 .vip-hint {
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 165, 0, 0.15) 100%);
-  border: 1rpx solid rgba(255, 107, 107, 0.4);
+  background: linear-gradient(135deg, rgba(255,107,138, 0.2) 0%, rgba(255,184,92, 0.15) 100%);
+  border: 1rpx solid rgba(255,107,138, 0.4);
   border-radius: 20rpx;
   padding: 28rpx 24rpx;
   margin-bottom: 28rpx;
@@ -613,7 +613,7 @@
   white-space: pre-line;
 }
 .vip-hint-highlight {
-  color: #FFA500;
+  color: #FFB85C;
   font-weight: 600;
 }
 
@@ -679,8 +679,8 @@
   position: relative;
   padding: 28rpx 28rpx;
   border-radius: 20rpx;
-  background: linear-gradient(135deg, #FF6B6B 0%, #FFA500 100%);
-  box-shadow: 0 8rpx 32rpx rgba(255, 107, 107, 0.4);
+  background: linear-gradient(135deg, #FF6B8A 0%, #FFB85C 100%);
+  box-shadow: 0 8rpx 32rpx rgba(255,107,138, 0.4);
   overflow: hidden;
 }
 .btn-vip-block {
@@ -739,7 +739,7 @@
   position: absolute;
   top: -12rpx;
   right: 24rpx;
-  background: linear-gradient(90deg, #FFD700, #FFA500);
+  background: linear-gradient(90deg, #FFC85C, #FFB85C);
   color: #000;
   font-size: 20rpx;
   padding: 4rpx 18rpx;
@@ -755,8 +755,8 @@
   display: flex;
   align-items: center;
   gap: 16rpx;
-  background: linear-gradient(90deg, rgba(255, 107, 107, 0.2), rgba(255, 165, 0, 0.2));
-  border: 1rpx solid rgba(255, 107, 107, 0.3);
+  background: linear-gradient(90deg, rgba(255,107,138, 0.2), rgba(255,184,92, 0.2));
+  border: 1rpx solid rgba(255,107,138, 0.3);
   border-radius: 20rpx;
 }
 .sticky-upgrade-left {
@@ -773,11 +773,11 @@
   white-space: pre-line;
 }
 .sticky-upgrade-strong {
-  color: #FFA500;
+  color: #FFB85C;
   font-weight: 600;
 }
 .sticky-upgrade-btn {
-  background: linear-gradient(90deg, #FF6B6B, #FFA500);
+  background: linear-gradient(90deg, #FF6B8A, #FFB85C);
   color: #FFFFFF;
   font-size: 24rpx;
   font-weight: 600;
@@ -802,7 +802,7 @@
 }
 .modal {
   width: 600rpx;
-  background: linear-gradient(180deg, #1A1A2E 0%, #0F0F1A 100%);
+  background: linear-gradient(180deg, #F3E8FF 0%, rgba(90,74,90,0.85) 100%);
   border-radius: 32rpx;
   padding: 40rpx 32rpx;
   position: relative;
@@ -823,7 +823,7 @@
   margin-bottom: 28rpx;
 }
 .modal-highlight {
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 165, 0, 0.15) 100%);
+  background: linear-gradient(135deg, rgba(255,107,138, 0.2) 0%, rgba(255,184,92, 0.15) 100%);
   border-radius: 20rpx;
   padding: 28rpx 24rpx;
   margin-bottom: 28rpx;
@@ -836,7 +836,7 @@
   white-space: pre-line;
 }
 .modal-strong {
-  color: #FFA500;
+  color: #FFB85C;
   font-weight: 700;
 }
 .modal-sub {
