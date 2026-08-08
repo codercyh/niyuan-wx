@@ -10,7 +10,7 @@
 .header {
   padding: 64rpx 40rpx 48rpx;
   text-align: center;
-  background: linear-gradient(180deg, rgba(220,141,168),0.1) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(220,141,168,0.1) 0%, transparent 100%);
 }
 
 .title {
@@ -46,8 +46,8 @@
 .footer {
   padding: 32rpx 40rpx;
   padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
-  background: rgba(124,196,160,0.04);
-  border-top: 1px solid rgba(124,196,160,0.15);
+  background: rgba(124,196,160,0.08);
+  border-top: 1px solid rgba(124,196,160,0.32);
   display: flex;
   gap: 24rpx;
 }
@@ -61,7 +61,7 @@
   font-size: 30rpx;
   font-weight: 600;
   text-align: center;
-  box-shadow: 0 8rpx 28rpx rgba(220,141,168),0.3);
+  box-shadow: 0 8rpx 28rpx rgba(220,141,168,0.3);
 }
 
 .disagree-btn {
@@ -72,5 +72,5 @@
   color: rgba(90,79,86,1.0);
   font-size: 30rpx;
   text-align: center;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }

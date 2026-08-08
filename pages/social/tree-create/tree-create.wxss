@@ -17,9 +17,9 @@ page {
   gap: 20rpx;
   padding: 64rpx 40rpx;
   margin: 32rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .header-emoji {
@@ -62,7 +62,7 @@ page {
   align-items: center;
   gap: 12rpx;
   padding: 28rpx 16rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 24rpx;
   border: 2px solid transparent;
   transition: all 0.3s ease;
@@ -75,7 +75,7 @@ page {
 .category-choice.active {
   background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%);
   border-color: transparent;
-  box-shadow: 0 8rpx 28rpx rgba(220,141,168),0.3);
+  box-shadow: 0 8rpx 28rpx rgba(220,141,168,0.3);
 }
 
 .category-choice-emoji {
@@ -115,9 +115,9 @@ page {
   width: 100%;
   height: 360rpx;
   padding: 32rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 24rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
   font-size: 28rpx;
   color: #5A4F56;
   line-height: 1.7;
@@ -125,7 +125,7 @@ page {
 
 .content-textarea:focus {
   border-color: #DC8DA8;
-  box-shadow: 0 0 0 6rpx rgba(220,141,168),0.15);
+  box-shadow: 0 0 0 6rpx rgba(220,141,168,0.15);
 }
 
 .content-textarea.error {
@@ -143,9 +143,9 @@ page {
   justify-content: space-between;
   align-items: center;
   padding: 32rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 24rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .toggle-label {
@@ -159,7 +159,7 @@ page {
   height: 60rpx;
   border-radius: 30rpx;
   background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
   display: flex;
   align-items: center;
   padding: 4rpx;
@@ -230,7 +230,7 @@ page {
 .btn-primary {
   background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%) !important;
   color: #FFFFFF !important;
-  box-shadow: 0 8rpx 28rpx rgba(220,141,168),0.3);
+  box-shadow: 0 8rpx 28rpx rgba(220,141,168,0.3);
 }
 
 .btn-primary text {
@@ -245,9 +245,9 @@ page {
 }
 
 .btn-secondary {
-  background: rgba(124,196,160,0.04) !important;
+  background: rgba(124,196,160,0.08) !important;
   color: #5A4F56 !important;
-  border: 1px solid rgba(124,196,160,0.15) !important;
+  border: 1px solid rgba(124,196,160,0.32) !important;
 }
 
 .btn-secondary text {

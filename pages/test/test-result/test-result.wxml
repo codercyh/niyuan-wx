@@ -75,7 +75,7 @@
           <text>📺 看广告解锁</text>
           <text class="btn-ad-tag">免费</text>
         </view>
-        <text class="btn-ad-arrow">→</text>
+        <view class="btn-ad-arrow"></view>
       </view>
 
       <view class="btn-single" bindtap="onPaySingle">
@@ -152,7 +152,10 @@
   <view class="recommend-card" wx:if="{{recommendTests.length > 0}}">
     <view class="card-header">
       <text class="card-title">🔥 更多测试推荐</text>
-      <text class="card-more" bindtap="onViewAllTests">查看全部 ›</text>
+      <view class="card-more" bindtap="onViewAllTests">
+        <text>查看全部</text>
+        <view class="more-arrow"></view>
+      </view>
     </view>
     <view class="recommend-items">
       <view class="recommend-item" wx:for="{{recommendTests}}" wx:key="id" bindtap="onOpenTest" data-id="{{item.id}}">
@@ -163,7 +166,7 @@
         </view>
         <view class="recommend-stats">
           <text class="recommend-people">{{item.participantsText}}人</text>
-          <text class="recommend-arrow">›</text>
+          <view class="recommend-arrow"></view>
         </view>
       </view>
     </view>

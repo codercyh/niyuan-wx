@@ -20,7 +20,7 @@
             </view>
             <view class="item-right">
               <text class="picker-value">{{themeOptions[themeIndex].text}}</text>
-              <text class="item-arrow">›</text>
+              <view class="item-arrow"></view>
             </view>
           </view>
         </picker>
@@ -39,7 +39,7 @@
             </view>
             <view class="item-right">
               <text class="picker-value">{{fontSizeOptions[fontSizeIndex].text}}</text>
-              <text class="item-arrow">›</text>
+              <view class="item-arrow"></view>
             </view>
           </view>
         </picker>
@@ -58,7 +58,7 @@
             </view>
             <view class="item-right">
               <text class="picker-value">{{languageOptions[languageIndex].text}}</text>
-              <text class="item-arrow">›</text>
+              <view class="item-arrow"></view>
             </view>
           </view>
         </picker>
@@ -242,7 +242,7 @@
             <text class="item-label">整理数据</text>
             <text class="item-desc">整理当前设备内的数据内容</text>
           </view>
-          <text class="item-arrow">›</text>
+          <view class="item-arrow"></view>
         </view>
       </view>
     </view>
@@ -266,7 +266,7 @@
             <text class="item-label">检查更新</text>
             <text class="item-desc">检查是否有新版本</text>
           </view>
-          <text class="item-arrow">›</text>
+          <view class="item-arrow"></view>
         </view>
 
         <!-- 隐私说明 -->
@@ -275,7 +275,7 @@
             <text class="item-label">隐私说明</text>
             <text class="item-desc">查看隐私说明</text>
           </view>
-          <text class="item-arrow">›</text>
+          <view class="item-arrow"></view>
         </view>
 
         <!-- 使用说明 -->
@@ -284,7 +284,7 @@
             <text class="item-label">使用说明</text>
             <text class="item-desc">查看使用说明</text>
           </view>
-          <text class="item-arrow">›</text>
+          <view class="item-arrow"></view>
         </view>
 
         <!-- 应用说明 -->
@@ -293,7 +293,7 @@
             <text class="item-label">应用说明</text>
             <text class="item-desc">了解本小程序的功能说明</text>
           </view>
-          <text class="item-arrow">›</text>
+          <view class="item-arrow"></view>
         </view>
       </view>
     </view>

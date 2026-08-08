@@ -10,8 +10,8 @@
 /* 进度条 */
 .progress-container {
   padding: 32rpx 40rpx;
-  background: rgba(124,196,160,0.04);
-  border-bottom: 1px solid rgba(124,196,160,0.15);
+  background: rgba(124,196,160,0.08);
+  border-bottom: 1px solid rgba(124,196,160,0.32);
 }
 
 .progress-info {
@@ -62,7 +62,7 @@
   flex-direction: column;
   align-items: center;
   padding: 64rpx 40rpx;
-  background: linear-gradient(180deg, rgba(220,141,168),0.1) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(220,141,168,0.1) 0%, transparent 100%);
 }
 
 .test-emoji {
@@ -92,8 +92,8 @@
   justify-content: center;
   gap: 48rpx;
   padding: 32rpx 40rpx;
-  background: rgba(124,196,160,0.04);
-  border-bottom: 1px solid rgba(124,196,160,0.15);
+  background: rgba(124,196,160,0.08);
+  border-bottom: 1px solid rgba(124,196,160,0.32);
 }
 
 .meta-item {
@@ -115,9 +115,9 @@
 .test-description-box {
   margin: 32rpx;
   padding: 32rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .description-title {
@@ -145,19 +145,19 @@
 .test-tags .tag {
   font-size: 22rpx;
   padding: 8rpx 24rpx;
-  background: rgba(220,141,168),0.15);
+  background: rgba(220,141,168,0.15);
   color: #DC8DA8;
   border-radius: 48rpx;
-  border: 1px solid rgba(220,141,168),0.2);
+  border: 1px solid rgba(220,141,168,0.2);
 }
 
 /* 关于测试 */
 .test-about {
   margin: 0 32rpx 32rpx;
   padding: 32rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .about-title {
@@ -177,7 +177,7 @@
 .test-tips {
   margin: 0 32rpx 32rpx;
   padding: 32rpx;
-  background: linear-gradient(135deg, rgba(255,215,61,0.15) 0%, rgba(220,141,168),0.1) 100%);
+  background: linear-gradient(135deg, rgba(255,215,61,0.15) 0%, rgba(220,141,168,0.1) 100%);
   border-radius: 32rpx;
   border: 1px solid rgba(255,215,61,0.2);
 }
@@ -294,9 +294,9 @@
 .question-content {
   margin: 0 32rpx 40rpx;
   padding: 40rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .question-text {
@@ -316,7 +316,7 @@
   align-items: flex-start;
   gap: 24rpx;
   padding: 32rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
   margin-bottom: 24rpx;
   border: 4rpx solid transparent;
@@ -325,14 +325,14 @@
 
 .option-item.selected {
   border-color: #DC8DA8;
-  background: rgba(220,141,168),0.15);
+  background: rgba(220,141,168,0.15);
 }
 
 .option-radio {
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
-  border: 4rpx solid rgba(124,196,160,0.15);
+  border: 4rpx solid rgba(124,196,160,0.32);
   display: flex;
   align-items: center;
   justify-content: center;

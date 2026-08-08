@@ -10,14 +10,14 @@
 .user-card {
   background: linear-gradient(
     135deg,
-    rgba(220,141,168), 0.2) 0%,
+    rgba(220,141,168,0.2) 0%,
     rgba(124,196,160, 0.15) 100%
   );
   border-radius: 32rpx;
   padding: 48rpx 40rpx;
   margin-bottom: 32rpx;
-  border: 1px solid rgba(220,141,168), 0.2);
-  box-shadow: 0 8rpx 32rpx rgba(220,141,168), 0.2);
+  border: 1px solid rgba(220,141,168,0.2);
+  box-shadow: 0 8rpx 32rpx rgba(220,141,168,0.2);
 }
 
 .avatar-section {
@@ -53,8 +53,8 @@
   width: 128rpx;
   height: 128rpx;
   border-radius: 50%;
-  border: 6rpx solid rgba(220,141,168), 0.5);
-  box-shadow: 0 0 20rpx rgba(220,141,168), 0.3);
+  border: 6rpx solid rgba(220,141,168,0.5);
+  box-shadow: 0 0 20rpx rgba(220,141,168,0.3);
   box-sizing: border-box;
   display: block;
   vertical-align: top;
@@ -68,7 +68,7 @@
   align-items: center;
   margin-bottom: 10rpx;
   padding: 0;
-  border-bottom: 2rpx solid rgba(124,196,160,0.15);
+  border-bottom: 2rpx solid rgba(124,196,160,0.32);
   box-sizing: border-box;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .nickname-input-wrap:focus-within {
-  border-bottom-color: rgba(220,141,168), 0.55);
+  border-bottom-color: rgba(220,141,168,0.55);
 }
 
 .user-info {
@@ -145,7 +145,7 @@
   background: rgba(255,255,255,0.6);
   border-radius: 24rpx;
   padding: 32rpx 0;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .stat-item {
@@ -167,11 +167,11 @@
 
 /* 区块 */
 .section {
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
   padding: 32rpx;
   margin-bottom: 32rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .section-header {
@@ -188,8 +188,19 @@
 }
 
 .section-more {
+  display: flex;
+  align-items: center;
   font-size: 24rpx;
   color: #DC8DA8;
+}
+
+.section-more .more-arrow {
+  width: 12rpx;
+  height: 12rpx;
+  border-top: 3rpx solid #DC8DA8;
+  border-right: 3rpx solid #DC8DA8;
+  transform: rotate(45deg);
+  margin-left: 6rpx;
 }
 
 /* 历史列表 */
@@ -203,9 +214,9 @@
   display: flex;
   align-items: center;
   padding: 24rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 24rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .history-emoji {
@@ -237,17 +248,17 @@
 
 /* 菜单 */
 .menu-section {
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
   overflow: hidden;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .menu-item {
   display: flex;
   align-items: center;
   padding: 32rpx;
-  border-bottom: 1px solid rgba(124,196,160,0.15);
+  border-bottom: 1px solid rgba(124,196,160,0.32);
 }
 
 .menu-item:last-child {
@@ -265,9 +276,15 @@
   color: #5A4F56;
 }
 
+/* 右箭头（CSS chevron：旋转 45° 的方框右边+底边），替代文本 ">" */
 .menu-arrow {
-  font-size: 28rpx;
-  color: rgba(90,79,86,1.0);
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 3rpx solid var(--text-tertiary);
+  border-right: 3rpx solid var(--text-tertiary);
+  transform: rotate(45deg);
+  margin-left: 16rpx;
+  flex-shrink: 0;
 }
 
 /* 退出使用 */
@@ -278,11 +295,11 @@
 
 .logout-btn {
   width: 100%;
-  background: rgba(255, 77, 79, 0.1) !important;
-  border: 2rpx solid #ff4d4f !important;
+  background: var(--danger-bg) !important;
+  border: 2rpx solid var(--danger-color) !important;
   border-radius: 24rpx;
   padding: 28rpx;
-  color: #ff4d4f;
+  color: var(--danger-color);
   font-size: 30rpx;
   font-weight: 500;
   display: flex;
@@ -297,7 +314,7 @@
 }
 
 .logout-btn text {
-  color: #ff4d4f;
+  color: var(--danger-color);
   font-size: 30rpx;
 }
 
@@ -316,10 +333,10 @@
 .fate-history-item {
   background: linear-gradient(
     135deg,
-    rgba(220,141,168), 0.1) 0%,
+    rgba(220,141,168,0.1) 0%,
     rgba(124,196,160, 0.08) 100%
   );
-  border: 1px solid rgba(220,141,168), 0.2);
+  border: 1px solid rgba(220,141,168,0.2);
   border-radius: 24rpx;
   padding: 24rpx;
 }

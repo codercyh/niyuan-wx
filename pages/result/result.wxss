@@ -56,8 +56,8 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 16rpx;
-  border: 4rpx solid rgba(124,196,160,0.15);
-  box-shadow: 0 8rpx 32rpx rgba(220,141,168),0.3);
+  border: 4rpx solid rgba(124,196,160,0.32);
+  box-shadow: 0 8rpx 32rpx rgba(220,141,168,0.3);
 }
 
 .avatar-circle text {
@@ -92,11 +92,11 @@
 }
 
 .result-card {
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
   padding: 48rpx 40rpx;
   margin-bottom: 24rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .result-header {
@@ -175,7 +175,7 @@
 }
 
 .summary-card {
-  background: linear-gradient(135deg, rgba(255,215,61,0.15) 0%, rgba(220,141,168),0.1) 100%);
+  background: linear-gradient(135deg, rgba(255,215,61,0.15) 0%, rgba(220,141,168,0.1) 100%);
   border-radius: 32rpx;
   padding: 32rpx 40rpx;
   margin-bottom: 24rpx;
@@ -189,11 +189,11 @@
 }
 
 .detail-card {
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
   padding: 40rpx 36rpx;
   margin-bottom: 24rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .detail-title {
@@ -273,7 +273,7 @@
   font-size: 30rpx;
   font-weight: 600;
   text-align: center;
-  box-shadow: 0 8rpx 28rpx rgba(220,141,168),0.3);
+  box-shadow: 0 8rpx 28rpx rgba(220,141,168,0.3);
   border: none !important;
   display: flex;
   align-items: center;
@@ -293,8 +293,8 @@
 }
 
 .btn-retry {
-  background: rgba(124,196,160,0.04) !important;
-  border: 2rpx solid rgba(124,196,160,0.15) !important;
+  background: rgba(124,196,160,0.08) !important;
+  border: 2rpx solid rgba(124,196,160,0.32) !important;
   border-radius: 32rpx;
   padding: 28rpx;
   color: #DC8DA8 !important;
@@ -319,7 +319,7 @@
 }
 
 .pay-hint {
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border: 2rpx solid rgba(255,185,70,0.3);
   border-radius: 32rpx;
   padding: 40rpx 36rpx;

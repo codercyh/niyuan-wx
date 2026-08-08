@@ -91,7 +91,7 @@
           <text>📺 看广告解锁</text>
           <text class="btn-ad-tag">免费</text>
         </view>
-        <text class="btn-ad-arrow">→</text>
+        <view class="btn-ad-arrow"></view>
       </view>
 
       <!-- 单次付费 -->

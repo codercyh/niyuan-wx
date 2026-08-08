@@ -103,8 +103,13 @@ switch {
 /* ===== 右侧箭头 & 值 ===== */
 
 .item-arrow {
-  font-size: 28rpx;
-  color: var(--text-tertiary);
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 3rpx solid var(--text-tertiary);
+  border-right: 3rpx solid var(--text-tertiary);
+  transform: rotate(45deg);
+  margin-left: 16rpx;
+  flex-shrink: 0;
 }
 
 .item-value {

@@ -21,9 +21,9 @@ page {
   justify-content: space-between;
   align-items: flex-start;
   padding: 32rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 24rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
   margin-bottom: 24rpx;
 }
 
@@ -62,7 +62,7 @@ page {
 
 .category-badge {
   padding: 8rpx 24rpx;
-  background: rgba(220,141,168),0.15);
+  background: rgba(220,141,168,0.15);
   border-radius: 40rpx;
   color: #DC8DA8;
   font-size: 22rpx;
@@ -73,9 +73,9 @@ page {
 /* 内容框 */
 .content-box {
   padding: 32rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 24rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
   margin-bottom: 24rpx;
 }
 
@@ -91,9 +91,9 @@ page {
   display: flex;
   justify-content: space-around;
   padding: 32rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 24rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
   margin-bottom: 24rpx;
 }
 
@@ -134,9 +134,9 @@ page {
   justify-content: center;
   gap: 12rpx;
   padding: 24rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 24rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
   font-size: 26rpx;
   color: #5A4F56;
   font-weight: 500;
@@ -148,9 +148,9 @@ page {
 }
 
 .action-btn.liked {
-  background: rgba(220,141,168),0.15);
+  background: rgba(220,141,168,0.15);
   color: #DC8DA8;
-  border-color: rgba(220,141,168),0.3);
+  border-color: rgba(220,141,168,0.3);
 }
 
 .action-icon {
@@ -164,7 +164,7 @@ page {
 /* 分割线 */
 .divider-full {
   height: 16rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   margin: 16rpx 0;
 }
 
@@ -267,7 +267,7 @@ page {
 .replies {
   margin-left: 88rpx;
   padding-left: 24rpx;
-  border-left: 4rpx solid rgba(124,196,160,0.15);
+  border-left: 4rpx solid rgba(124,196,160,0.32);
   display: flex;
   flex-direction: column;
   gap: 24rpx;
@@ -351,7 +351,7 @@ page {
   right: 0;
   bottom: 0;
   background: rgba(15,12,41,0.95);
-  border-top: 1px solid rgba(124,196,160,0.15);
+  border-top: 1px solid rgba(124,196,160,0.32);
   padding: 20rpx 32rpx;
   padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
 }
@@ -401,7 +401,7 @@ page {
 
 .send-btn.active {
   background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%) !important;
-  box-shadow: 0 4rpx 16rpx rgba(220,141,168),0.3);
+  box-shadow: 0 4rpx 16rpx rgba(220,141,168,0.3);
 }
 
 .send-icon {

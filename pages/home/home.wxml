@@ -35,7 +35,8 @@
       <view class="section-header">
         <text class="section-title">热门测试</text>
         <view class="section-more" bindtap="onViewMoreTests">
-          更多 >
+          <text>更多</text>
+          <view class="more-arrow"></view>
         </view>
       </view>
 

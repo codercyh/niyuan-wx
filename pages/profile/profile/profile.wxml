@@ -49,7 +49,10 @@
   <view class="section" wx:if="{{fateHistory.length > 0}}">
     <view class="section-header">
       <text class="section-title">💕 最近缘分测试</text>
-      <text class="section-more" bindtap="onGoToHistory">查看全部 ></text>
+      <view class="section-more" bindtap="onGoToHistory">
+        <text>查看全部</text>
+        <view class="more-arrow"></view>
+      </view>
     </view>
     <view class="fate-history-list">
       <view class="fate-history-item" wx:for="{{fateHistory}}" wx:key="id" bindtap="onViewFateResult" data-id="{{item.id}}">
@@ -70,7 +73,10 @@
   <view class="section" wx:if="{{testHistory.length > 0}}">
     <view class="section-header">
       <text class="section-title">🧪 最近心理测试</text>
-      <text class="section-more" bindtap="onGoToHistory">查看全部 ></text>
+      <view class="section-more" bindtap="onGoToHistory">
+        <text>查看全部</text>
+        <view class="more-arrow"></view>
+      </view>
     </view>
     <view class="history-list">
       <view class="history-item" wx:for="{{testHistory}}" wx:key="id" bindtap="onViewTestResult" data-id="{{item.id}}">
@@ -89,22 +95,22 @@
     <view class="menu-item" bindtap="onGoToHistory">
       <text class="menu-icon">📋</text>
       <text class="menu-text">全部记录</text>
-      <text class="menu-arrow">></text>
+      <view class="menu-arrow"></view>
     </view>
     <view class="menu-item" bindtap="onGoToFate">
       <text class="menu-icon">💕</text>
       <text class="menu-text">缘分测试</text>
-      <text class="menu-arrow">></text>
+      <view class="menu-arrow"></view>
     </view>
     <view class="menu-item" bindtap="onGoToSettings">
       <text class="menu-icon">⚙️</text>
       <text class="menu-text">设置</text>
-      <text class="menu-arrow">></text>
+      <view class="menu-arrow"></view>
     </view>
     <view class="menu-item" bindtap="onFeedback">
       <text class="menu-icon">💬</text>
       <text class="menu-text">意见反馈</text>
-      <text class="menu-arrow">></text>
+      <view class="menu-arrow"></view>
     </view>
   </view>
 

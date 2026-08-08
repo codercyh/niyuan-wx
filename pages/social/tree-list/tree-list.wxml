@@ -91,7 +91,7 @@
               <text class="stat-value">{{item.views}}</text>
             </view>
           </view>
-          <text class="action-arrow">›</text>
+          <view class="action-arrow"></view>
         </view>
       </view>
     </view>

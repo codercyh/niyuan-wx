@@ -13,10 +13,10 @@
 
 /* 个性化问候头部 */
 .greeting-header {
-  background: linear-gradient(135deg, rgba(220,141,168),0.2) 0%, rgba(124,196,160,0.15) 100%);
+  background: linear-gradient(135deg, rgba(220,141,168,0.2) 0%, rgba(124,196,160,0.15) 100%);
   padding: 40rpx 32rpx 56rpx;
   border-radius: 0 0 48rpx 48rpx;
-  border: 1px solid rgba(220,141,168),0.2);
+  border: 1px solid rgba(220,141,168,0.2);
   border-top: none;
 }
 
@@ -32,8 +32,8 @@
   border-radius: 50%;
   background: rgba(255,255,255,0.6);
   overflow: hidden;
-  border: 4rpx solid rgba(220,141,168),0.5);
-  box-shadow: 0 0 20rpx rgba(220,141,168),0.3);
+  border: 4rpx solid rgba(220,141,168,0.5);
+  box-shadow: 0 0 20rpx rgba(220,141,168,0.3);
   flex-shrink: 0;
 }
 
@@ -67,10 +67,10 @@
   display: flex;
   justify-content: space-around;
   padding: 40rpx 32rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   margin: -32rpx 32rpx 32rpx;
   border-radius: 32rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
   box-shadow: 0 8rpx 32rpx rgba(124,196,160,0.1);
 }
 
@@ -109,8 +109,19 @@
 }
 
 .section-more {
+  display: flex;
+  align-items: center;
   font-size: 26rpx;
   color: #DC8DA8;
+}
+
+.section-more .more-arrow {
+  width: 14rpx;
+  height: 14rpx;
+  border-top: 3rpx solid #DC8DA8;
+  border-right: 3rpx solid #DC8DA8;
+  transform: rotate(45deg);
+  margin-left: 8rpx;
 }
 
 .test-list {
@@ -120,16 +131,16 @@
 }
 
 .test-card {
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
   padding: 32rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
   transition: all 0.3s ease;
 }
 
 .test-card:active {
   background: rgba(255,255,255,0.6);
-  border-color: rgba(220,141,168),0.3);
+  border-color: rgba(220,141,168,0.3);
 }
 
 .test-card-header {
@@ -141,13 +152,13 @@
 .test-emoji-wrap {
   width: 96rpx;
   height: 96rpx;
-  background: rgba(220,141,168),0.15);
+  background: rgba(220,141,168,0.15);
   border-radius: 24rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 24rpx;
-  border: 1px solid rgba(220,141,168),0.2);
+  border: 1px solid rgba(220,141,168,0.2);
 }
 
 .test-emoji {

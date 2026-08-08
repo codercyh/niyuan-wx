@@ -9,9 +9,9 @@
 .share-preview {
   margin: 40rpx;
   padding: 48rpx;
-  background: rgba(124,196,160,0.04);
+  background: rgba(124,196,160,0.08);
   border-radius: 32rpx;
-  border: 1px solid rgba(124,196,160,0.15);
+  border: 1px solid rgba(124,196,160,0.32);
 }
 
 .share-header {
@@ -62,7 +62,7 @@
   color: #FFFFFF;
   font-size: 32rpx;
   font-weight: 600;
-  box-shadow: 0 8rpx 28rpx rgba(220,141,168),0.3);
+  box-shadow: 0 8rpx 28rpx rgba(220,141,168,0.3);
 }
 
 .share-btn-icon {
