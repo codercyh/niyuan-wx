@@ -79,7 +79,7 @@
             checked="{{preferences.notificationType.message}}"
             bindchange="onNotificationTypeChange"
             data-type="message"
-            color="#FF7BA9"
+            color="#E8A8BF"
           />
         </view>
 
@@ -93,7 +93,7 @@
             checked="{{preferences.notificationType.comment}}"
             bindchange="onNotificationTypeChange"
             data-type="comment"
-            color="#FF7BA9"
+            color="#E8A8BF"
           />
         </view>
 
@@ -107,7 +107,7 @@
             checked="{{preferences.notificationType.like}}"
             bindchange="onNotificationTypeChange"
             data-type="like"
-            color="#FF7BA9"
+            color="#E8A8BF"
           />
         </view>
 
@@ -121,7 +121,7 @@
             checked="{{preferences.notificationType.follow}}"
             bindchange="onNotificationTypeChange"
             data-type="follow"
-            color="#FF7BA9"
+            color="#E8A8BF"
           />
         </view>
 
@@ -135,7 +135,7 @@
             checked="{{preferences.notificationType.system}}"
             bindchange="onNotificationTypeChange"
             data-type="system"
-            color="#FF7BA9"
+            color="#E8A8BF"
           />
         </view>
       </view>
@@ -155,7 +155,7 @@
             checked="{{preferences.privateProfile}}"
             bindchange="onPrivacyChange"
             data-setting="privateProfile"
-            color="#FF7BA9"
+            color="#E8A8BF"
           />
         </view>
 
@@ -169,7 +169,7 @@
             checked="{{preferences.allowSearch}}"
             bindchange="onPrivacyChange"
             data-setting="allowSearch"
-            color="#FF7BA9"
+            color="#E8A8BF"
           />
         </view>
 
@@ -183,7 +183,7 @@
             checked="{{preferences.allowRecommend}}"
             bindchange="onPrivacyChange"
             data-setting="allowRecommend"
-            color="#FF7BA9"
+            color="#E8A8BF"
           />
         </view>
       </view>
@@ -203,7 +203,7 @@
             checked="{{preferences.autoPlayVideo}}"
             bindchange="onMediaChange"
             data-setting="autoPlayVideo"
-            color="#FF7BA9"
+            color="#E8A8BF"
           />
         </view>
       </view>
@@ -223,7 +223,7 @@
             checked="{{preferences.dataConsent}}"
             bindchange="onDataChange"
             data-setting="dataConsent"
-            color="#FF7BA9"
+            color="#E8A8BF"
           />
         </view>
 

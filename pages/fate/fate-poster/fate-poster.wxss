@@ -1,6 +1,6 @@
 .poster-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FFF5F7 0%, #FAEEFF 40%, #F3E8FF 100%);
+  background: linear-gradient(180deg, #FBF7F9 0%, #F8F5FB 40%, #F5F3F8 100%);
   padding: 32rpx;
   box-sizing: border-box;
 }
@@ -24,7 +24,7 @@
 .poster-funny {
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, #FFF5F7 0%, #FAEEFF 40%, #F3E8FF 100%);
+  background: linear-gradient(180deg, #FBF7F9 0%, #F8F5FB 40%, #F5F3F8 100%);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -73,32 +73,32 @@
 .fate-name {
   font-size: 48rpx;
   font-weight: 700;
-  color: #5A4A5A;
+  color: #7A6E7A;
   margin-bottom: 12rpx;
 }
 
 .fate-level {
   font-size: 24rpx;
-  color: rgba(90,74,90,1.0);
+  color: rgba(122,110,122,1.0);
   margin-bottom: 32rpx;
 }
 
 .score-big {
   font-size: 120rpx;
   font-weight: 800;
-  color: #FF7BA9;
+  color: #E8A8BF;
   margin-bottom: 24rpx;
 }
 
 .names {
   font-size: 28rpx;
-  color: #5A4A5A;
+  color: #7A6E7A;
   margin-bottom: 20rpx;
 }
 
 .tagline {
   font-size: 24rpx;
-  color: rgba(90,74,90,1.0);
+  color: rgba(122,110,122,1.0);
   font-style: italic;
   margin-bottom: 20rpx;
 }
@@ -128,7 +128,7 @@
 
 .artistic-header text {
   font-size: 28rpx;
-  color: rgba(90,74,90,1.0);
+  color: rgba(122,110,122,1.0);
   letter-spacing: 4rpx;
 }
 
@@ -141,13 +141,13 @@
 
 .poster-artistic .fate-name {
   font-size: 40rpx;
-  color: #5A4A5A;
+  color: #7A6E7A;
   margin-bottom: 24rpx;
 }
 
 .names-simple {
   font-size: 28rpx;
-  color: rgba(90,74,90,1.0);
+  color: rgba(122,110,122,1.0);
   margin-bottom: 48rpx;
 }
 
@@ -160,7 +160,7 @@
 
 .poster-artistic .tagline {
   font-size: 22rpx;
-  color: rgba(90,74,90,1.0);
+  color: rgba(122,110,122,1.0);
 }
 
 /* 极简风 */
@@ -176,26 +176,26 @@
 
 .names-minimal {
   font-size: 36rpx;
-  color: #5A4A5A;
+  color: #7A6E7A;
   margin-bottom: 24rpx;
 }
 
 .fate-name-minimal {
   font-size: 28rpx;
-  color: rgba(90,74,90,1.0);
+  color: rgba(122,110,122,1.0);
   margin-bottom: 48rpx;
 }
 
 .score-minimal {
   font-size: 140rpx;
   font-weight: 800;
-  color: #FF7BA9;
+  color: #E8A8BF;
   margin-bottom: 32rpx;
 }
 
 .tagline-minimal {
   font-size: 22rpx;
-  color: rgba(90,74,90,1.0);
+  color: rgba(122,110,122,1.0);
 }
 
 /* 表情包风 */
@@ -224,7 +224,7 @@
 .score-meme {
   font-size: 60rpx;
   font-weight: 700;
-  color: #FF7BA9;
+  color: #E8A8BF;
   margin-bottom: 24rpx;
 }
 
@@ -246,7 +246,7 @@
 
 .style-title {
   font-size: 28rpx;
-  color: rgba(90,74,90,1.0);
+  color: rgba(122,110,122,1.0);
   margin-bottom: 20rpx;
   text-align: center;
 }
@@ -262,15 +262,15 @@
   flex-direction: column;
   align-items: center;
   padding: 24rpx 32rpx;
-  background: rgba(155,107,255,0.04);
-  border: 1px solid rgba(155,107,255,0.15);
+  background: rgba(184,164,216,0.04);
+  border: 1px solid rgba(184,164,216,0.15);
   border-radius: 16rpx;
   transition: all 0.2s ease;
 }
 
 .style-selected {
-  background: rgba(255,123,169,0.15);
-  border-color: #FF7BA9;
+  background: rgba(232,168,191,0.15);
+  border-color: #E8A8BF;
 }
 
 .style-emoji {
@@ -280,7 +280,7 @@
 
 .style-name {
   font-size: 24rpx;
-  color: rgba(90,74,90,1.0);
+  color: rgba(122,110,122,1.0);
 }
 
 /* ==================== 操作按钮 ==================== */
@@ -294,7 +294,7 @@
 .btn-save {
   width: 100%;
   height: 100rpx;
-  background: linear-gradient(135deg, #FF7BA9, #9B6BFF) !important;
+  background: linear-gradient(135deg, #E8A8BF, #B8A4D8) !important;
   border-radius: 50rpx;
   border: none !important;
   font-size: 30rpx;
@@ -313,7 +313,7 @@
 }
 
 .btn-save text {
-  color: #5A4A5A;
+  color: #7A6E7A;
   font-size: 30rpx;
   font-weight: 600;
 }
@@ -322,10 +322,10 @@
   width: 100%;
   height: 88rpx;
   background: rgba(255,255,255,0.6) !important;
-  border: 1px solid rgba(155,107,255,0.15) !important;
+  border: 1px solid rgba(184,164,216,0.15) !important;
   border-radius: 44rpx;
   font-size: 28rpx;
-  color: rgba(90,74,90,1.0) !important;
+  color: rgba(122,110,122,1.0) !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -339,7 +339,7 @@
 }
 
 .btn-share text {
-  color: rgba(90,74,90,1.0);
+  color: rgba(122,110,122,1.0);
   font-size: 28rpx;
 }
 

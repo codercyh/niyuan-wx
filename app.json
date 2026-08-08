@@ -26,15 +26,15 @@
     "pages/share/share"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#FFF5F7",
+    "navigationBarBackgroundColor": "#FBF7F9",
     "navigationBarTitleText": "兴趣与测试",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#FFF5F7",
+    "backgroundColor": "#FBF7F9",
     "backgroundTextStyle": "dark"
   },
   "tabBar": {
     "color": "#9B8AA0",
-    "selectedColor": "#FF7BA9",
+    "selectedColor": "#E8A8BF",
     "borderStyle": "white",
     "backgroundColor": "#FFFFFF",
     "list": [

@@ -214,9 +214,9 @@ Page({
   async drawFunnyPoster(ctx, result, w, h, qrImg) {
     // 背景渐变
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
-    gradient.addColorStop(0, '#FFF5F7')
-    gradient.addColorStop(0.5, '#FAEEFF')
-    gradient.addColorStop(1, '#F3E8FF')
+    gradient.addColorStop(0, '#FBF7F9')
+    gradient.addColorStop(0.5, '#F8F5FB')
+    gradient.addColorStop(1, '#F5F3F8')
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, w, h)
 
@@ -250,7 +250,7 @@ Page({
 
     // 分数 (大字)
     ctx.font = 'bold 80px sans-serif'
-    ctx.fillStyle = '#FF7BA9'
+    ctx.fillStyle = '#E8A8BF'
     ctx.fillText(`${result.score || 75}`, w/2, 280)
 
     // 名字行
@@ -284,7 +284,7 @@ Page({
   async drawArtisticPoster(ctx, result, w, h, qrImg) {
     // 深蓝渐变背景
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
-    gradient.addColorStop(0, '#F3E8FF')
+    gradient.addColorStop(0, '#F5F3F8')
     gradient.addColorStop(1, '#16213e')
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, w, h)
@@ -358,7 +358,7 @@ Page({
 
     // 分数 (超大)
     ctx.font = 'bold 96px sans-serif'
-    ctx.fillStyle = '#FF7BA9'
+    ctx.fillStyle = '#E8A8BF'
     ctx.fillText(`${result.score || 75}`, w/2, h/2 + 60)
 
     // 标语
@@ -394,7 +394,7 @@ Page({
 
     // 分数
     ctx.font = 'bold 40px sans-serif'
-    ctx.fillStyle = '#FF7BA9'
+    ctx.fillStyle = '#E8A8BF'
     ctx.fillText(`${result.score || 75}分`, w/2, 280)
 
     // 名字
