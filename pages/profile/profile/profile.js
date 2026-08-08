@@ -235,8 +235,8 @@ Page({
   // 把后端缘分记录转成 fate-result 页面所需视图（与 history.js 保持一致）
   buildFateView(record) {
     const dimensionList = [
-      { key: 'constellation', name: '星座匹配', emoji: '⭐', color: '#E8A8BF', score: record.scores?.zodiac || 0, percentage: record.scores?.zodiac || 0, desc: `${record.zodiacA?.name || '未知'}×${record.zodiacB?.name || '未知'}` },
-      { key: 'name', name: '姓名缘分', emoji: '✍️', color: '#9DD4B8', score: record.scores?.name || 0, percentage: record.scores?.name || 0, desc: '笔画互补' },
+      { key: 'constellation', name: '星座匹配', emoji: '⭐', color: '#DC8DA8', score: record.scores?.zodiac || 0, percentage: record.scores?.zodiac || 0, desc: `${record.zodiacA?.name || '未知'}×${record.zodiacB?.name || '未知'}` },
+      { key: 'name', name: '姓名缘分', emoji: '✍️', color: '#7CC4A0', score: record.scores?.name || 0, percentage: record.scores?.name || 0, desc: '笔画互补' },
       { key: 'numerology', name: '数字缘分', emoji: '🔢', color: '#00D9FF', score: record.scores?.lifePath || 0, percentage: record.scores?.lifePath || 0, desc: `灵数${record.myInfo?.lifePath || 0}×${record.partnerInfo?.lifePath || 0}` },
       { key: 'personality', name: '性格互补', emoji: '🧩', color: '#00FF87', score: record.scores?.personality || 0, percentage: record.scores?.personality || 0, desc: '性格互补' },
       { key: 'metaphysics', name: '命理玄学', emoji: '🔮', color: '#A855F7', score: record.scores?.mystical || 0, percentage: record.scores?.mystical || 0, desc: '命理玄学' },
@@ -277,7 +277,7 @@ Page({
       title: '退出使用',
       content: '确定要退出使用吗？退出后当前状态将被清除。',
       confirmText: '确定退出',
-      confirmColor: '#E8A8BF',
+      confirmColor: '#DC8DA8',
       success: (res) => {
         if (res.confirm) {
           // 彻底清除所有用户状态(含鉴权 token / 会员 / 解锁)

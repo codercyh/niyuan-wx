@@ -2,21 +2,21 @@
 
 .profile-guide-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
+  background: linear-gradient(180deg, #FCEEEE 0%, #FFF0E8 40%, #E8F5EE 100%);
   padding-bottom: 240rpx;
 }
 
 /* 头部 */
 .header {
   padding: 24rpx 32rpx;
-  border-bottom: 1px solid rgba(157,212,184,0.15);
+  border-bottom: 1px solid rgba(124,196,160,0.15);
 }
 
 .btn-back {
   padding: 16rpx 24rpx;
   background-color: transparent;
-  color: rgba(106,96,104,1.0);
-  border: 1px solid rgba(157,212,184,0.15);
+  color: rgba(90,79,86,1.0);
+  border: 1px solid rgba(124,196,160,0.15);
   border-radius: 12rpx;
   font-size: 28rpx;
   line-height: 1;
@@ -26,8 +26,8 @@
 .progress-card {
   margin: 48rpx 32rpx;
   padding: 40rpx;
-  background: linear-gradient(135deg, rgba(232,168,191,0.15) 0%, rgba(157,212,184,0.1) 100%);
-  border: 1px solid rgba(232,168,191,0.3);
+  background: linear-gradient(135deg, rgba(220,141,168),0.15) 0%, rgba(124,196,160,0.1) 100%);
+  border: 1px solid rgba(220,141,168),0.3);
   border-radius: 24rpx;
 }
 
@@ -35,7 +35,7 @@
   display: block;
   font-size: 32rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 32rpx;
 }
 
@@ -56,7 +56,7 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #E8A8BF 0%, #9DD4B8 100%);
+  background: linear-gradient(90deg, #DC8DA8 0%, #7CC4A0 100%);
   border-radius: 8rpx;
   transition: width 0.5s ease;
 }
@@ -64,14 +64,14 @@
 .progress-text {
   font-size: 28rpx;
   font-weight: 600;
-  color: #E8A8BF;
+  color: #DC8DA8;
   min-width: 100rpx;
 }
 
 .progress-desc {
   display: block;
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   line-height: 1.6;
 }
 
@@ -84,7 +84,7 @@
   display: block;
   font-size: 28rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 32rpx;
 }
 
@@ -94,8 +94,8 @@
   justify-content: space-between;
   padding: 32rpx 24rpx;
   margin-bottom: 24rpx;
-  background-color: rgba(157,212,184,0.04);
-  border: 1px solid rgba(157,212,184,0.15);
+  background-color: rgba(124,196,160,0.04);
+  border: 1px solid rgba(124,196,160,0.15);
   border-radius: 16rpx;
   transition: all 0.3s ease;
 }
@@ -117,13 +117,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(157,212,184,0.15);
+  border: 2px solid rgba(124,196,160,0.15);
   border-radius: 50%;
   font-size: 32rpx;
 }
 
 .item-icon.incomplete {
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .item-icon.complete {
@@ -141,19 +141,19 @@
 .item-title {
   font-size: 28rpx;
   font-weight: 500;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 8rpx;
 }
 
 .item-desc {
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   line-height: 1.4;
 }
 
 .item-arrow {
   font-size: 36rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   margin-left: 24rpx;
 }
 
@@ -180,14 +180,14 @@
   display: block;
   font-size: 40rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 16rpx;
 }
 
 .complete-desc {
   display: block;
   font-size: 26rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   line-height: 1.6;
   margin-bottom: 48rpx;
 }
@@ -196,15 +196,15 @@
 .incomplete-card {
   margin: 80rpx 32rpx 40rpx;
   padding: 48rpx;
-  background-color: rgba(157,212,184,0.04);
-  border: 1px solid rgba(157,212,184,0.15);
+  background-color: rgba(124,196,160,0.04);
+  border: 1px solid rgba(124,196,160,0.15);
   border-radius: 24rpx;
 }
 
 .tips-title {
   font-size: 28rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 24rpx;
 }
 
@@ -215,7 +215,7 @@
 .tips-item {
   display: block;
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   line-height: 1.8;
   padding-left: 24rpx;
   position: relative;
@@ -254,13 +254,13 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%) !important;
+  background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%) !important;
   color: #FFFFFF !important;
-  box-shadow: 0 8rpx 28rpx rgba(232,168,191,0.3);
+  box-shadow: 0 8rpx 28rpx rgba(220,141,168),0.3);
 }
 
 .btn-primary text {
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .btn-primary:active {
@@ -277,16 +277,16 @@
 
 .btn-text {
   background-color: transparent !important;
-  color: rgba(106,96,104,1.0) !important;
-  border: 1px solid rgba(157,212,184,0.15) !important;
+  color: rgba(90,79,86,1.0) !important;
+  border: 1px solid rgba(124,196,160,0.15) !important;
 }
 
 .btn-text text {
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .btn-text:active {
-  background-color: rgba(157,212,184,0.04) !important;
+  background-color: rgba(124,196,160,0.04) !important;
 }
 
 /* 加载状态 */
@@ -313,8 +313,8 @@
 .spinner-ring {
   width: 100%;
   height: 100%;
-  border: 4px solid rgba(232,168,191,0.2);
-  border-top: 4px solid #E8A8BF;
+  border: 4px solid rgba(220,141,168),0.2);
+  border-top: 4px solid #DC8DA8;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

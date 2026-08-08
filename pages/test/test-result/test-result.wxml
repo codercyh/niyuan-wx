@@ -15,7 +15,7 @@
           <text class="score-number">{{result.score || 0}}</text>
           <text class="score-unit">分</text>
         </view>
-        <view class="score-ring" style="background: conic-gradient(#E8A8BF 0deg {{(result.score || 0) / 100 * 360}}deg, #2A2A3E {{(result.score || 0) / 100 * 360}}deg 360deg)"></view>
+        <view class="score-ring" style="background: conic-gradient(#DC8DA8 0deg {{(result.score || 0) / 100 * 360}}deg, #2A2A3E {{(result.score || 0) / 100 * 360}}deg 360deg)"></view>
       </view>
     </view>
   </view>

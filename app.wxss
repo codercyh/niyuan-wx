@@ -5,53 +5,53 @@ page {
   padding: 0;
   box-sizing: border-box;
 
-  /* 主色调 - 柔粉配薄荷绿(水彩渐变) */
-  --primary-color: #E8A8BF;
-  --primary-light: #F0C4D4;
-  --primary-dark: #D88EA8;
-  --primary-bg: rgba(232,168,191,0.12);
-  --accent-color: #9DD4B8;
-  --accent-light: #C1E8D4;
-  --accent-bg: rgba(157,212,184,0.12);
+  /* 主色调 - 柔粉配薄荷绿(水彩渐变,加深版) */
+  --primary-color: #DC8DA8;
+  --primary-light: #DC8DA8;
+  --primary-dark: #C9788F;
+  --primary-bg: rgba(220,141,168,0.14);
+  --accent-color: #7CC4A0;
+  --accent-light: #A8D8C0;
+  --accent-bg: rgba(124,196,160,0.14);
 
   /* 渐变色 */
-  --gradient-primary: linear-gradient(135deg, #F0B6CB 0%, #9DD4B8 100%);
-  --gradient-bg: linear-gradient(135deg, #FDF0F0 0%, #FFF8F0 40%, #F0F8F4 100%);
-  --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.75) 100%);
-  --gradient-button: linear-gradient(135deg, #F0B6CB 0%, #9DD4B8 100%);
+  --gradient-primary: linear-gradient(135deg, #E89AB2 0%, #7CC4A0 100%);
+  --gradient-bg: linear-gradient(135deg, #FCE8E8 0%, #FFF0E8 40%, #E8F5EE 100%);
+  --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.7) 100%);
+  --gradient-button: linear-gradient(135deg, #E89AB2 0%, #7CC4A0 100%);
 
   /* 背景色 - 浅色系 */
-  --bg-page: #FDF6F6;
-  --bg-light: rgba(157,212,184,0.05);
-  --bg-card: rgba(255,255,255,0.85);
-  --bg-card-hover: rgba(255,255,255,0.94);
-  --bg-input: rgba(255,255,255,0.88);
-  --bg-mask: rgba(120, 110, 110, 0.4);
+  --bg-page: #FCEEEE;
+  --bg-light: rgba(124,196,160,0.06);
+  --bg-card: rgba(255,255,255,0.82);
+  --bg-card-hover: rgba(255,255,255,0.92);
+  --bg-input: rgba(255,255,255,0.85);
+  --bg-mask: rgba(110, 100, 100, 0.45);
 
   /* 文字颜色 */
-  --text-primary: #6A6068;
-  --text-secondary: rgba(106,96,104,0.6);
-  --text-tertiary: rgba(106,96,104,0.4);
-  --text-placeholder: rgba(106,96,104,0.3);
+  --text-primary: #5A4F56;
+  --text-secondary: rgba(90,79,86,0.6);
+  --text-tertiary: rgba(90,79,86,0.4);
+  --text-placeholder: rgba(90,79,86,0.3);
   --text-white: #FFFFFF;
 
   /* 边框颜色 */
-  --border-color: rgba(157,212,184,0.12);
-  --border-light: rgba(157,212,184,0.06);
-  --border-active: rgba(232,168,191,0.4);
+  --border-color: rgba(124,196,160,0.14);
+  --border-light: rgba(124,196,160,0.07);
+  --border-active: rgba(220,141,168,0.45);
 
   /* 辅助色 */
-  --success-color: #8FD4B5;
-  --warning-color: #F0CB8A;
-  --danger-color: #E89AAA;
-  --info-color: #A8C5E0;
+  --success-color: #7CC4A0;
+  --warning-color: #E8B878;
+  --danger-color: #E08A9A;
+  --info-color: #98B8D8;
 
   /* 阴影 */
-  --shadow-sm: 0 2px 8px rgba(157,212,184,0.06);
-  --shadow-md: 0 4px 16px rgba(157,212,184,0.08);
-  --shadow-lg: 0 8px 32px rgba(157,212,184,0.1);
-  --shadow-primary: 0 4px 20px rgba(232,168,191,0.15);
-  --shadow-glow: 0 0 20px rgba(232,168,191,0.2);
+  --shadow-sm: 0 2px 8px rgba(124,196,160,0.08);
+  --shadow-md: 0 4px 16px rgba(124,196,160,0.1);
+  --shadow-lg: 0 8px 32px rgba(124,196,160,0.12);
+  --shadow-primary: 0 4px 20px rgba(220,141,168,0.18);
+  --shadow-glow: 0 0 20px rgba(220,141,168,0.22);
 
   /* 圆角 */
   --radius-sm: 12rpx;
@@ -234,7 +234,7 @@ button text {
 }
 
 .btn-success {
-  background: linear-gradient(135deg, #8FD4B5 0%, #7AC0A2 100%) !important;
+  background: linear-gradient(135deg, #7CC4A0 0%, #7AC0A2 100%) !important;
   color: var(--text-white) !important;
 }
 
@@ -245,7 +245,7 @@ button text {
 }
 
 .btn-outline:active {
-  background: rgba(232,168,191,0.1) !important;
+  background: rgba(220,141,168),0.1) !important;
 }
 
 .btn-block {
@@ -280,7 +280,7 @@ input:focus,
 textarea:focus {
   border-color: var(--primary-color);
   background-color: var(--bg-card);
-  box-shadow: 0 0 0 4rpx rgba(232,168,191,0.2);
+  box-shadow: 0 0 0 4rpx rgba(220,141,168),0.2);
   outline: none;
 }
 
@@ -403,10 +403,10 @@ picker {
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20rpx rgba(232,168,191,0.25);
+    box-shadow: 0 0 20rpx rgba(220,141,168),0.25);
   }
   50% {
-    box-shadow: 0 0 40rpx rgba(232,168,191,0.45);
+    box-shadow: 0 0 40rpx rgba(220,141,168),0.45);
   }
 }
 
@@ -478,12 +478,12 @@ picker {
   display: inline-flex;
   align-items: center;
   padding: 8rpx 20rpx;
-  background: rgba(232,168,191,0.12);
+  background: rgba(220,141,168),0.12);
   color: var(--primary-color);
   border-radius: var(--radius-full);
   font-size: 22rpx;
   font-weight: 500;
-  border: 1px solid rgba(232,168,191,0.25);
+  border: 1px solid rgba(220,141,168),0.25);
 }
 
 .tag-success {

@@ -2,7 +2,7 @@
 
 .page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
+  background: linear-gradient(180deg, #FCEEEE 0%, #FFF0E8 40%, #E8F5EE 100%);
   display: flex;
   flex-direction: column;
 }
@@ -10,13 +10,13 @@
 .header {
   padding: 64rpx 40rpx 48rpx;
   text-align: center;
-  background: linear-gradient(180deg, rgba(232,168,191,0.1) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(220,141,168),0.1) 0%, transparent 100%);
 }
 
 .title {
   font-size: 44rpx;
   font-weight: 700;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .content {
@@ -32,22 +32,22 @@
   display: block;
   font-size: 30rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 20rpx;
 }
 
 .section-text {
   display: block;
   font-size: 26rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   line-height: 1.8;
 }
 
 .footer {
   padding: 32rpx 40rpx;
   padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
-  background: rgba(157,212,184,0.04);
-  border-top: 1px solid rgba(157,212,184,0.15);
+  background: rgba(124,196,160,0.04);
+  border-top: 1px solid rgba(124,196,160,0.15);
   display: flex;
   gap: 24rpx;
 }
@@ -55,13 +55,13 @@
 .agree-btn {
   flex: 1;
   padding: 28rpx;
-  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%);
+  background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%);
   border-radius: 32rpx;
   color: #FFFFFF;
   font-size: 30rpx;
   font-weight: 600;
   text-align: center;
-  box-shadow: 0 8rpx 28rpx rgba(232,168,191,0.3);
+  box-shadow: 0 8rpx 28rpx rgba(220,141,168),0.3);
 }
 
 .disagree-btn {
@@ -69,8 +69,8 @@
   padding: 28rpx;
   background: rgba(255,255,255,0.6);
   border-radius: 32rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   font-size: 30rpx;
   text-align: center;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
 }

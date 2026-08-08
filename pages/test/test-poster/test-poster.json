@@ -1,8 +1,8 @@
 {
   "navigationBarTitleText": "生成海报",
-  "navigationBarBackgroundColor": "#FDF6F6",
+  "navigationBarBackgroundColor": "#FCEEEE",
   "navigationBarTextStyle": "black",
-  "backgroundColor": "#FDF6F6",
+  "backgroundColor": "#FCEEEE",
   "backgroundTextStyle": "dark",
   "enableShareAppMessage": true,
   "enableShareTimeline": true

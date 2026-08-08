@@ -4,14 +4,14 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
+  background: linear-gradient(180deg, #FCEEEE 0%, #FFF0E8 40%, #E8F5EE 100%);
 }
 
 /* 进度条 */
 .progress-container {
   padding: 32rpx 40rpx;
-  background: rgba(157,212,184,0.04);
-  border-bottom: 1px solid rgba(157,212,184,0.15);
+  background: rgba(124,196,160,0.04);
+  border-bottom: 1px solid rgba(124,196,160,0.15);
 }
 
 .progress-info {
@@ -23,12 +23,12 @@
 .progress-text {
   font-size: 28rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .progress-percentage {
   font-size: 28rpx;
-  color: #E8A8BF;
+  color: #DC8DA8;
   font-weight: 600;
 }
 
@@ -41,7 +41,7 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #E8A8BF 0%, #9DD4B8 100%);
+  background: linear-gradient(90deg, #DC8DA8 0%, #7CC4A0 100%);
   border-radius: 6rpx;
   transition: width 0.3s ease;
 }
@@ -62,7 +62,7 @@
   flex-direction: column;
   align-items: center;
   padding: 64rpx 40rpx;
-  background: linear-gradient(180deg, rgba(232,168,191,0.1) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(220,141,168),0.1) 0%, transparent 100%);
 }
 
 .test-emoji {
@@ -73,14 +73,14 @@
 .test-title {
   font-size: 44rpx;
   font-weight: 700;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 16rpx;
 }
 
 .test-badge {
   font-size: 22rpx;
   padding: 8rpx 24rpx;
-  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%);
+  background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%);
   color: #FFFFFF;
   border-radius: 48rpx;
   font-weight: 600;
@@ -92,8 +92,8 @@
   justify-content: center;
   gap: 48rpx;
   padding: 32rpx 40rpx;
-  background: rgba(157,212,184,0.04);
-  border-bottom: 1px solid rgba(157,212,184,0.15);
+  background: rgba(124,196,160,0.04);
+  border-bottom: 1px solid rgba(124,196,160,0.15);
 }
 
 .meta-item {
@@ -108,28 +108,28 @@
 
 .meta-text {
   font-size: 26rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 /* 测试说明 */
 .test-description-box {
   margin: 32rpx;
   padding: 32rpx;
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 32rpx;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
 }
 
 .description-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 16rpx;
 }
 
 .description-text {
   font-size: 26rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   line-height: 1.6;
 }
 
@@ -145,31 +145,31 @@
 .test-tags .tag {
   font-size: 22rpx;
   padding: 8rpx 24rpx;
-  background: rgba(232,168,191,0.15);
-  color: #E8A8BF;
+  background: rgba(220,141,168),0.15);
+  color: #DC8DA8;
   border-radius: 48rpx;
-  border: 1px solid rgba(232,168,191,0.2);
+  border: 1px solid rgba(220,141,168),0.2);
 }
 
 /* 关于测试 */
 .test-about {
   margin: 0 32rpx 32rpx;
   padding: 32rpx;
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 32rpx;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
 }
 
 .about-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 16rpx;
 }
 
 .about-text {
   font-size: 26rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   line-height: 1.6;
 }
 
@@ -177,7 +177,7 @@
 .test-tips {
   margin: 0 32rpx 32rpx;
   padding: 32rpx;
-  background: linear-gradient(135deg, rgba(255,215,61,0.15) 0%, rgba(232,168,191,0.1) 100%);
+  background: linear-gradient(135deg, rgba(255,215,61,0.15) 0%, rgba(220,141,168),0.1) 100%);
   border-radius: 32rpx;
   border: 1px solid rgba(255,215,61,0.2);
 }
@@ -200,7 +200,7 @@
   align-items: flex-start;
   gap: 16rpx;
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .tips-bullet {
@@ -271,7 +271,7 @@
 /* 答题容器 */
 .answering-container {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
+  background: linear-gradient(180deg, #FCEEEE 0%, #FFF0E8 40%, #E8F5EE 100%);
 }
 
 /* 题目信息 */
@@ -282,27 +282,27 @@
 .question-number {
   font-size: 30rpx;
   font-weight: 600;
-  color: #E8A8BF;
+  color: #DC8DA8;
 }
 
 .question-type {
   font-size: 26rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 /* 题干 */
 .question-content {
   margin: 0 32rpx 40rpx;
   padding: 40rpx;
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 32rpx;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
 }
 
 .question-text {
   font-size: 32rpx;
   font-weight: 500;
-  color: #6A6068;
+  color: #5A4F56;
   line-height: 1.6;
 }
 
@@ -316,7 +316,7 @@
   align-items: flex-start;
   gap: 24rpx;
   padding: 32rpx;
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 32rpx;
   margin-bottom: 24rpx;
   border: 4rpx solid transparent;
@@ -324,15 +324,15 @@
 }
 
 .option-item.selected {
-  border-color: #E8A8BF;
-  background: rgba(232,168,191,0.15);
+  border-color: #DC8DA8;
+  background: rgba(220,141,168),0.15);
 }
 
 .option-radio {
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
-  border: 4rpx solid rgba(157,212,184,0.15);
+  border: 4rpx solid rgba(124,196,160,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -342,8 +342,8 @@
 }
 
 .option-item.selected .option-radio {
-  border-color: #E8A8BF;
-  background: #E8A8BF;
+  border-color: #DC8DA8;
+  background: #DC8DA8;
 }
 
 .radio-inner {
@@ -355,7 +355,7 @@
 
 .option-text {
   font-size: 28rpx;
-  color: #6A6068;
+  color: #5A4F56;
   line-height: 1.5;
 }
 

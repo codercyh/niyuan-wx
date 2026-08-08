@@ -2,7 +2,7 @@
 
 .profile-edit-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
+  background: linear-gradient(180deg, #FCEEEE 0%, #FFF0E8 40%, #E8F5EE 100%);
   padding-bottom: 200rpx;
 }
 
@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 32rpx;
-  border-bottom: 1px solid rgba(157,212,184,0.15);
+  border-bottom: 1px solid rgba(124,196,160,0.15);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -23,12 +23,12 @@
 .header-title {
   font-size: 36rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .btn-save {
   padding: 16rpx 40rpx;
-  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%) !important;
+  background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%) !important;
   color: #FFFFFF !important;
   border: none !important;
   border-radius: 12rpx;
@@ -45,7 +45,7 @@
 }
 
 .btn-save text {
-  color: #6A6068;
+  color: #5A4F56;
   font-size: 28rpx;
 }
 
@@ -56,14 +56,14 @@
 /* 分组样式 */
 .section {
   padding: 48rpx 32rpx;
-  border-bottom: 1px solid rgba(157,212,184,0.15);
+  border-bottom: 1px solid rgba(124,196,160,0.15);
 }
 
 .section-title {
   display: block;
   font-size: 28rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 32rpx;
   padding-left: 0;
 }
@@ -80,8 +80,8 @@
   margin: 0 auto 40rpx;
   border-radius: 50%;
   overflow: hidden;
-  border: 6rpx solid rgba(232,168,191,0.5);
-  box-shadow: 0 0 40rpx rgba(232,168,191,0.3);
+  border: 6rpx solid rgba(220,141,168),0.5);
+  box-shadow: 0 0 40rpx rgba(220,141,168),0.3);
 }
 
 .avatar-image {
@@ -96,7 +96,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(106,96,104,0.5);
+  background: rgba(90,79,86,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,7 +110,7 @@
 
 .btn-change-avatar {
   padding: 16rpx 32rpx;
-  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%) !important;
+  background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%) !important;
   color: #FFFFFF !important;
   border: none !important;
   border-radius: 12rpx;
@@ -127,7 +127,7 @@
 }
 
 .btn-change-avatar text {
-  color: #6A6068;
+  color: #5A4F56;
   font-size: 24rpx;
 }
 
@@ -150,13 +150,13 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #E8A8BF 0%, #9DD4B8 100%);
+  background: linear-gradient(90deg, #DC8DA8 0%, #7CC4A0 100%);
   transition: width 0.3s ease;
 }
 
 .progress-text {
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 /* 表单项 */
@@ -164,7 +164,7 @@
   display: flex;
   align-items: center;
   padding: 28rpx 0;
-  border-bottom: 1px solid rgba(157,212,184,0.15);
+  border-bottom: 1px solid rgba(124,196,160,0.15);
   position: relative;
 }
 
@@ -175,7 +175,7 @@
 .label {
   min-width: 120rpx;
   font-size: 28rpx;
-  color: #6A6068;
+  color: #5A4F56;
   font-weight: 500;
 }
 
@@ -183,21 +183,21 @@
   flex: 1;
   padding: 16rpx 24rpx;
   margin: 0 24rpx;
-  background-color: rgba(157,212,184,0.04);
-  border: 1px solid rgba(157,212,184,0.15);
+  background-color: rgba(124,196,160,0.04);
+  border: 1px solid rgba(124,196,160,0.15);
   border-radius: 12rpx;
-  color: #6A6068;
+  color: #5A4F56;
   font-size: 28rpx;
   line-height: 1.5;
 }
 
 .input-field::placeholder {
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .char-count {
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   min-width: 80rpx;
   text-align: right;
 }
@@ -206,14 +206,14 @@
   flex: 1;
   padding: 16rpx 24rpx;
   margin: 0 24rpx;
-  background-color: rgba(157,212,184,0.04);
-  border: 1px solid rgba(157,212,184,0.15);
+  background-color: rgba(124,196,160,0.04);
+  border: 1px solid rgba(124,196,160,0.15);
   border-radius: 12rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 28rpx;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .picker-text {
@@ -221,11 +221,11 @@
 }
 
 .picker-text.disabled {
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .picker-icon {
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   font-size: 32rpx;
 }
 
@@ -237,10 +237,10 @@
 
 .bio-textarea {
   padding: 24rpx;
-  background-color: rgba(157,212,184,0.04);
-  border: 1px solid rgba(157,212,184,0.15);
+  background-color: rgba(124,196,160,0.04);
+  border: 1px solid rgba(124,196,160,0.15);
   border-radius: 12rpx;
-  color: #6A6068;
+  color: #5A4F56;
   font-size: 28rpx;
   line-height: 1.6;
   min-height: 200rpx;
@@ -248,7 +248,7 @@
 }
 
 .bio-textarea::placeholder {
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 /* 按钮组 */
@@ -260,7 +260,7 @@
   padding: 24rpx 32rpx;
   background: rgba(15,12,41,0.95);
   backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(157,212,184,0.15);
+  border-top: 1px solid rgba(124,196,160,0.15);
   z-index: 99;
 }
 
@@ -290,12 +290,12 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%) !important;
+  background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%) !important;
   color: #FFFFFF !important;
 }
 
 .btn-primary text {
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .btn-primary:active {
@@ -312,16 +312,16 @@
 
 .btn-text {
   background-color: transparent !important;
-  color: rgba(106,96,104,1.0) !important;
-  border: 1px solid rgba(157,212,184,0.15) !important;
+  color: rgba(90,79,86,1.0) !important;
+  border: 1px solid rgba(124,196,160,0.15) !important;
 }
 
 .btn-text text {
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .btn-text:active {
-  background-color: rgba(157,212,184,0.04) !important;
+  background-color: rgba(124,196,160,0.04) !important;
 }
 
 /* 加载状态 */
@@ -349,8 +349,8 @@
 .spinner-ring {
   width: 100%;
   height: 100%;
-  border: 6rpx solid rgba(232,168,191,0.2);
-  border-top: 6rpx solid #E8A8BF;
+  border: 6rpx solid rgba(220,141,168),0.2);
+  border-top: 6rpx solid #DC8DA8;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -365,7 +365,7 @@
 }
 
 .loading-text {
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   font-size: 28rpx;
 }
 

@@ -1,6 +1,6 @@
 <scroll-view scroll-y class="result-page">
   <!-- 顶部缘分卡片 -->
-  <view class="fate-header" style="background: {{result.level.bgGradient || 'linear-gradient(135deg, #E8A8BF, #9DD4B8)'}}">
+  <view class="fate-header" style="background: {{result.level.bgGradient || 'linear-gradient(135deg, #DC8DA8, #7CC4A0)'}}">
     <!-- 背景装饰 -->
     <view class="header-glow"></view>
 

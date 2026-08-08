@@ -1,7 +1,7 @@
 /* 个人页面样式 - 梦幻渐变主题 */
 .profile-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
+  background: linear-gradient(180deg, #FCEEEE 0%, #FFF0E8 40%, #E8F5EE 100%);
   padding: 32rpx;
   box-sizing: border-box;
 }
@@ -10,14 +10,14 @@
 .user-card {
   background: linear-gradient(
     135deg,
-    rgba(232,168,191, 0.2) 0%,
-    rgba(157,212,184, 0.15) 100%
+    rgba(220,141,168), 0.2) 0%,
+    rgba(124,196,160, 0.15) 100%
   );
   border-radius: 32rpx;
   padding: 48rpx 40rpx;
   margin-bottom: 32rpx;
-  border: 1px solid rgba(232,168,191, 0.2);
-  box-shadow: 0 8rpx 32rpx rgba(232,168,191, 0.2);
+  border: 1px solid rgba(220,141,168), 0.2);
+  box-shadow: 0 8rpx 32rpx rgba(220,141,168), 0.2);
 }
 
 .avatar-section {
@@ -53,8 +53,8 @@
   width: 128rpx;
   height: 128rpx;
   border-radius: 50%;
-  border: 6rpx solid rgba(232,168,191, 0.5);
-  box-shadow: 0 0 20rpx rgba(232,168,191, 0.3);
+  border: 6rpx solid rgba(220,141,168), 0.5);
+  box-shadow: 0 0 20rpx rgba(220,141,168), 0.3);
   box-sizing: border-box;
   display: block;
   vertical-align: top;
@@ -68,7 +68,7 @@
   align-items: center;
   margin-bottom: 10rpx;
   padding: 0;
-  border-bottom: 2rpx solid rgba(157,212,184,0.15);
+  border-bottom: 2rpx solid rgba(124,196,160,0.15);
   box-sizing: border-box;
 }
 
@@ -78,7 +78,7 @@
   min-height: 72rpx;
   font-size: 34rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
@@ -89,7 +89,7 @@
 }
 
 .nickname-input::placeholder {
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .nickname-input:focus {
@@ -99,7 +99,7 @@
 }
 
 .nickname-input-wrap:focus-within {
-  border-bottom-color: rgba(232,168,191, 0.55);
+  border-bottom-color: rgba(220,141,168), 0.55);
 }
 
 .user-info {
@@ -113,13 +113,13 @@
   display: block;
   font-size: 40rpx;
   font-weight: 700;
-  color: #6A6068;
+  color: #5A4F56;
   margin-bottom: 8rpx;
 }
 
 .join-date {
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .avatar-static {
@@ -145,7 +145,7 @@
   background: rgba(255,255,255,0.6);
   border-radius: 24rpx;
   padding: 32rpx 0;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
 }
 
 .stat-item {
@@ -157,21 +157,21 @@
   display: block;
   font-size: 48rpx;
   font-weight: 700;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .stat-label {
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 /* 区块 */
 .section {
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 32rpx;
   padding: 32rpx;
   margin-bottom: 32rpx;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
 }
 
 .section-header {
@@ -184,12 +184,12 @@
 .section-title {
   font-size: 32rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .section-more {
   font-size: 24rpx;
-  color: #E8A8BF;
+  color: #DC8DA8;
 }
 
 /* 历史列表 */
@@ -203,9 +203,9 @@
   display: flex;
   align-items: center;
   padding: 24rpx;
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 24rpx;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
 }
 
 .history-emoji {
@@ -221,33 +221,33 @@
   display: block;
   font-size: 28rpx;
   font-weight: 500;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .history-date {
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .history-score {
   font-size: 28rpx;
   font-weight: 600;
-  color: #E8A8BF;
+  color: #DC8DA8;
 }
 
 /* 菜单 */
 .menu-section {
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 32rpx;
   overflow: hidden;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
 }
 
 .menu-item {
   display: flex;
   align-items: center;
   padding: 32rpx;
-  border-bottom: 1px solid rgba(157,212,184,0.15);
+  border-bottom: 1px solid rgba(124,196,160,0.15);
 }
 
 .menu-item:last-child {
@@ -262,12 +262,12 @@
 .menu-text {
   flex: 1;
   font-size: 30rpx;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .menu-arrow {
   font-size: 28rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 /* 退出使用 */
@@ -316,10 +316,10 @@
 .fate-history-item {
   background: linear-gradient(
     135deg,
-    rgba(232,168,191, 0.1) 0%,
-    rgba(157,212,184, 0.08) 100%
+    rgba(220,141,168), 0.1) 0%,
+    rgba(124,196,160, 0.08) 100%
   );
-  border: 1px solid rgba(232,168,191, 0.2);
+  border: 1px solid rgba(220,141,168), 0.2);
   border-radius: 24rpx;
   padding: 24rpx;
 }
@@ -334,7 +334,7 @@
 .fate-pair {
   font-size: 30rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .fate-level {
@@ -345,7 +345,7 @@
 }
 
 .fate-level.level-s {
-  background: linear-gradient(135deg, #F0CB8A 0%, #E8A8BF 100%);
+  background: linear-gradient(135deg, #E8B878 0%, #DC8DA8 100%);
   color: #FFFFFF;
 }
 
@@ -366,7 +366,7 @@
 
 .fate-level.level-d {
   background: #6366f1;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .fate-score-row {
@@ -379,15 +379,15 @@
 .fate-big-score {
   font-size: 56rpx;
   font-weight: 800;
-  color: #E8A8BF;
+  color: #DC8DA8;
 }
 
 .fate-type-name {
   font-size: 26rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .fate-time {
   font-size: 22rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }

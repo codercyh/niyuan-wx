@@ -1,12 +1,12 @@
 /* 记录详情页面样式 - 梦幻渐变主题 */
 
 page {
-  background-color: #FDF6F6;
+  background-color: #FCEEEE;
 }
 
 .page-scroll {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FDF6F6 0%, #FFF8F0 40%, #F0F8F4 100%);
+  background: linear-gradient(180deg, #FCEEEE 0%, #FFF0E8 40%, #E8F5EE 100%);
   padding-bottom: 140rpx;
 }
 
@@ -21,9 +21,9 @@ page {
   justify-content: space-between;
   align-items: flex-start;
   padding: 32rpx;
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 24rpx;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
   margin-bottom: 24rpx;
 }
 
@@ -52,19 +52,19 @@ page {
 .user-name {
   font-size: 28rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .user-time {
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .category-badge {
   padding: 8rpx 24rpx;
-  background: rgba(232,168,191,0.15);
+  background: rgba(220,141,168),0.15);
   border-radius: 40rpx;
-  color: #E8A8BF;
+  color: #DC8DA8;
   font-size: 22rpx;
   font-weight: 600;
   flex-shrink: 0;
@@ -73,15 +73,15 @@ page {
 /* 内容框 */
 .content-box {
   padding: 32rpx;
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 24rpx;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
   margin-bottom: 24rpx;
 }
 
 .content-text {
   font-size: 28rpx;
-  color: #6A6068;
+  color: #5A4F56;
   line-height: 1.8;
   word-wrap: break-word;
 }
@@ -91,9 +91,9 @@ page {
   display: flex;
   justify-content: space-around;
   padding: 32rpx;
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 24rpx;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
   margin-bottom: 24rpx;
 }
 
@@ -106,13 +106,13 @@ page {
 
 .stat-label {
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .stat-value {
   font-size: 36rpx;
   font-weight: 700;
-  color: #E8A8BF;
+  color: #DC8DA8;
 }
 
 .divider {
@@ -134,11 +134,11 @@ page {
   justify-content: center;
   gap: 12rpx;
   padding: 24rpx;
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   border-radius: 24rpx;
-  border: 1px solid rgba(157,212,184,0.15);
+  border: 1px solid rgba(124,196,160,0.15);
   font-size: 26rpx;
-  color: #6A6068;
+  color: #5A4F56;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -148,9 +148,9 @@ page {
 }
 
 .action-btn.liked {
-  background: rgba(232,168,191,0.15);
-  color: #E8A8BF;
-  border-color: rgba(232,168,191,0.3);
+  background: rgba(220,141,168),0.15);
+  color: #DC8DA8;
+  border-color: rgba(220,141,168),0.3);
 }
 
 .action-icon {
@@ -164,7 +164,7 @@ page {
 /* 分割线 */
 .divider-full {
   height: 16rpx;
-  background: rgba(157,212,184,0.04);
+  background: rgba(124,196,160,0.04);
   margin: 16rpx 0;
 }
 
@@ -187,7 +187,7 @@ page {
 .title-text {
   font-size: 32rpx;
   font-weight: 700;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 /* 补充列表 */
@@ -232,17 +232,17 @@ page {
 .comment-name {
   font-size: 26rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .comment-time {
   font-size: 22rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .comment-text {
   font-size: 26rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   line-height: 1.6;
   margin-bottom: 16rpx;
 }
@@ -256,18 +256,18 @@ page {
 .comment-like,
 .comment-reply {
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .comment-like.liked {
-  color: #E8A8BF;
+  color: #DC8DA8;
 }
 
 /* 二级补充列表 */
 .replies {
   margin-left: 88rpx;
   padding-left: 24rpx;
-  border-left: 4rpx solid rgba(157,212,184,0.15);
+  border-left: 4rpx solid rgba(124,196,160,0.15);
   display: flex;
   flex-direction: column;
   gap: 24rpx;
@@ -302,28 +302,28 @@ page {
 .reply-name {
   font-size: 24rpx;
   font-weight: 600;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .reply-time {
   font-size: 22rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .reply-text {
   font-size: 24rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
   line-height: 1.5;
   margin-bottom: 12rpx;
 }
 
 .reply-like {
   font-size: 22rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .reply-like.liked {
-  color: #E8A8BF;
+  color: #DC8DA8;
 }
 
 /* 无补充状态 */
@@ -341,7 +341,7 @@ page {
 
 .no-comments-text {
   font-size: 26rpx;
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 /* 底部输入框 */
@@ -351,7 +351,7 @@ page {
   right: 0;
   bottom: 0;
   background: rgba(15,12,41,0.95);
-  border-top: 1px solid rgba(157,212,184,0.15);
+  border-top: 1px solid rgba(124,196,160,0.15);
   padding: 20rpx 32rpx;
   padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
 }
@@ -369,11 +369,11 @@ page {
   background: rgba(255,255,255,0.6);
   border-radius: 40rpx;
   font-size: 28rpx;
-  color: #6A6068;
+  color: #5A4F56;
 }
 
 .input-placeholder {
-  color: rgba(106,96,104,1.0);
+  color: rgba(90,79,86,1.0);
 }
 
 .send-btn {
@@ -400,8 +400,8 @@ page {
 }
 
 .send-btn.active {
-  background: linear-gradient(135deg, #E8A8BF 0%, #9DD4B8 100%) !important;
-  box-shadow: 0 4rpx 16rpx rgba(232,168,191,0.3);
+  background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%) !important;
+  box-shadow: 0 4rpx 16rpx rgba(220,141,168),0.3);
 }
 
 .send-icon {

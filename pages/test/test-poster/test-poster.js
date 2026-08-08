@@ -169,9 +169,9 @@ Page({
   async drawFunnyPoster(ctx, result, w, h) {
     // 背景渐变
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
-    gradient.addColorStop(0, '#FDF6F6')
-    gradient.addColorStop(0.5, '#FFF8F0')
-    gradient.addColorStop(1, '#F0F8F4')
+    gradient.addColorStop(0, '#FCEEEE')
+    gradient.addColorStop(0.5, '#FFF0E8')
+    gradient.addColorStop(1, '#E8F5EE')
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, w, h)
 
@@ -200,7 +200,7 @@ Page({
     // 分数 (大字)
     if (result.score !== undefined) {
       ctx.font = 'bold 72px sans-serif'
-      ctx.fillStyle = '#E8A8BF'
+      ctx.fillStyle = '#DC8DA8'
       ctx.fillText(`${result.score}`, w/2, 250)
       
       ctx.font = '18px sans-serif'
@@ -239,7 +239,7 @@ Page({
   async drawArtisticPoster(ctx, result, w, h) {
     // 深蓝渐变背景
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
-    gradient.addColorStop(0, '#F0F8F4')
+    gradient.addColorStop(0, '#E8F5EE')
     gradient.addColorStop(1, '#16213e')
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, w, h)
@@ -314,7 +314,7 @@ Page({
     // 分数 (超大)
     if (result.score !== undefined) {
       ctx.font = 'bold 96px sans-serif'
-      ctx.fillStyle = '#E8A8BF'
+      ctx.fillStyle = '#DC8DA8'
       ctx.fillText(`${result.score}`, w/2, h/2 + 50)
     }
 
@@ -354,7 +354,7 @@ Page({
     // 分数
     if (result.score !== undefined) {
       ctx.font = 'bold 40px sans-serif'
-      ctx.fillStyle = '#E8A8BF'
+      ctx.fillStyle = '#DC8DA8'
       ctx.fillText(`${result.score}分`, w/2, 280)
     }
 
