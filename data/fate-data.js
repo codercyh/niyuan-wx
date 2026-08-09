@@ -176,10 +176,10 @@ const RELATION_SPECIAL_HINTS = {
 // ==================== 等级定义 ====================
 function getScoreLevel(score) {
   if (score >= 90) return { label: '命运级缘分', emoji: '💖', level: 'S', color: '#E8B878', desc: '上辈子一定拯救了银河系！' }
-  if (score >= 80) return { label: '珍惜级缘分', emoji: '💕', level: 'A', color: '#00D9FF', desc: '缘分真的很深呢！' }
-  if (score >= 70) return { label: '成长级缘分', emoji: '💗', level: 'B', color: '#00FF87', desc: '你们很适合彼此！' }
-  if (score >= 50) return { label: '挑战级缘分', emoji: '✨', level: 'C', color: '#A855F7', desc: '需要更多了解和磨合' }
-  return { label: '缘分待定', emoji: '🌀', level: 'D', color: '#708090', desc: '缘分这东西，谁说得准呢' }
+  if (score >= 80) return { label: '珍惜级缘分', emoji: '💕', level: 'A', color: '#E89AB2', desc: '缘分真的很深呢！' }
+  if (score >= 70) return { label: '成长级缘分', emoji: '💗', level: 'B', color: '#7CC4A0', desc: '你们很适合彼此！' }
+  if (score >= 50) return { label: '挑战级缘分', emoji: '✨', level: 'C', color: '#C9A0C8', desc: '需要更多了解和磨合' }
+  return { label: '缘分待定', emoji: '🌀', level: 'D', color: '#B0A8AE', desc: '缘分这东西，谁说得准呢' }
 }
 
 // ==================== 获取缘分类型 ====================
@@ -471,9 +471,9 @@ function generateMomentsText(fateType, score, nameA, nameB) {
 const DIMENSIONS = {
   constellation: { name: '星座匹配', emoji: '⭐', color: '#DC8DA8' },
   name: { name: '姓名缘分', emoji: '✍️', color: '#7CC4A0' },
-  numerology: { name: '数字缘分', emoji: '🔢', color: '#00D9FF' },
-  personality: { name: '性格互补', emoji: '🧩', color: '#00FF87' },
-  metaphysics: { name: '命理玄学', emoji: '🔮', color: '#A855F7' },
+  numerology: { name: '数字缘分', emoji: '🔢', color: '#98B8D8' },
+  personality: { name: '性格互补', emoji: '🧩', color: '#E8B878' },
+  metaphysics: { name: '命理玄学', emoji: '🔮', color: '#C9A0C8' },
 }
 
 // ==================== 生命灵数 ====================

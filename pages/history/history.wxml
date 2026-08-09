@@ -33,18 +33,27 @@
 
     <block wx:else>
       <view class="history-list">
-        <view class="history-card" wx:for="{{testRecords}}" wx:key="id" bindtap="viewTestDetail" data-id="{{item.id}}">
-          <view class="card-delete" catchtap="onDeleteTest" data-id="{{item.id}}">×</view>
-          <view class="history-header">
-            <view class="history-emoji">{{item.emoji}}</view>
-            <view class="history-info">
-              <text class="history-name">{{item.testName}}</text>
-              <text class="history-date">{{item.completedAt}}</text>
-            </view>
+        <view class="swipe-item" wx:for="{{testRecords}}" wx:key="id">
+          <view class="swipe-action" catchtap="onDeleteTest" data-id="{{item.id}}">
+            <text class="swipe-action-text">删除</text>
           </view>
-          <view class="history-result">
-            <text class="result-title">{{item.resultTitle}}</text>
-            <text class="result-emoji">{{item.resultEmoji}}</text>
+          <view class="history-card swipe-content {{openedId === item.id ? 'swipe-open' : ''}}"
+            bindtap="viewTestDetail" data-id="{{item.id}}"
+            data-swipe-id="{{item.id}}"
+            bindtouchstart="onSwipeTouchStart"
+            bindtouchmove="onSwipeTouchMove"
+            bindtouchend="onSwipeTouchEnd">
+            <view class="history-header">
+              <view class="history-emoji">{{item.emoji}}</view>
+              <view class="history-info">
+                <text class="history-name">{{item.testName}}</text>
+                <text class="history-date">{{item.completedAt}}</text>
+              </view>
+            </view>
+            <view class="history-result">
+              <text class="result-title">{{item.resultTitle}}</text>
+              <text class="result-emoji">{{item.resultEmoji}}</text>
+            </view>
           </view>
         </view>
       </view>
@@ -64,31 +73,40 @@
 
     <block wx:else>
       <view class="fate-list">
-        <view class="fate-card" wx:for="{{fateRecords}}" wx:key="id" bindtap="viewFateDetail" data-id="{{item.id}}">
-          <view class="card-delete" catchtap="onDeleteFate" data-id="{{item.id}}">×</view>
-          <view class="fate-header">
-            <view class="fate-names">
-              <text class="fate-name">{{item.personA.name}}</text>
-              <text class="fate-x">×</text>
-              <text class="fate-name">{{item.personB.name}}</text>
-            </view>
-            <text class="fate-date">{{item.completedAt}}</text>
+        <view class="swipe-item" wx:for="{{fateRecords}}" wx:key="id">
+          <view class="swipe-action" catchtap="onDeleteFate" data-id="{{item.id}}">
+            <text class="swipe-action-text">删除</text>
           </view>
-          <view class="fate-body">
-            <view class="fate-score-wrap">
-              <text class="fate-score">{{item.score}}</text>
-              <text class="fate-level">{{item.level}}级</text>
-            </view>
-            <view class="fate-info">
-              <view class="fate-zodiacs">
-                <text class="zodiac-tag">{{item.personA.zodiac}}</text>
-                <text class="zodiac-tag">{{item.personB.zodiac}}</text>
+          <view class="fate-card swipe-content {{openedId === item.id ? 'swipe-open' : ''}}"
+            bindtap="viewFateDetail" data-id="{{item.id}}"
+            data-swipe-id="{{item.id}}"
+            bindtouchstart="onSwipeTouchStart"
+            bindtouchmove="onSwipeTouchMove"
+            bindtouchend="onSwipeTouchEnd">
+            <view class="fate-header">
+              <view class="fate-names">
+                <text class="fate-name">{{item.personA.name}}</text>
+                <text class="fate-x">×</text>
+                <text class="fate-name">{{item.personB.name}}</text>
               </view>
-              <text class="fate-type">{{item.fateType}}</text>
+              <text class="fate-date">{{item.completedAt}}</text>
             </view>
-          </view>
-          <view class="fate-relation">
-            <text class="relation-tag {{item.relation}}">{{item.relationLabel}}</text>
+            <view class="fate-body">
+              <view class="fate-score-wrap">
+                <text class="fate-score">{{item.score}}</text>
+                <text class="fate-level">{{item.level}}级</text>
+              </view>
+              <view class="fate-info">
+                <view class="fate-zodiacs">
+                  <text class="zodiac-tag">{{item.personA.zodiac}}</text>
+                  <text class="zodiac-tag">{{item.personB.zodiac}}</text>
+                </view>
+                <text class="fate-type">{{item.fateType}}</text>
+              </view>
+            </view>
+            <view class="fate-relation">
+              <text class="relation-tag {{item.relation}}">{{item.relationLabel}}</text>
+            </view>
           </view>
         </view>
       </view>

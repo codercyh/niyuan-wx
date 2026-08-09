@@ -30,11 +30,11 @@ Page({
     const scoreAngle = Math.round(((result.score || 0) / 100) * 360)
 
     const levelBgMap = {
-      'S': 'linear-gradient(135deg, #E8B878 0%, #DC8DA8 50%, #7CC4A0 100%)',
-      'A': 'linear-gradient(135deg, #00D9FF 0%, #0066FF 50%, #6366F1 100%)',
-      'B': 'linear-gradient(135deg, #00FF87 0%, #00D9FF 50%, #6366F1 100%)',
-      'C': 'linear-gradient(135deg, #A855F7 0%, #6366F1 50%, #302B63 100%)',
-      'D': 'linear-gradient(135deg, #6366F1 0%, #302B63 100%)',
+      'S': 'linear-gradient(135deg, #6B4A2E 0%, #A8743E 50%, #C8915A 100%)',
+      'A': 'linear-gradient(135deg, #4A2A3E 0%, #7A3A5A 50%, #B05878 100%)',
+      'B': 'linear-gradient(135deg, #1F3E3A 0%, #2E5A4E 50%, #4A8A6E 100%)',
+      'C': 'linear-gradient(135deg, #3E2A4A 0%, #5A3A6A 50%, #8A5A9E 100%)',
+      'D': 'linear-gradient(135deg, #3A3A42 0%, #4E4A56 50%, #6A6270 100%)',
     }
 
     if (result.level) {
@@ -63,7 +63,7 @@ Page({
       unlocked,
       hasPaidOnce,
       isVip,
-      showStickyUpgrade: hasPaidOnce && !isVip,
+      showStickyUpgrade: !isVip,
     })
   },
 
@@ -118,11 +118,6 @@ Page({
   },
 
   onRetry() {
-    // 单次付费用户重新测试时弹出"专属优惠"重测弹窗（场景2 → 重测）
-    if (this.data.hasPaidOnce && !this.data.isVip) {
-      this.setData({ showRetestModal: true })
-      return
-    }
     wx.navigateBack()
   },
 
@@ -151,11 +146,11 @@ Page({
       })
   },
 
-  // 单次付费 ¥9.9（永久解锁缘分完整解读）
+  // 单次付费 ¥3.9（解锁缘分完整解读）
   onPaySingle() {
     wx.showModal({
       title: '单次解锁',
-      content: '支付 ¥9.9 永久解锁缘分完整解读？',
+      content: '支付 ¥3.9 解锁缘分完整解读？',
       success: (res) => {
         if (!res.confirm) return
         wx.showLoading({ title: '处理中...', mask: true })
@@ -205,12 +200,12 @@ Page({
   // 升级会员（微信支付）
   onPayVip() {
     wx.showModal({
-      title: '升级月度会员',
-      content: '微信支付 ¥9.9 开通月度会员？期内不限次数解锁所有测试',
+      title: '全站永久解锁',
+      content: '微信支付 ¥9.9 永久解锁全部测试？一次买断永久使用',
       success: (res) => {
         if (!res.confirm) return
         wx.showLoading({ title: '处理中...', mask: true })
-        unlockMgr.unlockByMembership({ months: 1 })
+        unlockMgr.unlockByMembership()
           .then(() => {
             wx.hideLoading()
             const result = { ...(this.data.result || {}), unlocked: true }

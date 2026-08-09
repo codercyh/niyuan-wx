@@ -315,14 +315,12 @@ return false;
 }
 
 /**
-* 标记/激活会员
+* 标记/激活会员（全站永久：expireAt 设到 100 年后，等价永久）
 *
-* @param {object} [opts] - { months: 1 }
 * @returns {object} 会员信息
 */
-function markVipMember(opts) {
-const months = (opts && opts.months) || 1;
-const info = { activatedAt: Date.now(), expireAt: Date.now() + months * 30 * 24 * 60 * 60 * 1000 };
+function markVipMember() {
+const info = { activatedAt: Date.now(), expireAt: Date.now() + 100 * 365 * 24 * 60 * 60 * 1000 };
 storage.setStorage('vipMember', info);
 return info;
 }

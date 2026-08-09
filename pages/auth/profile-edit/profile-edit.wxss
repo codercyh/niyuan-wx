@@ -376,7 +376,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 24rpx 48rpx;
-  background: linear-gradient(135deg, #00D9FF 0%, #00FF87 100%);
+  background: linear-gradient(135deg, #DC8DA8 0%, #7CC4A0 100%);
   color: #333333;
   border-radius: 16rpx;
   font-size: 28rpx;

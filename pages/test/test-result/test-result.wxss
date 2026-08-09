@@ -411,7 +411,7 @@
   border-radius: 20rpx;
 }
 .btn-single-title { color: #fff; font-size: 30rpx; font-weight: 500; }
-.btn-single-price { color: #A855F7; font-size: 32rpx; font-weight: 600; }
+.btn-single-price { color: #C9A0C8; font-size: 32rpx; font-weight: 600; }
 
 .btn-vip-special {
   position: relative; padding: 28rpx; border-radius: 20rpx;
@@ -456,7 +456,26 @@
   background: linear-gradient(90deg, #E08A9A, #E8B878); color: #fff;
   font-size: 24rpx; font-weight: 600; padding: 14rpx 24rpx; border-radius: 14rpx;
 }
-.sticky-upgrade-close { color: rgba(220,141,168,0.20); font-size: 32rpx; padding: 0 8rpx; }
+.sticky-upgrade-close {
+  position: relative;
+  width: 32rpx;
+  height: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8rpx;
+}
+
+.sticky-upgrade-close .close-line {
+  position: absolute;
+  width: 22rpx;
+  height: 2rpx;
+  background: rgba(220,141,168,0.55);
+  border-radius: 1rpx;
+}
+
+.sticky-upgrade-close .close-line:nth-child(1) { transform: rotate(45deg); }
+.sticky-upgrade-close .close-line:nth-child(2) { transform: rotate(-45deg); }
 
 /* ==================== 弹窗 ==================== */
 .modal-overlay {
@@ -469,7 +488,28 @@
   background: linear-gradient(180deg, #E8F5EE 0%, rgba(90,79,86,0.85) 100%);
   border-radius: 32rpx; padding: 40rpx 32rpx; position: relative;
 }
-.modal-close { position: absolute; top: 24rpx; right: 28rpx; color: rgba(220,141,168,0.25); font-size: 40rpx; line-height: 1; }
+.modal-close {
+  position: absolute;
+  top: 24rpx;
+  right: 28rpx;
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.modal-close .close-line {
+  position: absolute;
+  width: 28rpx;
+  height: 2rpx;
+  background: rgba(220,141,168,0.6);
+  border-radius: 1rpx;
+}
+
+.modal-close .close-line:nth-child(1) { transform: rotate(45deg); }
+.modal-close .close-line:nth-child(2) { transform: rotate(-45deg); }
 .modal-title { text-align: center; color: #fff; font-size: 34rpx; font-weight: 600; margin-bottom: 28rpx; }
 .modal-highlight {
   background: linear-gradient(135deg, rgba(232,154,170,0.2) 0%, rgba(240,203,138,0.15) 100%);

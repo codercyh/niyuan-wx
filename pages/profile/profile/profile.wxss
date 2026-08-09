@@ -367,23 +367,23 @@
 }
 
 .fate-level.level-a {
-  background: linear-gradient(135deg, #00d9ff 0%, #0066ff 100%);
+  background: linear-gradient(135deg, #E89AB2 0%, #C9788F 100%);
   color: #FFFFFF;
 }
 
 .fate-level.level-b {
-  background: linear-gradient(135deg, #00ff87 0%, #00d9ff 100%);
-  color: #333333;
+  background: linear-gradient(135deg, #7CC4A0 0%, #A8D8C0 100%);
+  color: #FFFFFF;
 }
 
 .fate-level.level-c {
-  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  background: linear-gradient(135deg, #C9A0C8 0%, #DC8DA8 100%);
   color: #FFFFFF;
 }
 
 .fate-level.level-d {
-  background: #6366f1;
-  color: #5A4F56;
+  background: #B0A8AE;
+  color: #FFFFFF;
 }
 
 .fate-score-row {

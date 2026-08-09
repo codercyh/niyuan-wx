@@ -88,7 +88,7 @@ Page({
           unlocked,
           hasPaidOnce,
           isVip,
-          showStickyUpgrade: hasPaidOnce && !isVip,
+          showStickyUpgrade: !isVip,
         })
         this.loadRecommendTests(testId)
         // 记录已由后端保存，无需本地存储
@@ -158,10 +158,6 @@ Page({
   },
 
   onRetake() {
-    if (this.data.hasPaidOnce && !this.data.isVip) {
-      this.setData({ showRetestModal: true })
-      return
-    }
     wx.redirectTo({ url: `/pages/test/test-detail/test-detail?id=${this.data.testId}` })
   },
 
@@ -197,7 +193,7 @@ Page({
   onPaySingle() {
     wx.showModal({
       title: '单次解锁',
-      content: '支付 ¥9.9 永久解锁该测试的完整解读？',
+      content: '支付 ¥3.9 解锁该测试的完整解读？',
       success: (res) => {
         if (!res.confirm) return
         wx.showLoading({ title: '处理中...', mask: true })
@@ -230,12 +226,12 @@ Page({
 
   onPayVip() {
     wx.showModal({
-      title: '升级月度会员',
-      content: '微信支付 ¥9.9 开通月度会员？期内不限次数解锁所有测试',
+      title: '全站永久解锁',
+      content: '微信支付 ¥9.9 永久解锁全部测试？一次买断永久使用',
       success: (res) => {
         if (!res.confirm) return
         wx.showLoading({ title: '处理中...', mask: true })
-        unlockMgr.unlockByMembership({ months: 1 })
+        unlockMgr.unlockByMembership()
           .then(() => {
             wx.hideLoading()
             const result = { ...(this.data.result || {}), unlocked: true }

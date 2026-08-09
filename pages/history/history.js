@@ -21,6 +21,7 @@ Page({
     testRecords: [],
     fateRecords: [],
     loading: false,
+    openedId: '',   // 左滑展开删除按钮的卡片 id（同时只允许一张展开）
   },
 
   onLoad() {
@@ -99,7 +100,7 @@ Page({
   // 切换 Tab
   switchTab(e) {
     const tab = e.currentTarget.dataset.tab
-    this.setData({ activeTab: tab })
+    this.setData({ activeTab: tab, openedId: '' })
   },
 
   goToTests() {
@@ -154,6 +155,38 @@ Page({
       })
   },
 
+  // ===== 左滑删除：触摸事件 =====
+  // 阈值：滑动超过此距离松手则展开，否则回弹；展开宽度与 CSS .swipe-open 一致
+  onSwipeTouchStart(e) {
+    this._swipeStartX = e.touches[0].clientX
+    this._swipeStartY = e.touches[0].clientY
+    this._swipeMoved = false
+  },
+
+  onSwipeTouchMove(e) {
+    // 仅横向明显滑动时才跟手，避免与纵向滚动冲突
+    const dx = e.touches[0].clientX - this._swipeStartX
+    const dy = e.touches[0].clientY - this._swipeStartY
+    if (Math.abs(dy) > Math.abs(dx)) return
+    if (Math.abs(dx) > 10) this._swipeMoved = true
+  },
+
+  onSwipeTouchEnd(e) {
+    // 无明显横向位移（视为点击）：若已有展开项则先收起，否则交给 bindtap 走详情
+    if (!this._swipeMoved) {
+      if (this.data.openedId) this.setData({ openedId: '' })
+      return
+    }
+    const dx = e.changedTouches[0].clientX - this._swipeStartX
+    const id = e.currentTarget.dataset.swipeId
+    // 左滑超过阈值 → 展开；否则收起
+    if (dx < -60) {
+      this.setData({ openedId: id })
+    } else {
+      this.setData({ openedId: '' })
+    }
+  },
+
   // 删除心理测试记录
   onDeleteTest(e) {
     const id = e.currentTarget.dataset.id
@@ -168,7 +201,7 @@ Page({
           .then(() => {
             wx.hideLoading()
             const testRecords = this.data.testRecords.filter(r => r.id !== id)
-            this.setData({ testRecords })
+            this.setData({ testRecords, openedId: '' })
             wx.showToast({ title: '已删除', icon: 'success' })
           })
           .catch((err) => {
@@ -193,7 +226,7 @@ Page({
           .then(() => {
             wx.hideLoading()
             const fateRecords = this.data.fateRecords.filter(r => r.id !== id)
-            this.setData({ fateRecords })
+            this.setData({ fateRecords, openedId: '' })
             wx.showToast({ title: '已删除', icon: 'success' })
           })
           .catch((err) => {
@@ -210,15 +243,15 @@ Page({
     const dimensionList = [
       { key: 'constellation', name: '星座匹配', emoji: '⭐', color: '#DC8DA8', score: record.scores?.zodiac || 0, percentage: record.scores?.zodiac || 0, desc: `${record.zodiacA?.name || '未知'}×${record.zodiacB?.name || '未知'}` },
       { key: 'name', name: '姓名缘分', emoji: '✍️', color: '#7CC4A0', score: record.scores?.name || 0, percentage: record.scores?.name || 0, desc: '笔画互补' },
-      { key: 'numerology', name: '数字缘分', emoji: '🔢', color: '#00D9FF', score: record.scores?.lifePath || 0, percentage: record.scores?.lifePath || 0, desc: `灵数${record.myInfo?.lifePath || 0}×${record.partnerInfo?.lifePath || 0}` },
-      { key: 'personality', name: '性格互补', emoji: '🧩', color: '#00FF87', score: record.scores?.personality || 0, percentage: record.scores?.personality || 0, desc: '性格互补' },
-      { key: 'metaphysics', name: '命理玄学', emoji: '🔮', color: '#A855F7', score: record.scores?.mystical || 0, percentage: record.scores?.mystical || 0, desc: '命理玄学' },
+      { key: 'numerology', name: '数字缘分', emoji: '🔢', color: '#98B8D8', score: record.scores?.lifePath || 0, percentage: record.scores?.lifePath || 0, desc: `灵数${record.myInfo?.lifePath || 0}×${record.partnerInfo?.lifePath || 0}` },
+      { key: 'personality', name: '性格互补', emoji: '🧩', color: '#E8B878', score: record.scores?.personality || 0, percentage: record.scores?.personality || 0, desc: '性格互补' },
+      { key: 'metaphysics', name: '命理玄学', emoji: '🔮', color: '#C9A0C8', score: record.scores?.mystical || 0, percentage: record.scores?.mystical || 0, desc: '命理玄学' },
     ]
 
     return {
       recordId: record._id || record.id,
       score: record.totalScore || 0,
-      level: record.level || { level: 'C', label: '缘分待定', emoji: '✨', color: '#A855F7', desc: '' },
+      level: record.level || { level: 'C', label: '缘分待定', emoji: '✨', color: '#C9A0C8', desc: '' },
       fateType: record.fateType || { name: '缘分', emoji: '✨', level: 'C', tagline: '', hashtags: [] },
       zodiacA: record.zodiacA || { name: '未知', emoji: '✨', element: 'unknown' },
       zodiacB: record.zodiacB || { name: '未知', emoji: '✨', element: 'unknown' },

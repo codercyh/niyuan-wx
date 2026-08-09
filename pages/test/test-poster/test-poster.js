@@ -224,7 +224,7 @@ Page({
     // 特质标签
     if (result.traits && Object.keys(result.traits).length > 0) {
       ctx.font = '14px sans-serif'
-      ctx.fillStyle = '#00D9FF'
+      ctx.fillStyle = '#DC8DA8'
       const traits = Object.keys(result.traits).slice(0, 3)
       ctx.fillText(traits.join(' · '), w/2, 420)
     }
@@ -274,7 +274,7 @@ Page({
     // 分数
     if (result.score !== undefined) {
       ctx.font = 'bold 64px sans-serif'
-      ctx.fillStyle = '#00D9FF'
+      ctx.fillStyle = '#DC8DA8'
       ctx.fillText(`${result.score}`, w/2, 330)
     }
 

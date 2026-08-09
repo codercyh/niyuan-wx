@@ -1,8 +1,15 @@
 <scroll-view scroll-y class="result-page">
-  <!-- 顶部缘分卡片 -->
-  <view class="fate-header" style="background: {{result.level.bgGradient || 'linear-gradient(135deg, #DC8DA8, #7CC4A0)'}}">
-    <!-- 背景装饰 -->
-    <view class="header-glow"></view>
+  <!-- 顶部缘分卡片（沉浸式深色渐变 + 星空光点） -->
+  <view class="fate-header" style="background: {{result.level.bgGradient || 'linear-gradient(135deg, #5A3A52 0%, #7A4A6A 100%)'}}">
+    <!-- 星空光点装饰层 -->
+    <view class="header-stars">
+      <view class="star star-1"></view>
+      <view class="star star-2"></view>
+      <view class="star star-3"></view>
+      <view class="star star-4"></view>
+      <view class="star star-5"></view>
+      <view class="star star-6"></view>
+    </view>
 
     <!-- 缘分类型 -->
     <view class="fate-type-section">
@@ -74,16 +81,6 @@
       <view class="deep-preview-item">✍️ 朋友圈分享文案</view>
     </view>
 
-    <!-- 已付费用户专属优惠提示 -->
-    <view wx:if="{{hasPaidOnce}}" class="vip-hint">
-      <view class="vip-hint-icon">💡</view>
-      <view class="vip-hint-title">已付费用户专属优惠</view>
-      <view class="vip-hint-desc">
-        你已付费 <text class="vip-hint-highlight">¥9.9</text>{{'\n'}}
-        升级会员首月仅需 <text class="vip-hint-highlight">¥9.9</text>
-      </view>
-    </view>
-
     <view class="unlock-buttons">
       <!-- 看广告解锁 -->
       <view class="btn-ad" bindtap="onWatchAd" wx:if="{{enableAdUnlock}}">
@@ -97,21 +94,20 @@
       <!-- 单次付费 -->
       <view class="btn-single" bindtap="onPaySingle">
         <text class="btn-single-title">💎 单次解锁</text>
-        <text class="btn-single-price">¥9.9</text>
+        <text class="btn-single-price">¥3.9</text>
       </view>
 
-      <!-- 升级会员（已付费用户为"专属"高亮版，未付费用户为普通版） -->
+      <!-- 全站永久 -->
       <view class="btn-vip-special" bindtap="onShowUpgradeModal">
-        <view wx:if="{{hasPaidOnce}}" class="exclusive-tag">专属</view>
         <view class="btn-vip-shine"></view>
         <view class="btn-vip-content">
           <view class="btn-vip-left">
-            <view class="btn-vip-title">👑 升级会员</view>
-            <view class="btn-vip-sub">首月¥9.9 · 无限测试</view>
+            <view class="btn-vip-title">👑 全站永久</view>
+            <view class="btn-vip-sub">永久解锁全部测试</view>
           </view>
           <view class="btn-vip-price">
-            <view class="btn-vip-price-original">¥19.9/月</view>
-            <view class="btn-vip-price-special">¥9.9<text>/首月</text></view>
+            <view class="btn-vip-price-original">¥19.9</view>
+            <view class="btn-vip-price-special">¥9.9<text>永久</text></view>
           </view>
         </view>
       </view>
@@ -216,17 +212,20 @@
       </view>
     </view>
 
-    <!-- ============ 场景2：完整解读页底部常驻升级条（仅已付费但未会员） ============ -->
-    <view wx:if="{{showStickyUpgrade && hasPaidOnce && !isVip}}" class="sticky-upgrade">
+    <!-- ============ 底部常驻升级条（非会员可见）============ -->
+    <view wx:if="{{showStickyUpgrade && !isVip}}" class="sticky-upgrade">
       <view class="sticky-upgrade-left">
         <text class="sticky-upgrade-emoji">💡</text>
         <view class="sticky-upgrade-text">
-          已付费用户专属：{{'\n'}}
-          升级会员<text class="sticky-upgrade-strong">首月¥9.9</text>
+          全站永久解锁{{'\n'}}
+          限时<text class="sticky-upgrade-strong">¥9.9</text>（原价¥19.9）
         </view>
       </view>
-      <view class="sticky-upgrade-btn" bindtap="onShowUpgradeModal">立即升级</view>
-      <view class="sticky-upgrade-close" bindtap="onCloseSticky">×</view>
+      <view class="sticky-upgrade-btn" bindtap="onShowUpgradeModal">立即解锁</view>
+      <view class="sticky-upgrade-close" bindtap="onCloseSticky">
+        <view class="close-line"></view>
+        <view class="close-line"></view>
+      </view>
     </view>
   </block>
 
@@ -251,84 +250,39 @@
   <view class="bottom-spacer"></view>
 </scroll-view>
 
-<!-- ============ 升级会员弹窗 ============ -->
+<!-- ============ 全站永久解锁弹窗 ============ -->
 <view wx:if="{{showUpgradeModal}}" class="modal-overlay" bindtap="onCloseUpgradeModal">
   <view class="modal" catchtap="">
-    <view class="modal-close" bindtap="onCloseUpgradeModal">×</view>
-    <view class="modal-title">👑 升级会员</view>
+    <view class="modal-close" bindtap="onCloseUpgradeModal">
+      <view class="close-line"></view>
+      <view class="close-line"></view>
+    </view>
+    <view class="modal-title">👑 全站永久解锁</view>
 
     <view class="modal-highlight">
       <view class="modal-highlight-text">
-        <block wx:if="{{hasPaidOnce}}">
-          你已付费 <text class="modal-strong">¥9.9</text> 测试一次{{'\n'}}
-          升级会员首月仅需 <text class="modal-strong">¥9.9</text>{{'\n'}}
-          <text class="modal-sub">= 同样的价格，无限次测试！</text>
-        </block>
-        <block wx:else>
-          首月 <text class="modal-strong">¥9.9</text> 解锁全部测试{{'\n'}}
-          <text class="modal-sub">续费 ¥19.9/月，可随时取消</text>
-        </block>
+        一次付费 <text class="modal-strong">¥9.9</text>，永久解锁全部测试{{'\n'}}
+        <text class="modal-sub">限时特价 · 原价 ¥19.9</text>
       </view>
     </view>
 
     <view class="modal-benefits">
-      <view class="benefit-item"><text class="benefit-check">✅</text> 无限次缘分测试</view>
+      <view class="benefit-item"><text class="benefit-check">✅</text> 永久无限次缘分测试</view>
       <view class="benefit-item"><text class="benefit-check">✅</text> 所有测试完整解读</view>
       <view class="benefit-item"><text class="benefit-check">✅</text> 所有海报模板</view>
       <view class="benefit-item"><text class="benefit-check">✅</text> 测试历史永久保存</view>
-      <view class="benefit-item"><text class="benefit-check">✅</text> 专属会员标识</view>
+      <view class="benefit-item"><text class="benefit-check">✅</text> 永久会员专属标识</view>
     </view>
 
     <view class="price-section">
-      <view class="price-compare">原价 ¥19.9/月</view>
-      <view class="price-main">¥9.9<text class="price-unit">/首月</text></view>
-      <view class="price-save">续费 ¥19.9/月 · 年卡¥99.9省¥138</view>
+      <view class="price-compare">原价 ¥19.9</view>
+      <view class="price-main">¥9.9<text class="price-unit">永久</text></view>
+      <view class="price-save">限时特价 · 一次买断永久使用</view>
     </view>
 
     <view class="pay-buttons">
-      <view class="pay-btn pay-btn-wechat" bindtap="onPayVip">微信支付 ¥9.9</view>
+      <view class="pay-btn pay-btn-wechat" bindtap="onPayVip">立即永久解锁 ¥9.9</view>
     </view>
   </view>
 </view>
 
-<!-- ============ 重新测试弹窗（场景2：单次付费用户重测） ============ -->
-<view wx:if="{{showRetestModal}}" class="modal-overlay" bindtap="onCloseRetestModal">
-  <view class="modal" catchtap="">
-    <view class="modal-close" bindtap="onCloseRetestModal">×</view>
-    <view class="modal-title">🔄 重新测试</view>
-
-    <view class="modal-highlight">
-      <view class="modal-highlight-text">
-        你已付费 <text class="modal-strong">¥9.9</text> 测试一次{{'\n'}}
-        升级会员首月仅需 <text class="modal-strong">¥9.9</text>{{'\n'}}
-        <text class="modal-sub">= 同样的价格，无限次测试！</text>
-      </view>
-    </view>
-
-    <view class="btn-vip-special btn-vip-block" bindtap="onShowUpgradeModal">
-      <view class="exclusive-tag">专属优惠</view>
-      <view class="btn-vip-shine"></view>
-      <view class="btn-vip-content">
-        <view class="btn-vip-left">
-          <view class="btn-vip-title">👑 升级会员</view>
-          <view class="btn-vip-sub">首月¥9.9 · 无限测试</view>
-        </view>
-        <view class="btn-vip-price">
-          <view class="btn-vip-price-original">¥19.9</view>
-          <view class="btn-vip-price-special">¥9.9<text>/首月</text></view>
-        </view>
-      </view>
-    </view>
-
-    <view class="divider">
-      <view class="divider-line"></view>
-      <view class="divider-text">或</view>
-      <view class="divider-line"></view>
-    </view>
-
-    <view class="pay-buttons retest-pay">
-      <view class="pay-btn pay-btn-single" bindtap="onRetestConfirm">单次¥9.9</view>
-      <view class="pay-btn pay-btn-ad" bindtap="onWatchAd" wx:if="{{enableAdUnlock}}">看广告</view>
-    </view>
-  </view>
-</view>

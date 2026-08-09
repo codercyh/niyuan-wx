@@ -270,7 +270,7 @@ Page({
 
     // Hashtags
     ctx.font = '14px sans-serif'
-    ctx.fillStyle = '#00D9FF'
+    ctx.fillStyle = '#DC8DA8'
     const hashtags = result.fateType?.hashtags || ['#缘分测试', '#兴趣与测试']
     ctx.fillText(hashtags.slice(0, 2).join(' '), w/2, 410)
 
@@ -320,7 +320,7 @@ Page({
 
     // 分数
     ctx.font = 'bold 64px sans-serif'
-    ctx.fillStyle = '#00D9FF'
+    ctx.fillStyle = '#DC8DA8'
     ctx.fillText(`${result.score || 75}`, w/2, 340)
 
     // 标语

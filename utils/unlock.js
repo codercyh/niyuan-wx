@@ -3,8 +3,8 @@
  *
  * 三种解锁路径：
  *   1) 看广告免费解锁 (单次 runId)
- *   2) 单次付费 ¥9.9 (按 testId 永久解锁该测试)
- *   3) 月度会员 ¥9.9 活动价 (期内不限次数所有测试解锁)
+ *   2) 单次付费 ¥3.9 (按 testId 解锁该测试，付费后该测试可重复查看)
+ *   3) 全站永久 ¥9.9 (永久解锁所有测试 + 缘分)
  *
  * 付费走「小程序虚拟支付」（道具直购 mode=short_series_goods），适配 iOS 审核。
  * 流程：wx.login(拿新鲜 code) → 后端组装 signData + 双签名 → wx.requestVirtualPayment → 乐观本地解锁 + 服务端查单确认。
@@ -12,7 +12,7 @@
  *
  * 数据存储 (storage)：
  *   - hasPaidOnce: boolean         // 历史首付标记 (向下兼容)
- *   - vipMember: { activatedAt, expireAt }
+ *   - vipMember: { activatedAt, expireAt }   // 全站永久：expireAt 设到 100 年后
  *   - unlockedTests: string[]      // 永久解锁的测试 ID 列表
  *   - adUnlockedRuns: string[]     // 看广告解锁的本次结果 runId 列表
  */
@@ -27,8 +27,8 @@ function _getApp() {
 }
 
 const PRICE = {
-  SINGLE: 9.9,
-  MEMBERSHIP_MONTHLY: 9.9,   // 活动期统一 ¥9.9
+  SINGLE: 3.9,             // 单次解锁 ¥3.9
+  MEMBERSHIP: 9.9,         // 全站永久 ¥9.9（限时价，原价 ¥19.9）
 }
 
 function _getAdUnlockedRuns() {
@@ -183,7 +183,7 @@ function _payVirtual(opts) {
 }
 
 /**
- * 单次付费 ¥9.9 永久解锁该测试（虚拟支付-道具直购）
+ * 单次付费 ¥3.9 解锁该测试（虚拟支付-道具直购，付费后该测试可重复查看）
  * @param {string} testId
  * @returns {Promise<{ok:boolean, source:string, orderId?:string}>}
  */
@@ -202,19 +202,17 @@ function unlockBySinglePay(testId) {
 }
 
 /**
- * 月度会员 ¥9.9 活动价（虚拟支付-道具直购，期内不限次数解锁所有测试）
- * @param {object} [opts] - { months: 1 }
+ * 全站永久 ¥9.9（虚拟支付-道具直购，永久解锁所有测试 + 缘分）
  * @returns {Promise<{ok:boolean, source:string, expireAt?:number, orderId?:string}>}
  */
-function unlockByMembership(opts) {
+function unlockByMembership() {
   // 本地已是有效会员则直接成功
   if (userMgr.isVipMember()) {
     return Promise.resolve({ ok: true, source: 'already-vip' })
   }
-  const months = (opts && opts.months) || 1
   return _payVirtual({ type: 'membership' })
     .then((info) => {
-      const vip = userMgr.markVipMember({ months })
+      const vip = userMgr.markVipMember()
       userMgr.markPaidOnce()
       return { ok: true, source: 'virtual-membership', expireAt: vip.expireAt, orderId: info.orderId }
     })

@@ -120,7 +120,7 @@
 
 .traits text {
   font-size: 22rpx;
-  color: #00D9FF;
+  color: #DC8DA8;
   background: rgba(0, 217, 255, 0.1);
   padding: 8rpx 16rpx;
   border-radius: 20rpx;
@@ -172,7 +172,7 @@
 .score-artistic {
   font-size: 120rpx;
   font-weight: bold;
-  color: #00D9FF;
+  color: #DC8DA8;
   line-height: 1.2;
   text-shadow: 0 0 40rpx rgba(0, 217, 255, 0.5);
 }

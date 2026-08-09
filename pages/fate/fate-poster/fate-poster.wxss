@@ -105,7 +105,7 @@
 
 .hashtags {
   font-size: 22rpx;
-  color: #00D9FF;
+  color: #DC8DA8;
 }
 
 /* 文艺风 */
@@ -154,7 +154,7 @@
 .score-artistic {
   font-size: 100rpx;
   font-weight: 300;
-  color: #00D9FF;
+  color: #DC8DA8;
   margin-bottom: 32rpx;
 }
 
