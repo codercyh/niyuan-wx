@@ -115,18 +115,6 @@ function verifyAdUnlock(payload) {
   return request('POST', '/unlock/ad-verify', payload)
 }
 
-function createSinglePayOrder(payload) {
-  return request('POST', '/pay/single/create', payload)
-}
-
-function verifyPayment(orderId) {
-  return request('GET', `/pay/verify/${orderId}`)
-}
-
-function createMembershipOrder(payload) {
-  return request('POST', '/pay/membership/create', payload)
-}
-
 function createVirtualOrder(payload) {
   // payload: { type: 'single'|'membership', testId?, code }
   // 返回 wx.requestVirtualPayment 所需参数（signData/paySig/signature/offerId/env/mode）
@@ -263,9 +251,6 @@ module.exports = {
   likeTreeHole,
   checkVipStatus,
   verifyAdUnlock,
-  createSinglePayOrder,
-  verifyPayment,
-  createMembershipOrder,
   createVirtualOrder,
   confirmVirtualOrder,
   getPaymentOrders,
