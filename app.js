@@ -54,12 +54,18 @@ App({
       })
   },
 
-  /** 等待启动完成；页面可在 onLoad 中 await。失败后允许重试，不会卡在 rejected promise 上 */
+  /** 等待启动完成；页面可在 onLoad 中 await。失败后允许重试。 */
   ensureBootstrapped() {
     if (this.globalData.bootstrapped) return Promise.resolve(this.globalData.vipInfo)
+    // 上次的 promise 如果还在 pending 就复用；否则重新发起
     if (this.globalData.bootstrapPromise) {
-      // 复用进行中的 promise；如果已失败则清除并重新发起
+      // 检测是否已 settled（已结束）：用一面旗子
       const p = this.globalData.bootstrapPromise
+      let settled = false
+      p.then(() => { settled = true }, () => { settled = true })
+      // 同步检查：如果 p 是 pending，settled 此时还是 false
+      // 但 JS 是单线程，这里 settled 必为 false（then 回调还没执行）
+      // 所以 pending 时复用；已 settled 时（下次调用才检测到）重试
       return p.catch(() => {
         this.globalData.bootstrapPromise = this.bootstrap()
         return this.globalData.bootstrapPromise

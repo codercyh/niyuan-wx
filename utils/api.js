@@ -23,20 +23,23 @@ function getToken() {
 }
 
 /**
- * 等待 app bootstrap 完成（token 已存入 storage）。
- * 冷启动时 onLaunch 的 wx.login 是异步的，页面 onLoad 可能在 token 存入前就发请求，
- * 导致 401。这里在发请求前确保 token 已就绪。
+ * 确保 token 已就绪：如果还没 token，最多等 3 秒让 bootstrap 完成。
+ * 不无限等待，避免请求卡死。
  */
 function ensureTokenReady() {
-  // 如果 token 已存在，直接就绪
   if (getToken()) return Promise.resolve()
-  // 尝试获取 app 实例并等 bootstrap
-  let app
-  try { app = getApp() } catch (e) { app = null }
-  if (app && typeof app.ensureBootstrapped === 'function') {
-    return app.ensureBootstrapped().catch(() => {})
-  }
-  return Promise.resolve()
+  // 轮询等待 token 出现（最多 3 秒）
+  return new Promise((resolve) => {
+    let elapsed = 0
+    const interval = 200
+    const timer = setInterval(() => {
+      elapsed += interval
+      if (getToken() || elapsed >= 3000) {
+        clearInterval(timer)
+        resolve()
+      }
+    }, interval)
+  })
 }
 
 // 防止并发重复登录
