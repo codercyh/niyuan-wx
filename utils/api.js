@@ -121,9 +121,11 @@ function createVirtualOrder(payload) {
   return request('POST', '/pay/virtual/create', payload)
 }
 
-function confirmVirtualOrder(orderId) {
+function confirmVirtualOrder(orderId, wxOrderId) {
   // 支付成功后服务端查单确认 + 履约（best-effort，不阻塞本地解锁）
-  return request('POST', `/pay/virtual/confirm/${orderId}`)
+  // wxOrderId: 微信侧订单号，用于准确查单
+  const body = wxOrderId ? { wxOrderId } : {}
+  return request('POST', `/pay/virtual/confirm/${orderId}`, body)
 }
 
 function getPaymentOrders(page = 1, limit = 10) {

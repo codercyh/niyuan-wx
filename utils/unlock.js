@@ -131,7 +131,7 @@ function _requestVirtualPayment(params) {
       signData: params.signData,
       paySig: params.paySig,
       signature: params.signature,
-      success: () => resolve(),
+      success: (res) => resolve(res || {}),
       fail: (err) => {
         const msg = (err && err.errMsg) || ''
         if (msg.indexOf('cancel') >= 0) {
@@ -164,16 +164,20 @@ function _payVirtual(opts) {
         })
           .then((orderRes) => {
             const d = orderRes.data
-            return _requestVirtualPayment(d).then(() => d.orderId)
+            return _requestVirtualPayment(d).then((payRes) => ({
+              merchantOrderId: d.orderId,
+              wxOrderId: (payRes && (payRes.orderId || payRes.order_id)) || '',
+            }))
           })
-          .then((orderId) => {
+          .then(({ merchantOrderId, wxOrderId }) => {
             // 前端 success 仅弱确认；后台查单确认不阻塞本地解锁
-            api.confirmVirtualOrder(orderId).catch(() => {})
+            // 传微信侧 orderId 给 confirm，用于准确查单
+            api.confirmVirtualOrder(merchantOrderId, wxOrderId).catch(() => {})
             const app = _getApp()
             if (app && typeof app.refreshAfterPayment === 'function') {
               app.refreshAfterPayment().catch(() => {})
             }
-            resolve({ orderId })
+            resolve({ orderId: merchantOrderId })
           })
           .catch(reject)
       },
