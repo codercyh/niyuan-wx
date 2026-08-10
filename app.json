@@ -10,16 +10,12 @@
     "pages/profile/profile/profile",
     "pages/history/history",
     "pages/auth/login/login",
-    "pages/auth/profile-edit/profile-edit",
-    "pages/auth/profile-guide/profile-guide",
     "pages/auth/settings/settings",
     "pages/fate/fate-input/fate-input",
     "pages/fate/fate-result/fate-result",
     "pages/fate/fate-poster/fate-poster",
     "pages/fate/fate-loading/fate-loading",
-    "pages/privacy/privacy",
-    "pages/result/result",
-    "pages/share/share"
+    "pages/privacy/privacy"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FCEEEE",
