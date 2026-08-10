@@ -22,44 +22,111 @@ function getToken() {
   return storage.getStorage('accessToken') || ''
 }
 
-function request(method = 'GET', path = '', data = {}, requireAuth = false) {
-  return new Promise((resolve, reject) => {
-    const header = {
-      'Content-Type': 'application/json',
-    }
-    const token = getToken()
-    if (token) {
-      header['Authorization'] = `Bearer ${token}`
-    }
+/**
+ * 等待 app bootstrap 完成（token 已存入 storage）。
+ * 冷启动时 onLaunch 的 wx.login 是异步的，页面 onLoad 可能在 token 存入前就发请求，
+ * 导致 401。这里在发请求前确保 token 已就绪。
+ */
+function ensureTokenReady() {
+  // 如果 token 已存在，直接就绪
+  if (getToken()) return Promise.resolve()
+  // 尝试获取 app 实例并等 bootstrap
+  let app
+  try { app = getApp() } catch (e) { app = null }
+  if (app && typeof app.ensureBootstrapped === 'function') {
+    return app.ensureBootstrapped().catch(() => {})
+  }
+  return Promise.resolve()
+}
 
-    wx.request({
-      url: `${API_BASE_URL}${path}`,
-      method,
-      data,
-      header,
-      success(res) {
-        if (res.statusCode === 401) {
-          storage.removeStorage('accessToken')
-          storage.removeStorage('userInfo')
-          reject({ code: 401, message: '登录已过期，请重新登录' })
-          return
-        }
-        if (res.statusCode < 200 || res.statusCode >= 300) {
-          reject(res.data || { code: res.statusCode, message: `HTTP ${res.statusCode}` })
-          return
-        }
-        const body = res.data || {}
-        // 后端 envelope { code, message, data }；code 非 0 视为业务错误
-        if (typeof body.code === 'number' && body.code !== 0) {
-          reject(body)
-          return
-        }
-        resolve(body)
-      },
-      fail(err) {
-        console.error('[API] request failed:', method, path, err)
-        reject({ code: -1, message: (err && err.errMsg) || '网络请求失败', err })
-      },
+// 防止并发重复登录
+let _refreshingToken = null
+function refreshToken() {
+  if (_refreshingToken) return _refreshingToken
+  _refreshingToken = wxLogin()
+    .finally(() => { _refreshingToken = null })
+  return _refreshingToken
+}
+
+function request(method = 'GET', path = '', data = {}, requireAuth = false) {
+  return ensureTokenReady().then(() => {
+    return new Promise((resolve, reject) => {
+      const header = {
+        'Content-Type': 'application/json',
+      }
+      const token = getToken()
+      if (token) {
+        header['Authorization'] = `Bearer ${token}`
+      }
+
+      wx.request({
+        url: `${API_BASE_URL}${path}`,
+        method,
+        data,
+        header,
+        success(res) {
+          if (res.statusCode === 401) {
+            // token 过期或无效：尝试静默刷新一次（重新 wx.login），刷新成功后重试原请求
+            refreshToken()
+              .then(() => {
+                const newToken = getToken()
+                if (newToken) {
+                  // 重新发送原请求
+                  wx.request({
+                    url: `${API_BASE_URL}${path}`,
+                    method,
+                    data,
+                    header: { ...header, 'Authorization': `Bearer ${newToken}` },
+                    success(res2) {
+                      if (res2.statusCode === 401) {
+                        storage.removeStorage('accessToken')
+                        storage.removeStorage('userInfo')
+                        reject({ code: 401, message: '登录已过期，请重新登录' })
+                        return
+                      }
+                      if (res2.statusCode < 200 || res2.statusCode >= 300) {
+                        reject(res2.data || { code: res2.statusCode, message: `HTTP ${res2.statusCode}` })
+                        return
+                      }
+                      const body2 = res2.data || {}
+                      if (typeof body2.code === 'number' && body2.code !== 0) {
+                        reject(body2)
+                        return
+                      }
+                      resolve(body2)
+                    },
+                    fail(err2) {
+                      reject({ code: -1, message: (err2 && err2.errMsg) || '网络请求失败', err: err2 })
+                    },
+                  })
+                } else {
+                  reject({ code: 401, message: '登录已过期，请重新登录' })
+                }
+              })
+              .catch(() => {
+                storage.removeStorage('accessToken')
+                storage.removeStorage('userInfo')
+                reject({ code: 401, message: '登录已过期，请重新登录' })
+              })
+            return
+          }
+          if (res.statusCode < 200 || res.statusCode >= 300) {
+            reject(res.data || { code: res.statusCode, message: `HTTP ${res.statusCode}` })
+            return
+          }
+          const body = res.data || {}
+          // 后端 envelope { code, message, data }；code 非 0 视为业务错误
+          if (typeof body.code === 'number' && body.code !== 0) {
+            reject(body)
+            return
+          }
+          resolve(body)
+        },
+        fail(err) {
+          console.error('[API] request failed:', method, path, err)
+          reject({ code: -1, message: (err && err.errMsg) || '网络请求失败', err })
+        },
+      })
     })
   })
 }
