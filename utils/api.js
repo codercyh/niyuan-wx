@@ -254,36 +254,6 @@ function deleteNiyuanRecord(recordId) {
   return request('DELETE', `/users/niyuan-records/${recordId}`)
 }
 
-// ==================== 树洞 ====================
-
-function getTreeHoleList(page = 1, limit = 20, category) {
-  let path = `/tree-holes?page=${page}&limit=${limit}`
-  if (category) path += `&category=${category}`
-  return request('GET', path)
-}
-
-function getTreeHoleDetail(id) {
-  return request('GET', `/tree-holes/${id}`)
-}
-
-function createTreeHole(title, content, category, tags, isAnonymous = true) {
-  return request('POST', '/tree-holes', {
-    title,
-    content,
-    category,
-    tags,
-    isAnonymous,
-  })
-}
-
-function commentTreeHole(id, content, isAnonymous = true) {
-  return request('POST', `/tree-holes/${id}/comment`, { content, isAnonymous })
-}
-
-function likeTreeHole(id) {
-  return request('POST', `/tree-holes/${id}/like`)
-}
-
 // ==================== 消息 ====================
 
 function getMessageList(page = 1, limit = 20, type) {
@@ -316,11 +286,6 @@ module.exports = {
   getNiyuanRecord,
   getNiyuanHistory,
   deleteNiyuanRecord,
-  getTreeHoleList,
-  getTreeHoleDetail,
-  createTreeHole,
-  commentTreeHole,
-  likeTreeHole,
   checkVipStatus,
   verifyAdUnlock,
   createVirtualOrder,
