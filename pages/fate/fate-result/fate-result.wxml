@@ -84,21 +84,28 @@
 
       <!-- 单次付费 -->
       <view class="btn-single" bindtap="onPaySingle">
-        <text class="btn-single-title">💎 单次解锁</text>
-        <text class="btn-single-price">¥3.9</text>
+        <view class="btn-single-left">
+          <view class="btn-single-title">💎 单次解锁</view>
+          <view class="btn-single-sub">解锁互动报告完整解读</view>
+        </view>
+        <view class="btn-single-price">
+          <text class="price-num">¥3.9</text>
+          <text class="price-tag">/ 单次</text>
+        </view>
       </view>
 
       <!-- 全站永久 -->
       <view class="btn-vip-special" bindtap="onShowUpgradeModal">
+        <view class="btn-vip-badge">超值推荐</view>
         <view class="btn-vip-shine"></view>
         <view class="btn-vip-content">
           <view class="btn-vip-left">
-            <view class="btn-vip-title">👑 全站永久</view>
-            <view class="btn-vip-sub">永久解锁全部测试</view>
+            <view class="btn-vip-title">👑 全站永久解锁</view>
+            <view class="btn-vip-sub">全部测试 + 互动报告 · 不限次数</view>
           </view>
           <view class="btn-vip-price">
             <view class="btn-vip-price-original">¥19.9</view>
-            <view class="btn-vip-price-special">¥9.9<text>永久</text></view>
+            <view class="btn-vip-price-special">¥9.9<text>一次买断</text></view>
           </view>
         </view>
       </view>
