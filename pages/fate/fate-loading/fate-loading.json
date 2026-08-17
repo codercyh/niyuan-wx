@@ -1,8 +1,8 @@
 {
-  "navigationBarTitleText": "测算中",
-  "navigationBarBackgroundColor": "#FCEEEE",
+  "navigationBarTitleText": "生成中",
+  "navigationBarBackgroundColor": "#FFF8F8",
   "navigationBarTextStyle": "black",
-  "backgroundColor": "#FCEEEE",
+  "backgroundColor": "#FFF8F8",
   "backgroundTextStyle": "dark",
   "disableScroll": true
 }

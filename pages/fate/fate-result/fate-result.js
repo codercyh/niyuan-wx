@@ -30,11 +30,11 @@ Page({
     const scoreAngle = Math.round(((result.score || 0) / 100) * 360)
 
     const levelBgMap = {
-      'S': 'linear-gradient(135deg, #6B4A2E 0%, #A8743E 50%, #C8915A 100%)',
-      'A': 'linear-gradient(135deg, #4A2A3E 0%, #7A3A5A 50%, #B05878 100%)',
-      'B': 'linear-gradient(135deg, #1F3E3A 0%, #2E5A4E 50%, #4A8A6E 100%)',
-      'C': 'linear-gradient(135deg, #3E2A4A 0%, #5A3A6A 50%, #8A5A9E 100%)',
-      'D': 'linear-gradient(135deg, #3A3A42 0%, #4E4A56 50%, #6A6270 100%)',
+      'S': 'linear-gradient(135deg, #FFF1F3 0%, #FFE9DC 50%, #FFD9DF 100%)',
+      'A': 'linear-gradient(135deg, #FFF1F3 0%, #FFE0E5 50%, #FFD9DF 100%)',
+      'B': 'linear-gradient(135deg, #EFF9F5 0%, #E4F4EC 50%, #DDF3EC 100%)',
+      'C': 'linear-gradient(135deg, #F8F1F6 0%, #F4E9F0 50%, #FFD9DF 100%)',
+      'D': 'linear-gradient(135deg, #F6F2F4 0%, #EFE8EA 50%, #E9DEE1 100%)',
     }
 
     if (result.level) {
@@ -84,23 +84,23 @@ Page({
     const personBName = (result.personB && result.personB.name) || 'B'
     const zodiacAEmoji = (result.zodiacA && result.zodiacA.emoji) || '✨'
     const zodiacBEmoji = (result.zodiacB && result.zodiacB.emoji) || '✨'
-    const fateTypeName = (result.fateType && result.fateType.name) || '缘分'
-    const hashtags = (result.fateType && result.fateType.hashtags) ? result.fateType.hashtags.join(' ') : '#缘分测试'
+    const fateTypeName = (result.fateType && result.fateType.name) || '互动'
+    const hashtags = (result.fateType && result.fateType.hashtags) ? result.fateType.hashtags.join(' ') : '#互动日常'
 
     const text = [
-      '🔥 缘分测试结果',
+      '🔥 双人互动报告',
       '',
       '「' + fateTypeName + '」',
-      (result.level ? result.level.level + '级 · ' + result.level.label : ''),
+      (result.level ? result.level.label : ''),
       '',
       personAName + ' ' + zodiacAEmoji + ' × ' + personBName + ' ' + zodiacBEmoji,
-      '缘分值：' + (result.score || 0) + '分',
+      '互动参考：' + (result.score || 0) + '分',
       '',
       dims,
       '',
       hashtags,
       '',
-      '—— 来自缘分测试小程序',
+      '—— 来自兴趣与测试小程序',
     ].filter(Boolean).join('\n')
 
     wx.setClipboardData({
@@ -146,11 +146,11 @@ Page({
       })
   },
 
-  // 单次付费 ¥3.9（解锁缘分完整解读）
+  // 单次付费 ¥3.9（解锁完整互动报告）
   onPaySingle() {
     wx.showModal({
       title: '单次解锁',
-      content: '支付 ¥3.9 解锁缘分完整解读？',
+      content: '支付 ¥3.9 解锁完整互动报告？',
       success: (res) => {
         if (!res.confirm) return
         wx.showLoading({ title: '处理中...', mask: true })
@@ -236,10 +236,10 @@ Page({
 
   onShareAppMessage() {
     const { result } = this.data
-    if (!result) return { title: '缘分测试', path: '/pages/fate/fate-input/fate-input' }
+    if (!result) return { title: '双人互动报告', path: '/pages/fate/fate-input/fate-input' }
     const personBName = (result.personB && result.personB.name) || 'TA'
     return {
-      title: '我和' + personBName + '的缘分是' + (result.score || 0) + '分',
+      title: '我和' + personBName + '的双人互动报告来啦',
       path: '/pages/fate/fate-input/fate-input',
     }
   },

@@ -36,7 +36,7 @@
       </view>
       <view class="stat-item">
         <text class="stat-num">{{fateCount}}</text>
-        <text class="stat-label">缘分测试</text>
+        <text class="stat-label">互动报告</text>
       </view>
       <view class="stat-item">
         <text class="stat-num">{{avgScore}}</text>
@@ -45,10 +45,10 @@
     </view>
   </view>
 
-  <!-- 缘分测试历史 -->
+  <!-- 互动报告历史 -->
   <view class="section" wx:if="{{fateHistory.length > 0}}">
     <view class="section-header">
-      <text class="section-title">💕 最近缘分测试</text>
+      <text class="section-title">💕 最近互动报告</text>
       <view class="section-more" bindtap="onGoToHistory">
         <text>查看全部</text>
         <view class="more-arrow"></view>
@@ -99,7 +99,7 @@
     </view>
     <view class="menu-item" bindtap="onGoToFate">
       <text class="menu-icon">💕</text>
-      <text class="menu-text">缘分测试</text>
+      <text class="menu-text">互动报告</text>
       <view class="menu-arrow"></view>
     </view>
     <view class="menu-item" bindtap="onGoToSettings">

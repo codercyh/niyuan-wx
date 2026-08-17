@@ -239,7 +239,7 @@ Page({
     // 缘分类型名称
     ctx.font = 'bold 28px sans-serif'
     ctx.fillStyle = '#FFFFFF'
-    const fateName = result.fateType?.name || '命中注定'
+    const fateName = result.fateType?.name || '心有灵犀'
     ctx.fillText(`「${fateName}」`, w/2, 150)
 
     // 等级
@@ -265,13 +265,13 @@ Page({
     // 标语
     ctx.font = '16px sans-serif'
     ctx.fillStyle = 'rgba(255,255,255,0.8)'
-    const tagline = result.fateType?.tagline || '缘分天注定'
+    const tagline = result.fateType?.tagline || '一起分享我们的互动日常'
     ctx.fillText(`"${tagline}"`, w/2, 370)
 
     // Hashtags
     ctx.font = '14px sans-serif'
     ctx.fillStyle = '#DC8DA8'
-    const hashtags = result.fateType?.hashtags || ['#缘分测试', '#兴趣与测试']
+    const hashtags = result.fateType?.hashtags || ['#互动日常', '#兴趣与测试']
     ctx.fillText(hashtags.slice(0, 2).join(' '), w/2, 410)
 
     // 底部品牌
@@ -308,7 +308,7 @@ Page({
     // 缘分类型
     ctx.font = 'bold 26px sans-serif'
     ctx.fillStyle = '#FFFFFF'
-    const fateName = result.fateType?.name || '命中注定'
+    const fateName = result.fateType?.name || '心有灵犀'
     ctx.fillText(`「${fateName}」`, w/2, 190)
 
     // 名字
@@ -326,7 +326,7 @@ Page({
     // 标语
     ctx.font = '14px sans-serif'
     ctx.fillStyle = 'rgba(255,255,255,0.7)'
-    const tagline = result.fateType?.tagline || '缘分天注定'
+    const tagline = result.fateType?.tagline || '一起分享我们的互动日常'
     ctx.fillText(`"${tagline}"`, w/2, 390)
 
     // 底部品牌
@@ -353,7 +353,7 @@ Page({
     // 缘分类型
     ctx.font = '18px sans-serif'
     ctx.fillStyle = 'rgba(255,255,255,0.6)'
-    const fateName = result.fateType?.name || '命中注定'
+    const fateName = result.fateType?.name || '心有灵犀'
     ctx.fillText(`「${fateName}」`, w/2, h/2 - 50)
 
     // 分数 (超大)
@@ -364,7 +364,7 @@ Page({
     // 标语
     ctx.font = '14px sans-serif'
     ctx.fillStyle = 'rgba(255,255,255,0.5)'
-    const tagline = result.fateType?.tagline || '缘分天注定'
+    const tagline = result.fateType?.tagline || '一起分享我们的互动日常'
     ctx.fillText(`"${tagline}"`, w/2, h/2 + 110)
 
     // 底部品牌
@@ -389,7 +389,7 @@ Page({
     // 缘分类型
     ctx.font = 'bold 24px sans-serif'
     ctx.fillStyle = '#000000'
-    const fateName = result.fateType?.name || '命中注定'
+    const fateName = result.fateType?.name || '心有灵犀'
     ctx.fillText(`「${fateName}」`, w/2, 200)
 
     // 分数
@@ -407,7 +407,7 @@ Page({
     // 标语
     ctx.font = '14px sans-serif'
     ctx.fillStyle = '#999999'
-    const tagline = result.fateType?.tagline || '缘分天注定'
+    const tagline = result.fateType?.tagline || '一起分享我们的互动日常'
     ctx.fillText(`"${tagline}"`, w/2, 370)
 
     // 底部品牌
@@ -420,7 +420,7 @@ Page({
   onShareAppMessage() {
     const { result } = this.data
     return {
-      title: `我们的缘分是「${result.fateType?.name || '命中注定'}」！得分${result.score || 75}`,
+      title: `我生成了一张双人互动卡「${result.fateType?.name || '心有灵犀'}」`,
       path: '/pages/fate/fate-input/fate-input',
       imageUrl: this.data.posterImagePath || ''
     }
@@ -430,7 +430,7 @@ Page({
   onShareTimeline() {
     const { result } = this.data
     return {
-      title: `我的缘分测试结果：「${result.fateType?.name || '命中注定'}」${result.score || 75}分`,
+      title: `我生成了一张双人互动卡「${result.fateType?.name || '心有灵犀'}」`,
       query: '',
       imageUrl: this.data.posterImagePath || ''
     }

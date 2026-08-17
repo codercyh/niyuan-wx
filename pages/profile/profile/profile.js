@@ -90,7 +90,7 @@ Page({
             score: record.totalScore || 0,
             level: level,
             levelClass: `level-${level.toLowerCase()}`,
-            fateType: record.fateType?.name || '缘分',
+            fateType: record.fateType?.name || '互动',
             date: this.formatDate(record.createdAt),
           }
         })
@@ -235,20 +235,20 @@ Page({
   // 把后端缘分记录转成 fate-result 页面所需视图（与 history.js 保持一致）
   buildFateView(record) {
     const dimensionList = [
-      { key: 'constellation', name: '星座匹配', emoji: '⭐', color: '#DC8DA8', score: record.scores?.zodiac || 0, percentage: record.scores?.zodiac || 0, desc: `${record.zodiacA?.name || '未知'}×${record.zodiacB?.name || '未知'}` },
-      { key: 'name', name: '姓名缘分', emoji: '✍️', color: '#7CC4A0', score: record.scores?.name || 0, percentage: record.scores?.name || 0, desc: '笔画互补' },
-      { key: 'numerology', name: '数字缘分', emoji: '🔢', color: '#98B8D8', score: record.scores?.lifePath || 0, percentage: record.scores?.lifePath || 0, desc: `灵数${record.myInfo?.lifePath || 0}×${record.partnerInfo?.lifePath || 0}` },
+      { key: 'constellation', name: '相处节奏', emoji: '⭐', color: '#DC8DA8', score: record.scores?.zodiac || 0, percentage: record.scores?.zodiac || 0, desc: '日常节奏' },
+      { key: 'name', name: '表达方式', emoji: '✍️', color: '#7CC4A0', score: record.scores?.name || 0, percentage: record.scores?.name || 0, desc: '表达方式' },
+      { key: 'numerology', name: '日常习惯', emoji: '🔢', color: '#98B8D8', score: record.scores?.lifePath || 0, percentage: record.scores?.lifePath || 0, desc: '日常习惯' },
       { key: 'personality', name: '性格互补', emoji: '🧩', color: '#E8B878', score: record.scores?.personality || 0, percentage: record.scores?.personality || 0, desc: '性格互补' },
-      { key: 'metaphysics', name: '命理玄学', emoji: '🔮', color: '#C9A0C8', score: record.scores?.mystical || 0, percentage: record.scores?.mystical || 0, desc: '命理玄学' },
+      { key: 'metaphysics', name: '互动观察', emoji: '💬', color: '#C9A0C8', score: record.scores?.mystical || 0, percentage: record.scores?.mystical || 0, desc: '互动观察' },
     ]
     return {
       recordId: record._id || record.id,
       score: record.totalScore || 0,
-      level: record.level || { level: 'C', label: '缘分待定', emoji: '✨', color: '#C9A0C8', desc: '' },
-      fateType: record.fateType || { name: '缘分', emoji: '✨', level: 'C', tagline: '', hashtags: [] },
+      level: record.level || { level: 'C', label: '互动类型待定', emoji: '✨', color: '#C9A0C8', desc: '' },
+      fateType: record.fateType || { name: '互动', emoji: '✨', level: 'C', tagline: '', hashtags: [] },
       zodiacA: record.zodiacA || { name: '未知', emoji: '✨', element: 'unknown' },
       zodiacB: record.zodiacB || { name: '未知', emoji: '✨', element: 'unknown' },
-      elementMatch: record.elementMatch || { label: '缘分', shortDesc: '', desc: '' },
+      elementMatch: record.elementMatch || { label: '互动', shortDesc: '', desc: '' },
       dimensionList,
       whyAttract: record.whyAttract || '',
       dailyDialogue: record.dailyDialogue || { lines: [], comment: '' },

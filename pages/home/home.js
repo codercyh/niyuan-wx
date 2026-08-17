@@ -8,9 +8,9 @@ const DEFAULT_AVATAR = '/assets/icons/me-active.png'
 
 // 问候语配置
 const GREETINGS = {
-  morning: { text: '早上好', subtext: '今日宜测缘分' },
-  afternoon: { text: '下午好', subtext: '来场缘分测试吧' },
-  evening: { text: '晚上好', subtext: '夜深人静，测测TA的心' },
+  morning: { text: '早上好', subtext: '今天，来份互动报告' },
+  afternoon: { text: '下午好', subtext: '来份互动报告吧' },
+  evening: { text: '晚上好', subtext: '夜深人静，更懂TA一点' },
 }
 
 Page({
@@ -23,7 +23,7 @@ Page({
     hotTests: [],
     greeting: {
       text: '你好',
-      subtext: '今日宜测缘分',
+      subtext: '今天，来份互动报告',
     },
   },
 

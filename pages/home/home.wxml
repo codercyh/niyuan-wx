@@ -18,7 +18,7 @@
     <view class="quick-actions">
       <view class="action-item" bindtap="navigateToModule" data-module="fate">
         <view class="action-icon">💕</view>
-        <text class="action-title">缘分测试</text>
+        <text class="action-title">互动报告</text>
       </view>
       <view class="action-item" bindtap="navigateToModule" data-module="test">
         <view class="action-icon">🧪</view>

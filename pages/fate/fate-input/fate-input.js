@@ -1,4 +1,4 @@
-const { RELATIONSHIP_STATUS, getZodiacByBirthday, getLifePathNumber, ZODIAC_LIST, ELEMENT_MATCH } = require('../../../data/fate-data.js')
+const { RELATIONSHIP_STATUS, getZodiacByBirthday, getLifePathNumber } = require('../../../data/fate-data.js')
 const lunar = require('../../../utils/lunar.js')
 
 Page({
@@ -9,8 +9,6 @@ Page({
     // 步骤1
     personA: { name: '', birthday: '', birthdayLunar: '', calendarType: 'solar', zodiac: null, lifePath: 0 },
     personB: { name: '', birthday: '', birthdayLunar: '', calendarType: 'solar', zodiac: null, lifePath: 0 },
-    previewVisible: false,
-    preview: null,
     today: '',
 
     // 农历选择器
@@ -176,41 +174,6 @@ Page({
       [`${who}.zodiac`]: zodiac,
       [`${who}.lifePath`]: lifePath,
     })
-
-    const personA = who === 'personA'
-      ? { ...this.data.personA, birthday: solarDate, birthdayLunar: lunarText, zodiac, lifePath }
-      : this.data.personA
-    const personB = who === 'personB'
-      ? { ...this.data.personB, birthday: solarDate, birthdayLunar: lunarText, zodiac, lifePath }
-      : this.data.personB
-
-    if (personA.birthday && personB.birthday) {
-      this._generatePreview(personA, personB)
-    }
-  },
-
-  _generatePreview(a, b) {
-    const elementKey = `${a.zodiac.element}-${b.zodiac.element}`
-    const elementMatch = ELEMENT_MATCH[elementKey] || { label: '奇妙组合', desc: '你们的组合独一无二' }
-    const idxA = ZODIAC_LIST.findIndex(z => z.name === a.zodiac.name)
-    const idxB = ZODIAC_LIST.findIndex(z => z.name === b.zodiac.name)
-
-    const { ZODIAC_MATRIX } = require('../../../data/fate-data.js')
-    const base = ZODIAC_MATRIX[idxA][idxB]
-    const low = Math.max(15, base - 15)
-    const high = Math.min(99, base + 10)
-
-    this.setData({
-      previewVisible: true,
-      preview: {
-        zodiacA: a.zodiac,
-        zodiacB: b.zodiac,
-        elementCombo: elementMatch.label,
-        elementDesc: elementMatch.desc,
-        predictRange: `${low}-${high}`,
-        baseScore: base,
-      },
-    })
   },
 
   canGoStep2() {
@@ -280,7 +243,7 @@ Page({
       return
     }
 
-    const { personA, personB, selectedRelation, relationshipList, durationYears, durationMonths, breakupDuration, breakupIntention, story, preview } = this.data
+    const { personA, personB, selectedRelation, relationshipList, durationYears, durationMonths, breakupDuration, breakupIntention, story } = this.data
     const relationItem = relationshipList.find(r => r.value === selectedRelation)
 
     this.setData({
@@ -295,7 +258,6 @@ Page({
         breakupDuration,
         breakupIntention,
         story,
-        preview,
       },
       canSubmit: true,
     })

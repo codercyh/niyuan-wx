@@ -449,11 +449,11 @@ name: '爱情配对指数',
 emoji: '💕',
 category: '爱情测试',
 categoryId: 'love',
-description: '测测你和TA的缘分有多深，从性格、价值观、相处模式等多维度分析你们的配对指数。',
+description: '你和TA有多合拍？从性格、价值观、相处模式等多维度生成你们的配对报告。',
 participants: 98000,
 rating: 4.6,
 duration: '8-12',
-tags: ['爱情', '缘分', '配对'],
+tags: ['爱情', '合拍', '配对'],
 badge: '新推',
 
 questions: [

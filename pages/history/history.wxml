@@ -15,7 +15,7 @@
     <view class="tab-item {{activeTab === 'fate' ? 'tab-active' : ''}}" 
       data-tab="fate" bindtap="switchTab">
       <text class="tab-icon">💕</text>
-      <text class="tab-label">缘分测试</text>
+      <text class="tab-label">互动报告</text>
       <text class="tab-count">{{fateRecords.length}}</text>
     </view>
   </view>
@@ -60,14 +60,14 @@
     </block>
   </block>
 
-  <!-- 缘分测试记录 -->
+  <!-- 互动报告记录 -->
   <block wx:if="{{activeTab === 'fate'}}">
     <block wx:if="{{fateRecords.length === 0}}">
       <view class="empty-state">
         <text class="empty-emoji">💕</text>
-        <text class="empty-text">还没有缘分测试记录</text>
-        <text class="empty-sub">测测你和TA的缘分</text>
-        <button class="empty-btn" bindtap="goToFate">去测试</button>
+        <text class="empty-text">还没有互动报告</text>
+        <text class="empty-sub">生成你们的互动报告</text>
+        <button class="empty-btn" bindtap="goToFate">去生成</button>
       </view>
     </block>
 

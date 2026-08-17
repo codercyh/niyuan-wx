@@ -2,113 +2,100 @@
   <!-- 进度条 -->
   <view class="progress-bar">
     <view class="progress-info">
-      <text class="progress-text">步骤 {{step}}/3</text>
-      <text class="progress-label" wx:if="{{step===1}}">基本信息</text>
+      <text class="progress-text">第{{step}}步，共3步</text>
+      <text class="progress-label" wx:if="{{step===1}}">双方信息</text>
       <text class="progress-label" wx:if="{{step===2}}">关系状态</text>
-      <text class="progress-label" wx:if="{{step===3}}">确认信息</text>
+      <text class="progress-label" wx:if="{{step===3}}">信息预览</text>
     </view>
     <view class="progress-track">
       <view class="progress-fill" style="width: {{progressWidth}}%"></view>
     </view>
   </view>
 
-  <!-- ==================== 步骤1：基本信息 ==================== -->
+  <!-- ==================== 步骤1：双方信息 ==================== -->
   <view class="step-container" wx:if="{{step===1}}">
     <!-- 你的信息 -->
-    <view class="section-card">
-      <view class="section-title">🧑 你的信息</view>
+    <view class="section-card me-card">
+      <view class="card-heading">
+        <view class="avatar-badge me">你</view>
+        <view class="card-title">你的信息</view>
+      </view>
 
       <view class="input-group">
-        <text class="input-label">你的姓名 <text class="required">*</text></text>
-        <input class="input-field" placeholder="请输入你的姓名" placeholder-class="input-placeholder"
+        <text class="input-label">你的昵称 <text class="required">*</text></text>
+        <input class="input-field" placeholder="输入你的昵称" placeholder-class="input-placeholder"
           value="{{personA.name}}" bindinput="onNameInput" data-who="personA" maxlength="10" />
+        <view class="helper-text">昵称仅用于报告展示</view>
       </view>
 
       <view class="input-group">
         <text class="input-label">你的生日 <text class="required">*</text></text>
         <view class="calendar-tabs">
           <view class="calendar-tab {{personA.calendarType === 'solar' ? 'active' : ''}}"
-            data-who="personA" data-type="solar" bindtap="switchCalendarType">阳历</view>
+            data-who="personA" data-type="solar" bindtap="switchCalendarType">公历</view>
           <view class="calendar-tab {{personA.calendarType === 'lunar' ? 'active' : ''}}"
             data-who="personA" data-type="lunar" bindtap="switchCalendarType">农历</view>
         </view>
         <picker wx:if="{{personA.calendarType === 'solar'}}" mode="date" value="{{personA.birthday}}" end="{{today}}" bindchange="onBirthdayChange" data-who="personA">
           <view class="picker-field {{personA.birthday ? 'has-value' : ''}}">
-            {{personA.birthday || '请选择你的生日'}}
+            {{personA.birthday || '选择你的生日'}}
           </view>
         </picker>
         <view wx:else class="picker-field {{personA.birthdayLunar ? 'has-value' : ''}}"
           data-who="personA" bindtap="openLunarPicker">
-          {{personA.birthdayLunar || '请选择农历生日'}}
+          {{personA.birthdayLunar || '选择你的生日'}}
         </view>
-      </view>
-
-      <!-- 星座+灵数 -->
-      <view class="zodiac-info" wx:if="{{personA.zodiac}}">
-        <view class="zodiac-tag">{{personA.zodiac.emoji}} {{personA.zodiac.name}}</view>
-        <view class="zodiac-tag life-path">🔮 生命灵数 {{personA.lifePath}}</view>
       </view>
     </view>
 
     <!-- TA的信息 -->
-    <view class="section-card">
-      <view class="section-title">💫 TA的信息</view>
+    <view class="section-card ta-card">
+      <view class="card-heading">
+        <view class="avatar-badge ta">TA</view>
+        <view class="card-title">TA的信息</view>
+      </view>
 
       <view class="input-group">
-        <text class="input-label">TA的姓名 <text class="required">*</text></text>
-        <input class="input-field" placeholder="请输入TA的姓名" placeholder-class="input-placeholder"
+        <text class="input-label">TA的昵称 <text class="required">*</text></text>
+        <input class="input-field" placeholder="输入TA的昵称" placeholder-class="input-placeholder"
           value="{{personB.name}}" bindinput="onNameInput" data-who="personB" maxlength="10" />
+        <view class="helper-text">昵称仅用于报告展示</view>
       </view>
 
       <view class="input-group">
         <text class="input-label">TA的生日 <text class="required">*</text></text>
         <view class="calendar-tabs">
           <view class="calendar-tab {{personB.calendarType === 'solar' ? 'active' : ''}}"
-            data-who="personB" data-type="solar" bindtap="switchCalendarType">阳历</view>
+            data-who="personB" data-type="solar" bindtap="switchCalendarType">公历</view>
           <view class="calendar-tab {{personB.calendarType === 'lunar' ? 'active' : ''}}"
             data-who="personB" data-type="lunar" bindtap="switchCalendarType">农历</view>
         </view>
         <picker wx:if="{{personB.calendarType === 'solar'}}" mode="date" value="{{personB.birthday}}" end="{{today}}" bindchange="onBirthdayChange" data-who="personB">
           <view class="picker-field {{personB.birthday ? 'has-value' : ''}}">
-            {{personB.birthday || '请选择TA的生日'}}
+            {{personB.birthday || '选择TA的生日'}}
           </view>
         </picker>
         <view wx:else class="picker-field {{personB.birthdayLunar ? 'has-value' : ''}}"
           data-who="personB" bindtap="openLunarPicker">
-          {{personB.birthdayLunar || '请选择农历生日'}}
+          {{personB.birthdayLunar || '选择TA的生日'}}
         </view>
       </view>
-
-      <view class="zodiac-info" wx:if="{{personB.zodiac}}">
-        <view class="zodiac-tag">{{personB.zodiac.emoji}} {{personB.zodiac.name}}</view>
-        <view class="zodiac-tag life-path">🔮 生命灵数 {{personB.lifePath}}</view>
-      </view>
-    </view>
-
-    <!-- 初步预测卡 -->
-    <view class="preview-card" wx:if="{{previewVisible && preview}}">
-      <view class="preview-title">✨ 初步预测</view>
-      <view class="preview-zodiac-row">
-        <view class="preview-zodiac">{{preview.zodiacA.emoji}} {{preview.zodiacA.name}}</view>
-        <view class="preview-x">×</view>
-        <view class="preview-zodiac">{{preview.zodiacB.emoji}} {{preview.zodiacB.name}}</view>
-      </view>
-      <view class="preview-element">{{preview.elementCombo}}</view>
-      <view class="preview-desc">{{preview.elementDesc}}</view>
-      <view class="preview-range">预测缘分范围：<text class="highlight">{{preview.predictRange}}</text></view>
     </view>
 
     <!-- 下一步按钮 -->
     <view class="btn-area">
       <button class="btn-primary {{personA.name && personA.birthday && personB.name && personB.birthday ? '' : 'btn-disabled'}}"
-        bindtap="goStep2">下一步：关系状态</button>
+        bindtap="goStep2">下一步</button>
     </view>
   </view>
 
   <!-- ==================== 步骤2：关系状态 ==================== -->
   <view class="step-container" wx:if="{{step===2}}">
     <view class="section-card">
-      <view class="section-title">💑 你们的关系</view>
+      <view class="card-heading">
+        <view class="avatar-badge me">缘</view>
+        <view class="card-title">你们的关系</view>
+      </view>
 
       <!-- 关系状态网格 -->
       <view class="relation-grid">
@@ -143,7 +130,7 @@
 
       <!-- 分手后额外字段 -->
       <view class="extra-fields" wx:if="{{showBreakup}}">
-        <view class="extra-title">分手多久了？</view>
+        <view class="extra-title">分开多久了？</view>
         <view class="option-list">
           <view class="option-item {{breakupDuration === '1month' ? 'option-selected' : ''}}"
             data-value="1month" bindtap="selectBreakupDuration">1个月以内</view>
@@ -158,7 +145,7 @@
         <view class="extra-title" style="margin-top: 24rpx;">你想？</view>
         <view class="option-list">
           <view class="option-item {{breakupIntention === 'reunion' ? 'option-selected' : ''}}"
-            data-value="reunion" bindtap="selectBreakupIntention">复合</view>
+            data-value="reunion" bindtap="selectBreakupIntention">继续了解</view>
           <view class="option-item {{breakupIntention === 'letgo' ? 'option-selected' : ''}}"
             data-value="letgo" bindtap="selectBreakupIntention">放下</view>
           <view class="option-item {{breakupIntention === 'unsure' ? 'option-selected' : ''}}"
@@ -169,8 +156,11 @@
 
     <!-- 你们的故事 -->
     <view class="section-card">
-      <view class="section-title">📖 你们的故事（选填）</view>
-      <textarea class="story-textarea" placeholder="写下你们的故事，让测算更精准..."
+      <view class="card-heading">
+        <view class="avatar-badge ta">记</view>
+        <view class="card-title">你们的故事（选填）</view>
+      </view>
+      <textarea class="story-textarea" placeholder="写下你们的故事，让报告更贴近你们..."
         placeholder-class="input-placeholder" maxlength="200"
         value="{{story}}" bindinput="onStoryInput"></textarea>
       <view class="story-count">{{storyLength}}/200</view>
@@ -179,48 +169,43 @@
     <!-- 按钮区 -->
     <view class="btn-area btn-row">
       <button class="btn-secondary" bindtap="goBack">上一步</button>
-      <button class="btn-primary {{selectedRelation ? '' : 'btn-disabled'}}" bindtap="goStep3">开始测算</button>
+      <button class="btn-primary {{selectedRelation ? '' : 'btn-disabled'}}" bindtap="goStep3">下一步</button>
     </view>
   </view>
 
-  <!-- ==================== 步骤3：确认信息 ==================== -->
+  <!-- ==================== 步骤3：信息预览 ==================== -->
   <view class="step-container" wx:if="{{step===3 && confirmData}}">
     <view class="section-card">
-      <view class="section-title">📋 信息确认</view>
+      <view class="card-heading">
+        <view class="avatar-badge me">览</view>
+        <view class="card-title">信息预览</view>
+      </view>
 
       <view class="confirm-row">
-        <text class="confirm-label">你的姓名</text>
+        <text class="confirm-label">你的昵称</text>
         <text class="confirm-value">{{confirmData.personA.name}}</text>
       </view>
       <view class="confirm-row">
         <text class="confirm-label">你的生日</text>
-        <text class="confirm-value">{{confirmData.personA.birthday}} {{confirmData.personA.zodiac.emoji}}{{confirmData.personA.zodiac.name}}</text>
-      </view>
-      <view class="confirm-row">
-        <text class="confirm-label">生命灵数</text>
-        <text class="confirm-value">{{confirmData.personA.lifePath}}</text>
+        <text class="confirm-value">{{confirmData.personA.calendarType === 'lunar' ? confirmData.personA.birthdayLunar : confirmData.personA.birthday}}</text>
       </view>
 
       <view class="confirm-divider"></view>
 
       <view class="confirm-row">
-        <text class="confirm-label">TA的姓名</text>
+        <text class="confirm-label">TA的昵称</text>
         <text class="confirm-value">{{confirmData.personB.name}}</text>
       </view>
       <view class="confirm-row">
         <text class="confirm-label">TA的生日</text>
-        <text class="confirm-value">{{confirmData.personB.birthday}} {{confirmData.personB.zodiac.emoji}}{{confirmData.personB.zodiac.name}}</text>
-      </view>
-      <view class="confirm-row">
-        <text class="confirm-label">生命灵数</text>
-        <text class="confirm-value">{{confirmData.personB.lifePath}}</text>
+        <text class="confirm-value">{{confirmData.personB.calendarType === 'lunar' ? confirmData.personB.birthdayLunar : confirmData.personB.birthday}}</text>
       </view>
 
       <view class="confirm-divider"></view>
 
       <view class="confirm-row">
         <text class="confirm-label">关系状态</text>
-        <text class="confirm-value">{{confirmData.relation.emoji}} {{confirmData.relation.label}}</text>
+        <text class="confirm-value">{{confirmData.relation.label}}</text>
       </view>
 
       <view class="confirm-row" wx:if="{{confirmData.durationYears !== '' || confirmData.durationMonths !== ''}}">
@@ -229,12 +214,12 @@
       </view>
 
       <view class="confirm-row" wx:if="{{confirmData.breakupDuration}}">
-        <text class="confirm-label">分手时长</text>
+        <text class="confirm-label">分开时长</text>
         <text class="confirm-value">{{confirmData.breakupDuration}}</text>
       </view>
       <view class="confirm-row" wx:if="{{confirmData.breakupIntention}}">
         <text class="confirm-label">你的想法</text>
-        <text class="confirm-value">{{confirmData.breakupIntention === 'reunion' ? '复合' : confirmData.breakupIntention === 'letgo' ? '放下' : '不知道'}}</text>
+        <text class="confirm-value">{{confirmData.breakupIntention === 'reunion' ? '继续了解' : confirmData.breakupIntention === 'letgo' ? '放下' : '不知道'}}</text>
       </view>
 
       <view class="confirm-row" wx:if="{{confirmData.story}}">
@@ -243,29 +228,16 @@
       </view>
     </view>
 
-    <!-- 初步预测分析卡 -->
-    <view class="preview-card" wx:if="{{confirmData.preview}}">
-      <view class="preview-title">🔮 初步预测分析</view>
-      <view class="preview-zodiac-row">
-        <view class="preview-zodiac">{{confirmData.preview.zodiacA.emoji}} {{confirmData.preview.zodiacA.name}}</view>
-        <view class="preview-x">×</view>
-        <view class="preview-zodiac">{{confirmData.preview.zodiacB.emoji}} {{confirmData.preview.zodiacB.name}}</view>
-      </view>
-      <view class="preview-element">{{confirmData.preview.elementCombo}}</view>
-      <view class="preview-desc">{{confirmData.preview.elementDesc}}</view>
-      <view class="preview-range">预测缘分范围：<text class="highlight">{{confirmData.preview.predictRange}}</text></view>
-    </view>
-
-    <!-- 仅供娱乐提示 -->
+    <!-- 温馨提示 -->
     <view class="disclaimer">
-      <text class="disclaimer-icon">🎭</text>
-      <text class="disclaimer-text">本测试仅供娱乐参考，不代表真实感情状况。真正的缘分需要双方用心经营~</text>
+      <text class="disclaimer-icon">🌿</text>
+      <text class="disclaimer-text">本内容用于娱乐和互动交流，仅供参考。</text>
     </view>
 
     <!-- 按钮区 -->
     <view class="btn-area btn-row">
       <button class="btn-secondary" bindtap="goBack">返回修改</button>
-      <button class="btn-primary" bindtap="confirmSubmit">确认开始测算 ✨</button>
+      <button class="btn-primary" bindtap="confirmSubmit">确认并生成</button>
     </view>
   </view>
 

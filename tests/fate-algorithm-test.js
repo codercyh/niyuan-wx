@@ -167,11 +167,11 @@ console.log('\n【三、五维度分数分析】\n')
 
 const dimensions = ['constellation', 'name', 'numerology', 'personality', 'metaphysics']
 const dimNames = {
-  constellation: '星座匹配',
-  name: '姓名缘分',
-  numerology: '数字缘分',
+  constellation: '相处节奏',
+  name: '表达方式',
+  numerology: '日常习惯',
   personality: '性格互补',
-  metaphysics: '命理玄学',
+  metaphysics: '互动观察',
 }
 
 dimensions.forEach(dim => {

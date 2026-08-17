@@ -83,17 +83,17 @@ const FATE_TYPES = {
   // A级（80-89分）- 珍惜级
   'fire-water-mid': { name: '烈火淬冰', emoji: '🔥❄️', level: 'A', tagline: '一个热情似火，一个冷静如冰', hashtags: ['#火水CP', '#需要磨合', '#挑战CP'] },
   'air-earth-mid': { name: '天地呼应', emoji: '☁️🏔️', level: 'A', tagline: '你的计划永远赶不上TA的变动', hashtags: ['#风土CP', '#节奏不同', '#互补CP'] },
-  'high-score': { name: '灵魂契合', emoji: '💫', level: 'A', tagline: '你们的缘分，上天都羡慕', hashtags: ['#天作之合', '#灵魂伴侣', '#神仙眷侣'] },
+  'high-score': { name: '灵魂契合', emoji: '💫', level: 'A', tagline: '你们这么合拍，上天都羡慕', hashtags: ['#天作之合', '#灵魂伴侣', '#神仙眷侣'] },
   
   // B级（70-79分）- 成长级
   'earth-earth-mid': { name: '两个闷葫芦', emoji: '🤐', level: 'B', tagline: '你们吵架，全靠猜', hashtags: ['#土象CP', '#闷骚CP', '#需要表达'] },
   'fire-fire-mid': { name: '烈火燎原', emoji: '🔥', level: 'B', tagline: '你们的热情能融化一切', hashtags: ['#火象CP', '#热情似火', '#需要注意节奏'] },
-  'mid-score': { name: '心心相印', emoji: '💗', level: 'B', tagline: '你们很适合彼此，继续加油', hashtags: ['#有缘分', '#需要经营', '#成长CP'] },
+  'mid-score': { name: '心心相印', emoji: '💗', level: 'B', tagline: '你们很适合彼此，继续加油', hashtags: ['#很合拍', '#需要经营', '#成长CP'] },
   
   // C级（50-69分）- 挑战级
   'fire-earth-low': { name: '火与石的战争', emoji: '🔥🪨', level: 'C', tagline: '一个要自由，一个要稳定', hashtags: ['#火土CP', '#价值观冲突', '#需要妥协'] },
   'water-air-low': { name: '想太多vs想太少', emoji: '🤔💭', level: 'C', tagline: '我说了一堆，TA回了个"哦"', hashtags: ['#水风CP', '#沟通障碍', '#需要理解'] },
-  'low-score': { name: '考验之路', emoji: '🌀', level: 'C', tagline: '你们是来互相渡劫的', hashtags: ['#考验CP', '#需要修炼', '#成长之路'] },
+  'low-score': { name: '考验之路', emoji: '🌀', level: 'C', tagline: '你们是来互相成就的', hashtags: ['#考验CP', '#多点耐心', '#成长之路'] },
 }
 
 // ==================== 关系状态（输入页用） ====================
@@ -117,7 +117,7 @@ const RELATIONSHIP_STATUS = [
   {
     value: 'married', label: '已婚', emoji: '💍',
     desc: '我们已经结婚了',
-    feedback: { title: '婚姻是缘分，也是修行', quote: '从心动到相守，是一辈子的功课', hint: '测试完，也许会更珍惜彼此' },
+    feedback: { title: '婚姻是选择，也是修行', quote: '从心动到相守，是一辈子的功课', hint: '测试完，也许会更珍惜彼此' },
     extraFields: ['duration'],
   },
   {
@@ -137,31 +137,31 @@ const RELATIONSHIP_STATUS = [
 const RELATION_SPECIAL_HINTS = {
   crush: {
     title: '💕 给暗恋的你',
-    content: '你们的缘分不低！也许TA也对你有意思。',
-    tips: ['多制造相处机会', '观察TA对你的态度', '缘分到了，就勇敢一点'],
+    content: '你们的互动很甜！也许TA也对你有意思。',
+    tips: ['多制造相处机会', '观察TA对你的态度', '时机到了，就勇敢一点'],
     ending: '暗恋是最勇敢的秘密，但秘密终究要说出来',
   },
   ambiguous: {
     title: '🔥 给暧昧期的你们',
-    content: '你们的缘分很高！暧昧是最甜蜜的折磨，但也是时候决定了。',
+    content: '你们的互动很甜！暧昧是最甜蜜的折磨，但也是时候决定了。',
     tips: ['找个合适的时机表白', '或者制造机会让TA表白', '不要让暧昧拖太久'],
     ending: '暧昧是美好的，但确定关系更美好',
   },
   together: {
     title: '❤️ 给在一起的你们',
-    content: '你们的缘分很高！在一起是选择，也是幸运。',
+    content: '你们的互动很甜！在一起是选择，也是幸运。',
     tips: ['保持沟通，不要冷战', '定期制造惊喜', '一起成长，一起变好'],
     ending: '从心动到心定，你们已经走了很远',
   },
   married: {
     title: '💍 给已婚的你们',
-    content: '婚姻是缘分的升华，你们已经走过了很多。',
+    content: '婚姻是感情的升华，你们已经走过了很多。',
     tips: ['珍惜每一个平凡的日子', '学会感恩对方的付出', '一起规划更远的未来'],
     ending: '执子之手，与子偕老',
   },
   breakup: {
     title: '💔 给分手后的你',
-    content: '缘分还在，但能不能重来，要看你们自己。',
+    content: '感情还在，但能不能重来，要看你们自己。',
     tips: ['先冷静一段时间', '反思分手的原因', '真诚地沟通', '给彼此空间和时间'],
     ending: '如果还爱，就勇敢再试一次',
   },
@@ -175,11 +175,11 @@ const RELATION_SPECIAL_HINTS = {
 
 // ==================== 等级定义 ====================
 function getScoreLevel(score) {
-  if (score >= 90) return { label: '命运级缘分', emoji: '💖', level: 'S', color: '#E8B878', desc: '上辈子一定拯救了银河系！' }
-  if (score >= 80) return { label: '珍惜级缘分', emoji: '💕', level: 'A', color: '#E89AB2', desc: '缘分真的很深呢！' }
-  if (score >= 70) return { label: '成长级缘分', emoji: '💗', level: 'B', color: '#7CC4A0', desc: '你们很适合彼此！' }
-  if (score >= 50) return { label: '挑战级缘分', emoji: '✨', level: 'C', color: '#C9A0C8', desc: '需要更多了解和磨合' }
-  return { label: '缘分待定', emoji: '🌀', level: 'D', color: '#B0A8AE', desc: '缘分这东西，谁说得准呢' }
+  if (score >= 90) return { label: '梦幻级合拍', emoji: '💖', level: 'S', color: '#E8B878', desc: '上辈子一定拯救了银河系！' }
+  if (score >= 80) return { label: '心动级合拍', emoji: '💕', level: 'A', color: '#E89AB2', desc: '你们真的很合拍！' }
+  if (score >= 70) return { label: '成长级搭档', emoji: '💗', level: 'B', color: '#7CC4A0', desc: '你们很适合彼此！' }
+  if (score >= 50) return { label: '挑战级磨合', emoji: '✨', level: 'C', color: '#C9A0C8', desc: '需要更多了解和磨合' }
+  return { label: '互动类型待定', emoji: '🌀', level: 'D', color: '#B0A8AE', desc: '互动这事，谁说得准呢' }
 }
 
 // ==================== 获取缘分类型 ====================
@@ -433,7 +433,7 @@ function generateAdvice(zodiacA, zodiacB, score) {
     { title: '多沟通', content: '了解彼此的想法' },
     { title: '互相尊重', content: '接受彼此的不同' },
     { title: '一起成长', content: '让彼此变得更好' },
-    { title: '珍惜当下', content: '缘分来之不易' },
+    { title: '珍惜当下', content: '相遇来之不易' },
   ]
 }
 
@@ -441,19 +441,19 @@ function generateAdvice(zodiacA, zodiacB, score) {
 function generateMomentsText(fateType, score, nameA, nameB) {
   const templates = {
     funny: [
-      `测了和TA的缘分，${score}分，邻居报警的那种`,
-      `缘分测试说${score}分，笑死，难怪天天吵架`,
+      `生成了和TA的互动报告，${score}分，邻居报警的那种`,
+      `互动报告说${score}分，笑死，难怪天天吵架`,
       `随便测了一下${score}分，也就那样吧（骄傲脸）`,
     ],
     self: [
-      `缘分${score}分，我们就是考验本考验`,
+      `互动参考${score}分，我们就是考验本考验`,
       `测试说我们是${fateType.name}，确实挺地狱的`,
-      `${score}分的缘分，一半是爱一半是恨`,
+      `${score}分的默契，一半是爱一半是恨`,
     ],
     humble: [
       `随便测了下，${score}分，日常相爱相杀`,
-      `缘分测试${score}分，也就一般般吧（偷笑）`,
-      `测了缘分${score}分，看来是真爱没跑了`,
+      `互动报告${score}分，也就一般般吧（偷笑）`,
+      `测完互动${score}分，看来是很合拍没跑了`,
     ],
   }
 
@@ -469,11 +469,11 @@ function generateMomentsText(fateType, score, nameA, nameB) {
 
 // ==================== 维度定义 ====================
 const DIMENSIONS = {
-  constellation: { name: '星座匹配', emoji: '⭐', color: '#DC8DA8' },
-  name: { name: '姓名缘分', emoji: '✍️', color: '#7CC4A0' },
-  numerology: { name: '数字缘分', emoji: '🔢', color: '#98B8D8' },
+  constellation: { name: '相处节奏', emoji: '⭐', color: '#DC8DA8' },
+  name: { name: '表达方式', emoji: '✍️', color: '#7CC4A0' },
+  numerology: { name: '日常习惯', emoji: '🔢', color: '#98B8D8' },
   personality: { name: '性格互补', emoji: '🧩', color: '#E8B878' },
-  metaphysics: { name: '命理玄学', emoji: '🔮', color: '#C9A0C8' },
+  metaphysics: { name: '互动观察', emoji: '💬', color: '#C9A0C8' },
 }
 
 // ==================== 生命灵数 ====================
@@ -701,9 +701,9 @@ function calculateFate(personA, personB, relation, story, extra = {}) {
   const dimensionList = [
     { key: 'constellation', ...DIMENSIONS.constellation, score: zodiacScore, percentage: zodiacScore, desc: `${zodiacA.name}×${zodiacB.name}` },
     { key: 'name', ...DIMENSIONS.name, score: nameScore, percentage: nameScore, desc: '笔画互补' },
-    { key: 'numerology', ...DIMENSIONS.numerology, score: lifePathScore, percentage: lifePathScore, desc: `灵数${lifePathA}×${lifePathB}` },
+    { key: 'numerology', ...DIMENSIONS.numerology, score: lifePathScore, percentage: lifePathScore, desc: '日常习惯' },
     { key: 'personality', ...DIMENSIONS.personality, score: personalityScore, percentage: personalityScore, desc: '性格互补' },
-    { key: 'metaphysics', ...DIMENSIONS.metaphysics, score: metaScore, percentage: metaScore, desc: '命理玄学' },
+    { key: 'metaphysics', ...DIMENSIONS.metaphysics, score: metaScore, percentage: metaScore, desc: '互动观察' },
   ]
   
   // 特殊提示（根据关系状态）
@@ -740,7 +740,7 @@ function generateWhyAttract(zodiacA, zodiacB, elementMatch, score) {
   const templates = [
     `因为你们都是${zodiacA.element === zodiacB.element ? '同元素' : ''}星座啊！`,
     elementMatch.desc,
-    `你们的缘分分数是${score}分，${score >= 80 ? '这是上天的安排' : score >= 60 ? '这是有趣的相遇' : '这是一种考验'}。`,
+    `你们的互动参考是${score}分，${score >= 80 ? '这是很棒的相遇' : score >= 60 ? '这是有趣的相遇' : '这是一种考验'}。`,
   ]
   return templates.join('\n\n')
 }

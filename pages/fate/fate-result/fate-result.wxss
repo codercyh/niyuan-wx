@@ -1,10 +1,10 @@
-/* 结果页 - 深色渐变背景 */
+/* 结果页 - 奶油粉浅色背景 */
 .result-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #FCEEEE 0%, #FFF0E8 40%, #E8F5EE 100%);
+  background: #FFF8F8;
 }
 
-/* ==================== 顶部缘分卡片（沉浸式深色渐变 + 星空光点）==================== */
+/* ==================== 顶部互动报告卡片（浅色渐变）==================== */
 .fate-header {
   position: relative;
   margin: 24rpx;
@@ -12,34 +12,9 @@
   text-align: center;
   border-radius: 32rpx;
   overflow: hidden;
-  box-shadow: 0 16rpx 48rpx rgba(90,58,82,0.35);
+  border: 1px solid #F0E4E7;
+  box-shadow: 0 12rpx 36rpx rgba(113, 73, 85, 0.08);
 }
-
-/* 星空光点装饰层 */
-.header-stars {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-}
-
-.star {
-  position: absolute;
-  width: 6rpx;
-  height: 6rpx;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.8);
-  box-shadow: 0 0 8rpx rgba(255,255,255,0.6);
-}
-
-.star-1 { top: 12%; left: 15%; width: 4rpx; height: 4rpx; }
-.star-2 { top: 20%; left: 82%; width: 6rpx; height: 6rpx; }
-.star-3 { top: 35%; left: 8%; width: 3rpx; height: 3rpx; opacity: 0.6; }
-.star-4 { top: 48%; left: 90%; width: 5rpx; height: 5rpx; }
-.star-5 { top: 65%; left: 18%; width: 4rpx; height: 4rpx; opacity: 0.7; }
-.star-6 { top: 75%; left: 78%; width: 3rpx; height: 3rpx; }
 
 .fate-type-section {
   margin-bottom: 24rpx;
@@ -54,13 +29,13 @@
 .fate-title {
   font-size: 40rpx;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #382F36;
   margin-bottom: 8rpx;
 }
 
 .fate-level {
   font-size: 24rpx;
-  color: rgba(255,255,255,0.75);
+  color: #756A72;
 }
 
 /* 分数环 */
@@ -84,7 +59,7 @@
   width: 140rpx;
   height: 140rpx;
   border-radius: 50%;
-  background: rgba(255,255,255,0.12);
+  background: #FFFFFF;
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -94,7 +69,7 @@
 .score-num {
   font-size: 56rpx;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #382F36;
 }
 
 /* 姓名组合 */
@@ -109,7 +84,7 @@
 .name-text {
   font-size: 30rpx;
   font-weight: 600;
-  color: rgba(255,255,255,0.95);
+  color: #382F36;
 }
 
 .zodiac-emoji {
@@ -118,14 +93,14 @@
 
 .name-x {
   font-size: 28rpx;
-  color: rgba(255,255,255,0.6);
+  color: #A99FA5;
   margin: 0 8rpx;
 }
 
 /* 金句 */
 .tagline {
   font-size: 28rpx;
-  color: rgba(255,255,255,0.85);
+  color: #756A72;
   font-style: italic;
   margin-bottom: 20rpx;
 }
@@ -140,8 +115,8 @@
 
 .hashtag {
   font-size: 22rpx;
-  color: rgba(255,255,255,0.9);
-  background: rgba(255,255,255,0.18);
+  color: #E96379;
+  background: rgba(244, 124, 142, 0.12);
   padding: 8rpx 20rpx;
   border-radius: 20rpx;
 }
