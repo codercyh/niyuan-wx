@@ -700,7 +700,7 @@ function calculateFate(personA, personB, relation, story, extra = {}) {
   // 维度列表
   const dimensionList = [
     { key: 'constellation', ...DIMENSIONS.constellation, score: zodiacScore, percentage: zodiacScore, desc: `${zodiacA.name}×${zodiacB.name}` },
-    { key: 'name', ...DIMENSIONS.name, score: nameScore, percentage: nameScore, desc: '笔画互补' },
+    { key: 'name', ...DIMENSIONS.name, score: nameScore, percentage: nameScore, desc: '表达方式' },
     { key: 'numerology', ...DIMENSIONS.numerology, score: lifePathScore, percentage: lifePathScore, desc: '日常习惯' },
     { key: 'personality', ...DIMENSIONS.personality, score: personalityScore, percentage: personalityScore, desc: '性格互补' },
     { key: 'metaphysics', ...DIMENSIONS.metaphysics, score: metaScore, percentage: metaScore, desc: '互动观察' },
